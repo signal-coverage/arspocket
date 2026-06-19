@@ -1,0 +1,28 @@
+import type { Metadata } from "next";
+import { getReceipts } from "@/app/actions/receipts";
+import { ReceiptsGrid } from "@/components/receipts/receipts-grid";
+import { Receipt } from "lucide-react";
+
+export const metadata: Metadata = { title: "Receipts — ARSPocket" };
+
+export const ReceiptsPage = async () => {
+  const receipts = await getReceipts(false);
+
+  return (
+    <div className="flex flex-1 flex-col gap-6 p-6">
+      <div>
+        <h1 className="text-xl font-semibold flex items-center gap-2">
+          <Receipt className="size-5" />
+          Receipt Vault
+        </h1>
+        <p className="text-sm text-muted-foreground">
+          Store and organize your receipts.
+        </p>
+      </div>
+
+      <ReceiptsGrid receipts={receipts} />
+    </div>
+  );
+};
+
+export default ReceiptsPage;

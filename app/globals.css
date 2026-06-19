@@ -2,9 +2,29 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.dark *):not(.force-light, .force-light *));
+
+@keyframes collapsible-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-collapsible-content-height);
+  }
+}
+
+@keyframes collapsible-up {
+  from {
+    height: var(--radix-collapsible-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
 
 @theme inline {
+  --animate-collapsible-down: collapsible-down 0.2s ease-out;
+  --animate-collapsible-up: collapsible-up 0.2s ease-out;
   --font-heading: var(--font-heading);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
@@ -114,6 +134,40 @@
   --sidebar-accent: #2a3d2a;
   --sidebar-accent-foreground: #f9f9f9;
   --sidebar-border: rgba(176, 226, 152, 0.15);
+  --sidebar-ring: #008080;
+}
+
+.force-light {
+  --background: #f9f9f9;
+  --foreground: #151515;
+  --card: #ffffff;
+  --card-foreground: #151515;
+  --popover: #ffffff;
+  --popover-foreground: #151515;
+  --primary: #008080;
+  --primary-foreground: #f9f9f9;
+  --secondary: #b0e298;
+  --secondary-foreground: #151515;
+  --muted: #eef8e8;
+  --muted-foreground: #008080;
+  --accent: #bb4430;
+  --accent-foreground: #f9f9f9;
+  --destructive: #dc2626;
+  --border: #b0e298;
+  --input: #b0e298;
+  --ring: #008080;
+  --chart-1: #008080;
+  --chart-2: #b0e298;
+  --chart-3: #bb4430;
+  --chart-4: #151515;
+  --chart-5: #7a9d6a;
+  --sidebar: #f9f9f9;
+  --sidebar-foreground: #151515;
+  --sidebar-primary: #008080;
+  --sidebar-primary-foreground: #f9f9f9;
+  --sidebar-accent: #b0e298;
+  --sidebar-accent-foreground: #151515;
+  --sidebar-border: #b0e298;
   --sidebar-ring: #008080;
 }
 

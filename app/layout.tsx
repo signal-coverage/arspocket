@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { LocatorSetup } from "@/components/locator-setup";
 import { TooltipProvider } from "@/components/ui";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "sonner";
 import { Bricolage_Grotesque, Onest, Geist_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
@@ -24,11 +26,11 @@ export const metadata: Metadata = {
   description: "Track expenses, grow savings and build wealth with confidence.",
 };
 
-export default function RootLayout({
+export const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) => {
   return (
     <html
       lang="en"
@@ -43,10 +45,21 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <LocatorSetup />
-        <ClerkProvider appearance={{ cssLayerName: "clerk" }}>
-          <TooltipProvider>{children}</TooltipProvider>
+        <ClerkProvider
+          appearance={{ cssLayerName: "clerk" }}
+          signInFallbackRedirectUrl="/dashboard"
+          signUpFallbackRedirectUrl="/dashboard"
+        >
+          <TooltipProvider>
+            <ThemeProvider>
+              {children}
+              <Toaster />
+            </ThemeProvider>
+          </TooltipProvider>
         </ClerkProvider>
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

@@ -17,13 +17,6 @@ const eslintConfig = defineConfig([
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
       "no-console": "error",
-      "simple-import-sort/imports": [
-        "error",
-        {
-          groups: [["^\\u0000"], ["^react", "^@?\\w"], ["^@/"], ["^\\."]],
-        },
-      ],
-      "simple-import-sort/exports": "error",
     },
   },
 ]);
