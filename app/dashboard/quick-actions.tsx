@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   Button,
   Dialog,
@@ -15,19 +16,20 @@ import { SavingsFormWrapper } from "./savings/savings-form-wrapper";
 type ModalType = "income" | "outcome" | "savings" | null;
 
 export const QuickActions = () => {
+  const t = useTranslations("quickActions");
   const [open, setOpen] = useState<ModalType>(null);
 
   return (
     <>
       <div className="flex items-center gap-2">
         <Button size="lg" variant="outline" onClick={() => setOpen("income")}>
-          + Add Income
+          {t("addIncome")}
         </Button>
         <Button size="lg" variant="outline" onClick={() => setOpen("outcome")}>
-          + Add Expense
+          {t("addExpense")}
         </Button>
         <Button size="lg" variant="outline" onClick={() => setOpen("savings")}>
-          + New Goal
+          {t("newGoal")}
         </Button>
       </div>
 
@@ -37,7 +39,7 @@ export const QuickActions = () => {
       >
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>Add Income</DialogTitle>
+            <DialogTitle>{t("addIncomeTitle")}</DialogTitle>
           </DialogHeader>
           <IncomeFormWrapper onSuccess={() => setOpen(null)} />
         </DialogContent>
@@ -49,7 +51,7 @@ export const QuickActions = () => {
       >
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>Add Expense</DialogTitle>
+            <DialogTitle>{t("addExpenseTitle")}</DialogTitle>
           </DialogHeader>
           <OutcomeFormWrapper onSuccess={() => setOpen(null)} />
         </DialogContent>
@@ -61,7 +63,7 @@ export const QuickActions = () => {
       >
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>New Savings Goal</DialogTitle>
+            <DialogTitle>{t("newSavingsGoalTitle")}</DialogTitle>
           </DialogHeader>
           <SavingsFormWrapper onSuccess={() => setOpen(null)} />
         </DialogContent>

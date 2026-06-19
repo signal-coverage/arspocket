@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { format } from "date-fns";
 import { Inbox, MoveDownLeft, Trash2 } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 import { deleteTransaction, getTransactions } from "@/app/actions/transactions";
 import {
@@ -23,6 +24,9 @@ export const OutcomePage = async ({
 }: {
   searchParams: Promise<{ search?: string; category?: string }>;
 }) => {
+  const t = await getTranslations("outcome");
+  const tCommon = await getTranslations("common");
+
   const { search, category } = await searchParams;
   const transactions = await getTransactions("outcome", { search, category });
 
@@ -31,8 +35,8 @@ export const OutcomePage = async ({
       <div className="grid lg:grid-cols-2 gap-6 items-start">
         <Card className="w-full">
           <CardHeader>
-            <CardTitle>Add Expense</CardTitle>
-            <CardDescription>Record a new expense entry</CardDescription>
+            <CardTitle>{t("addExpense")}</CardTitle>
+            <CardDescription>{t("addExpenseDescription")}</CardDescription>
           </CardHeader>
           <CardContent>
             <OutcomeFormWrapper />
@@ -41,7 +45,9 @@ export const OutcomePage = async ({
 
         <Card className="w-full">
           <CardHeader className="pb-3">
-            <CardTitle className="text-base mb-3">Recent Expenses</CardTitle>
+            <CardTitle className="text-base mb-3">
+              {t("recentExpenses")}
+            </CardTitle>
             <Suspense fallback={null}>
               <TransactionFilters
                 categories={[
@@ -60,45 +66,43 @@ export const OutcomePage = async ({
             {transactions.length === 0 && (search || category) ? (
               <div className="flex flex-col items-center justify-center gap-2 py-10 text-center">
                 <p className="text-sm text-muted-foreground">
-                  No transactions match your filters.
+                  {tCommon("noResults")}
                 </p>
               </div>
             ) : transactions.length === 0 ? (
               <div className="flex flex-col items-center justify-center gap-3 py-10 text-center">
                 <Inbox className="size-10 text-muted-foreground/50" />
                 <div>
-                  <p className="text-sm font-medium">
-                    No expenses recorded yet
-                  </p>
+                  <p className="text-sm font-medium">{t("noExpensesPeriod")}</p>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Your expense entries will appear here.
+                    {t("expenseEntriesAppear")}
                   </p>
                 </div>
               </div>
             ) : (
               <ul className="divide-y">
-                {transactions.map((t) => (
-                  <li key={t.id} className="flex items-center gap-3 py-3">
+                {transactions.map((tx) => (
+                  <li key={tx.id} className="flex items-center gap-3 py-3">
                     <div className="flex items-center justify-center rounded-md bg-red-50 dark:bg-red-950 p-1.5 shrink-0">
                       <MoveDownLeft className="size-4 text-red-600 dark:text-red-400" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate">
-                        {t.description}
+                        {tx.description}
                       </p>
                       <div className="flex items-center gap-1.5 mt-0.5">
                         <Badge variant="secondary" className="text-xs">
-                          {t.category}
+                          {tx.category}
                         </Badge>
                         <span className="text-xs text-muted-foreground">
-                          {format(new Date(t.date), "MMM d, yyyy")}
+                          {format(new Date(tx.date), "MMM d, yyyy")}
                         </span>
                       </div>
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
                       <span className="text-sm font-semibold text-red-600 dark:text-red-400">
                         -$
-                        {Number(t.amount).toLocaleString("en-US", {
+                        {Number(tx.amount).toLocaleString("en-US", {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         })}
@@ -106,7 +110,7 @@ export const OutcomePage = async ({
                       <form
                         action={async () => {
                           "use server";
-                          await deleteTransaction(t.id);
+                          await deleteTransaction(tx.id);
                         }}
                       >
                         <Button

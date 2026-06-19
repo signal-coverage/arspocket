@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { PlusIcon } from "lucide-react";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 import { contributeSavingsGoal } from "@/app/actions/savings";
 import {
@@ -29,6 +30,9 @@ export const ContributeDialog = ({
   goalName,
   remaining,
 }: ContributeDialogProps) => {
+  const t = useTranslations("savings");
+  const tCommon = useTranslations("common");
+
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState("");
   const [error, setError] = useState("");
@@ -38,14 +42,14 @@ export const ContributeDialog = ({
     e.preventDefault();
     const parsed = parseFloat(amount);
     if (!parsed || parsed <= 0) {
-      setError("Enter a valid amount");
+      setError(t("enterValidAmount"));
       return;
     }
     setError("");
     setLoading(true);
     try {
       await contributeSavingsGoal(goalId, parsed);
-      toast.success(`Added $${parsed.toFixed(2)} to "${goalName}"`);
+      toast.success(`${t("addFunds")} $${parsed.toFixed(2)} — "${goalName}"`);
       setAmount("");
       setOpen(false);
     } finally {
@@ -60,18 +64,22 @@ export const ContributeDialog = ({
           size="icon"
           variant="outline"
           className="size-7 shrink-0"
-          aria-label="Add funds"
+          aria-label={t("addFunds")}
         >
           <PlusIcon className="size-3.5" />
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-sm">
         <DialogHeader>
-          <DialogTitle>Add funds to &quot;{goalName}&quot;</DialogTitle>
+          <DialogTitle>
+            {t("addFundsTo")} &quot;{goalName}&quot;
+          </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 pt-2">
           <Field>
-            <FieldLabel htmlFor="contrib-amount">Amount</FieldLabel>
+            <FieldLabel htmlFor="contrib-amount">
+              {tCommon("amount")}
+            </FieldLabel>
             <Input
               id="contrib-amount"
               type="number"
@@ -85,7 +93,7 @@ export const ContributeDialog = ({
             {error && <FieldError>{error}</FieldError>}
           </Field>
           <Button type="submit" disabled={loading} className="w-full">
-            {loading ? "Saving..." : "Add funds"}
+            {loading ? t("saving") : t("addFunds")}
           </Button>
         </form>
       </DialogContent>

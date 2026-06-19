@@ -2,15 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type DayData = {
   income: number;
@@ -36,6 +32,7 @@ export const TransactionCalendar = ({
   year,
   month,
 }: Props) => {
+  const t = useTranslations("calendar");
   const router = useRouter();
   const [selectedDay, setSelectedDay] = useState<Date | undefined>();
 
@@ -43,7 +40,7 @@ export const TransactionCalendar = ({
 
   const handleMonthChange = (m: Date) => {
     router.push(
-      `/dashboard/calendar?year=${m.getFullYear()}&month=${m.getMonth() + 1}`
+      `/dashboard/calendar?year=${m.getFullYear()}&month=${m.getMonth() + 1}`,
     );
   };
 
@@ -74,7 +71,9 @@ export const TransactionCalendar = ({
           onSelect={setSelectedDay}
           defaultMonth={defaultMonth}
           onMonthChange={handleMonthChange}
-          modifiers={{ hasData: Object.keys(transactionsByDay).map((k) => new Date(k)) }}
+          modifiers={{
+            hasData: Object.keys(transactionsByDay).map((k) => new Date(k)),
+          }}
           modifiersClassNames={{ hasData: "" }}
           components={{
             DayButton: ({ day, ...props }) => {
@@ -108,19 +107,19 @@ export const TransactionCalendar = ({
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Income</span>
+                <span className="text-muted-foreground">{t("income")}</span>
                 <span className="text-emerald-600 font-medium">
                   {fmt(selectedData.income)}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Expenses</span>
+                <span className="text-muted-foreground">{t("expenses")}</span>
                 <span className="text-red-600 font-medium">
                   {fmt(selectedData.expense)}
                 </span>
               </div>
               <div className="flex justify-between border-t pt-2">
-                <span className="font-medium">Net</span>
+                <span className="font-medium">{t("net")}</span>
                 <span
                   className={
                     selectedData.income - selectedData.expense >= 0
@@ -132,20 +131,16 @@ export const TransactionCalendar = ({
                 </span>
               </div>
               <p className="text-xs text-muted-foreground">
-                {selectedData.count} transaction
-                {selectedData.count !== 1 ? "s" : ""}
+                {selectedData.count === 1
+                  ? t("transactionCount", { count: selectedData.count })
+                  : t("transactionsCount", { count: selectedData.count })}
               </p>
             </CardContent>
           </Card>
         ) : selectedDay ? (
           <Card className="flex-1 max-w-sm">
             <CardContent className="py-6 text-center text-sm text-muted-foreground">
-              No transactions on{" "}
-              {selectedDay.toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-              })}
-              .
+              {t("noTransactions")}
             </CardContent>
           </Card>
         ) : null}

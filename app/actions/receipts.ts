@@ -29,7 +29,7 @@ export type SerializedReceipt = {
 };
 
 export const getReceipts = async (
-  includeDeleted = false
+  includeDeleted = false,
 ): Promise<SerializedReceipt[]> => {
   const { userId } = await auth();
   if (!userId) return [];
@@ -61,7 +61,7 @@ export const getReceipts = async (
 };
 
 export const getReceiptsForTransaction = async (
-  transactionId: string
+  transactionId: string,
 ): Promise<SerializedReceipt[]> => {
   const { userId } = await auth();
   if (!userId) return [];
@@ -149,12 +149,14 @@ export const permanentlyDeleteReceipt = async (id: string): Promise<void> => {
       new DeleteObjectCommand({
         Bucket: process.env.S3_BUCKET_NAME ?? "",
         Key: receipt.fileKey,
-      })
+      }),
     );
   } catch (err) {
     // Log S3 error but do NOT delete DB record — leave orphaned in trash
     console.error("S3 deletion failed for key:", receipt.fileKey, err);
-    throw new Error("Failed to delete file from storage. Receipt remains in trash.");
+    throw new Error(
+      "Failed to delete file from storage. Receipt remains in trash.",
+    );
   }
 
   await prisma.receipt.delete({ where: { id, userId } });
@@ -164,7 +166,7 @@ export const permanentlyDeleteReceipt = async (id: string): Promise<void> => {
 
 export const linkReceiptToTransaction = async (
   receiptId: string,
-  transactionId: string
+  transactionId: string,
 ): Promise<void> => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
@@ -185,7 +187,7 @@ export const linkReceiptToTransaction = async (
 };
 
 export const unlinkReceiptFromTransaction = async (
-  receiptId: string
+  receiptId: string,
 ): Promise<void> => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");

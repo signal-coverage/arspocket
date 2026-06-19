@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Upload } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,6 +14,7 @@ import {
 import { ImportWizard } from "./import-wizard";
 
 export const ImportButton = () => {
+  const t = useTranslations("importWizard");
   const [open, setOpen] = useState(false);
 
   return (
@@ -20,12 +22,12 @@ export const ImportButton = () => {
       <DialogTrigger asChild>
         <Button variant="outline" size="sm" className="gap-1.5">
           <Upload className="size-3.5" />
-          Import CSV
+          {t("importCsv")}
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Import Transactions from CSV</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
         </DialogHeader>
         <ImportWizard />
       </DialogContent>

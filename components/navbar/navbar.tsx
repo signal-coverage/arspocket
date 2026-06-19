@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,16 +14,18 @@ import {
 } from "@/components/ui";
 import { ThemeToggle } from "@/components/theme-toggle";
 
-const SEGMENT_LABELS: Record<string, string> = {
-  income: "Income",
-  outcome: "Expenses",
-  savings: "Savings",
-};
-
 export const Navbar = () => {
+  const t = useTranslations("nav");
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
   const secondSegment = segments[1];
+
+  const SEGMENT_LABELS: Record<string, string> = {
+    income: t("income"),
+    outcome: t("expenses"),
+    savings: t("savings"),
+  };
+
   const secondLabel = secondSegment ? SEGMENT_LABELS[secondSegment] : null;
 
   return (
@@ -37,9 +40,9 @@ export const Navbar = () => {
         <BreadcrumbList>
           <BreadcrumbItem className={secondLabel ? "hidden md:block" : ""}>
             {secondLabel ? (
-              <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
+              <BreadcrumbLink href="/dashboard">{t("dashboard")}</BreadcrumbLink>
             ) : (
-              <BreadcrumbPage>Dashboard</BreadcrumbPage>
+              <BreadcrumbPage>{t("dashboard")}</BreadcrumbPage>
             )}
           </BreadcrumbItem>
           {secondLabel && (

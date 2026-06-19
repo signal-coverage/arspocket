@@ -1,12 +1,12 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { formatPercent } from "@/lib/format";
-import { formatDateDisplay } from "@/lib/dates";
 
 type Props = {
   name: string;
-  startCol: number;  // 0-indexed column start
-  endCol: number;    // 0-indexed column end (inclusive)
+  startCol: number; // 0-indexed column start
+  endCol: number; // 0-indexed column end (inclusive)
   totalCols: number;
   pct: number;
   color: string | null;
@@ -26,6 +26,7 @@ export const GoalsGanttBar = ({
   isPast,
   onClick,
 }: Props) => {
+  const t = useTranslations("goals");
   const barColor = color ?? DEFAULT_COLOR;
   const left = `${(startCol / totalCols) * 100}%`;
   const width = `${((endCol - startCol + 1) / totalCols) * 100}%`;
@@ -33,12 +34,17 @@ export const GoalsGanttBar = ({
   return (
     <div
       className="absolute top-1 bottom-1 rounded-md cursor-pointer group overflow-hidden"
-      style={{ left, width, backgroundColor: `${barColor}30`, border: `1px solid ${barColor}` }}
+      style={{
+        left,
+        width,
+        backgroundColor: `${barColor}30`,
+        border: `1px solid ${barColor}`,
+      }}
       onClick={onClick}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => e.key === "Enter" && onClick?.()}
-      aria-label={`${name} — ${formatPercent(pct)} complete`}
+      aria-label={t("ganttBarLabel", { name, pct: formatPercent(pct) })}
     >
       {/* Fill bar */}
       <div

@@ -1,14 +1,21 @@
 import Link from "next/link";
 import { BookMarked, Star, Archive, Trash2 } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
-const NAV_LINKS = [
-  { href: "/dashboard/library", label: "All", icon: BookMarked },
-  { href: "/dashboard/library/favorites", label: "Favorites", icon: Star },
-  { href: "/dashboard/library/archive", label: "Archive", icon: Archive },
-  { href: "/dashboard/library/trash", label: "Trash", icon: Trash2 },
-];
+export const LibraryLayout = async ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const t = await getTranslations("library");
 
-export const LibraryLayout = ({ children }: { children: React.ReactNode }) => {
+  const NAV_LINKS = [
+    { href: "/dashboard/library", label: t("all"), icon: BookMarked },
+    { href: "/dashboard/library/favorites", label: t("favorites"), icon: Star },
+    { href: "/dashboard/library/archive", label: t("archive"), icon: Archive },
+    { href: "/dashboard/library/trash", label: t("trash"), icon: Trash2 },
+  ];
+
   return (
     <div className="flex flex-1 flex-col">
       {/* Sub-nav */}

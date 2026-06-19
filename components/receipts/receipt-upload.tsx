@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useTransition } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,7 +15,12 @@ import {
 import { createReceiptMetadata } from "@/app/actions/receipts";
 import { Upload } from "lucide-react";
 
-const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+const ALLOWED_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "application/pdf",
+];
 const MAX_SIZE = 10 * 1024 * 1024; // 10 MB
 
 type Props = {
@@ -23,6 +29,7 @@ type Props = {
 };
 
 export const ReceiptUpload = ({ open, onOpenChange }: Props) => {
+  const t = useTranslations("receipts");
   const [file, setFile] = useState<File | null>(null);
   const [description, setDescription] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -35,11 +42,11 @@ export const ReceiptUpload = ({ open, onOpenChange }: Props) => {
     if (!f) return;
 
     if (!ALLOWED_TYPES.includes(f.type)) {
-      setError("Only JPEG, PNG, WebP, and PDF files are allowed.");
+      setError(t("onlyImages"));
       return;
     }
     if (f.size > MAX_SIZE) {
-      setError("File exceeds 10 MB limit.");
+      setError(t("fileTooLarge"));
       return;
     }
     setError(null);
@@ -106,15 +113,13 @@ export const ReceiptUpload = ({ open, onOpenChange }: Props) => {
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Upload Receipt</SheetTitle>
-          <SheetDescription>
-            Upload a receipt to your vault. Max 10 MB. Accepted: JPEG, PNG, WebP, PDF.
-          </SheetDescription>
+          <SheetTitle>{t("uploadReceipt")}</SheetTitle>
+          <SheetDescription>{t("uploadDesc")}</SheetDescription>
         </SheetHeader>
 
         <div className="mt-6 flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="receipt-file">File</Label>
+            <Label htmlFor="receipt-file">{t("fileLabel")}</Label>
             <Input
               id="receipt-file"
               type="file"
@@ -126,12 +131,12 @@ export const ReceiptUpload = ({ open, onOpenChange }: Props) => {
 
           {file && (
             <p className="text-xs text-muted-foreground">
-              Selected: {file.name} ({(file.size / 1024).toFixed(0)} KB)
+              {t("selectedFile", { name: file.name, size: (file.size / 1024).toFixed(0) })}
             </p>
           )}
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="receipt-desc">Description (optional)</Label>
+            <Label htmlFor="receipt-desc">{t("descriptionOptional")}</Label>
             <Input
               id="receipt-desc"
               value={description}
@@ -148,7 +153,7 @@ export const ReceiptUpload = ({ open, onOpenChange }: Props) => {
             className="gap-1.5 mt-2"
           >
             <Upload className="size-4" />
-            {uploading ? "Uploading..." : "Upload"}
+            {uploading ? t("uploading") : t("upload")}
           </Button>
         </div>
       </SheetContent>

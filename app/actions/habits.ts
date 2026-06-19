@@ -57,8 +57,8 @@ export const seedDefaultHabits = async (): Promise<void> => {
           isDefault: true,
           isActive: true,
         },
-      })
-    )
+      }),
+    ),
   );
 
   revalidatePath("/dashboard/habits");
@@ -172,7 +172,7 @@ export const updateHabit = async (
     color?: string;
     targetDays?: number[];
     isActive?: boolean;
-  }
+  },
 ): Promise<void> => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
@@ -206,7 +206,7 @@ export const deleteHabit = async (id: string): Promise<void> => {
 
 export const toggleHabitLog = async (
   habitId: string,
-  date: string
+  date: string,
 ): Promise<void> => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
@@ -235,7 +235,7 @@ export const toggleHabitLog = async (
 
 export const getHabitLogsForMonth = async (
   year: number,
-  month: number
+  month: number,
 ): Promise<{ habitId: string; date: string; completed: boolean }[]> => {
   const { userId } = await auth();
   if (!userId) return [];
@@ -258,7 +258,12 @@ export const getHabitLogsForMonth = async (
 export const getStreakData = async (): Promise<StreakData> => {
   const { userId } = await auth();
   if (!userId) {
-    return { currentStreak: 0, longestStreak: 0, lastActivityDate: null, todayActive: false };
+    return {
+      currentStreak: 0,
+      longestStreak: 0,
+      lastActivityDate: null,
+      todayActive: false,
+    };
   }
 
   const streak = await prisma.userStreak.findUnique({ where: { userId } });

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { format } from "date-fns";
 import { Target, Trash2 } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 import { deleteSavingsGoal, getSavingsGoals } from "@/app/actions/savings";
 import {
@@ -18,6 +19,9 @@ import { ContributeDialog } from "./contribute-dialog";
 export const metadata: Metadata = { title: "Savings Goals — ARSPocket" };
 
 export const SavingsPage = async () => {
+  const t = await getTranslations("savings");
+  const tCommon = await getTranslations("common");
+
   const goals = await getSavingsGoals();
 
   return (
@@ -25,8 +29,8 @@ export const SavingsPage = async () => {
       <div className="grid lg:grid-cols-2 gap-6 items-start">
         <Card className="w-full">
           <CardHeader>
-            <CardTitle>Add Savings Goal</CardTitle>
-            <CardDescription>Set a new savings target</CardDescription>
+            <CardTitle>{t("addGoal")}</CardTitle>
+            <CardDescription>{t("addGoalDescription")}</CardDescription>
           </CardHeader>
           <CardContent>
             <SavingsFormWrapper />
@@ -35,16 +39,16 @@ export const SavingsPage = async () => {
 
         <Card className="w-full">
           <CardHeader>
-            <CardTitle className="text-base">My Goals</CardTitle>
+            <CardTitle className="text-base">{t("myGoals")}</CardTitle>
           </CardHeader>
           <CardContent>
             {goals.length === 0 ? (
               <div className="flex flex-col items-center justify-center gap-3 py-10 text-center">
                 <Target className="size-10 text-muted-foreground/50" />
                 <div>
-                  <p className="text-sm font-medium">No savings goals yet</p>
+                  <p className="text-sm font-medium">{t("noGoals")}</p>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Goals you create will appear here with their progress.
+                    {t("noGoalsDescription")}
                   </p>
                 </div>
               </div>
@@ -97,10 +101,10 @@ export const SavingsPage = async () => {
                           })}
                         </span>
                         <span>
-                          Target:{" "}
+                          {tCommon("total")}:{" "}
                           {g.targetDate
                             ? format(new Date(g.targetDate), "MMM d, yyyy")
-                            : "No deadline"}
+                            : t("noDeadline")}
                         </span>
                       </div>
                     </li>

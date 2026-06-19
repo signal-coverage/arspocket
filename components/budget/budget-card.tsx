@@ -7,17 +7,12 @@ import { Button } from "@/components/ui/button";
 import { Trash2, Pencil } from "lucide-react";
 import { deleteBudget } from "@/app/actions/budgets";
 import { useTransition } from "react";
+import { useTranslations } from "next-intl";
 
 const STATE_BAR_COLORS = {
   SAFE: "bg-green-500",
   WARNING: "bg-amber-500",
   DANGER: "bg-red-500",
-};
-
-const PERIOD_LABELS: Record<string, string> = {
-  WEEKLY: "Weekly",
-  MONTHLY: "Monthly",
-  YEARLY: "Yearly",
 };
 
 type Props = {
@@ -26,8 +21,15 @@ type Props = {
 };
 
 export const BudgetCard = ({ budget, onEdit }: Props) => {
+  const t = useTranslations("budget");
   const [isPending, startTransition] = useTransition();
   const isOverspent = budget.spent > budget.amount;
+
+  const PERIOD_LABELS: Record<string, string> = {
+    WEEKLY: t("weekly"),
+    MONTHLY: t("monthly"),
+    YEARLY: t("yearly"),
+  };
 
   const handleDelete = () => {
     startTransition(async () => {
@@ -46,7 +48,7 @@ export const BudgetCard = ({ budget, onEdit }: Props) => {
             </Badge>
             {isOverspent && (
               <Badge variant="destructive" className="text-xs">
-                Overspent
+                {t("overspent")}
               </Badge>
             )}
           </div>
@@ -90,10 +92,14 @@ export const BudgetCard = ({ budget, onEdit }: Props) => {
       </div>
 
       <div className="flex items-center justify-between text-xs text-muted-foreground">
-        <span>Remaining: {formatCurrency(budget.remaining)}</span>
+        <span>
+          {t("remainingOf", { amount: formatCurrency(budget.remaining) })}
+        </span>
         {isOverspent && (
           <span className="text-destructive font-medium">
-            Over by {formatCurrency(budget.spent - budget.amount)}
+            {t("overBy", {
+              amount: formatCurrency(budget.spent - budget.amount),
+            })}
           </span>
         )}
       </div>

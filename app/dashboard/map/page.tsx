@@ -1,20 +1,16 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { getGeoTaggedTransactions } from "@/app/actions/transactions";
 import { SpendingMap } from "@/components/map/spending-map";
 import { formatCurrency } from "@/lib/format";
-import { formatDateDisplay } from "@/lib/dates";
 import { MapPin, MoveUpRight, MoveDownLeft } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 export const metadata: Metadata = { title: "Spending Map — ARSPocket" };
 
 export const SpendingMapPage = async () => {
+  const t = await getTranslations("map");
   const transactions = await getGeoTaggedTransactions();
 
   return (
@@ -22,11 +18,9 @@ export const SpendingMapPage = async () => {
       <div>
         <h1 className="text-xl font-semibold flex items-center gap-2">
           <MapPin className="size-5" />
-          Spending Map
+          {t("title")}
         </h1>
-        <p className="text-sm text-muted-foreground">
-          View your geo-tagged transactions on a map.
-        </p>
+        <p className="text-sm text-muted-foreground">{t("subtitlePage")}</p>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
@@ -39,13 +33,13 @@ export const SpendingMapPage = async () => {
         <Card className="lg:col-span-1">
           <CardHeader>
             <CardTitle className="text-base">
-              Geo-tagged Transactions ({transactions.length})
+              {t("geoTaggedTransactions", { count: transactions.length })}
             </CardTitle>
           </CardHeader>
           <CardContent>
             {transactions.length === 0 ? (
               <p className="text-sm text-muted-foreground text-center py-6">
-                No geo-tagged transactions.
+                {t("noGeoTagged")}
               </p>
             ) : (
               <ul className="divide-y max-h-[440px] overflow-y-auto">
@@ -65,7 +59,9 @@ export const SpendingMapPage = async () => {
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate">{tx.description}</p>
+                      <p className="text-sm font-medium truncate">
+                        {tx.description}
+                      </p>
                       <div className="flex items-center gap-1.5 mt-0.5">
                         <Badge variant="secondary" className="text-xs">
                           {tx.category}

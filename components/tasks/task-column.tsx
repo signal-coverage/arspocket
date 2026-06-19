@@ -1,6 +1,7 @@
 "use client";
 
 import { useDroppable } from "@dnd-kit/core";
+import { useTranslations } from "next-intl";
 import { SerializedTask } from "@/app/actions/tasks";
 import { TaskCard } from "./task-card";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,7 @@ type Props = {
 };
 
 export const TaskColumn = ({ status, label, tasks, color }: Props) => {
+  const t = useTranslations("tasks");
   const { setNodeRef, isOver } = useDroppable({ id: status });
   const [addOpen, setAddOpen] = useState(false);
 
@@ -49,7 +51,7 @@ export const TaskColumn = ({ status, label, tasks, color }: Props) => {
         {tasks.length === 0 ? (
           <div className="flex flex-col items-center justify-center gap-2 py-8 text-center">
             <Inbox className="size-5 text-muted-foreground/50" />
-            <p className="text-xs text-muted-foreground">Drop tasks here</p>
+            <p className="text-xs text-muted-foreground">{t("dropHere")}</p>
           </div>
         ) : (
           tasks.map((task) => <TaskCard key={task.id} task={task} />)

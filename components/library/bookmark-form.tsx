@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -28,6 +29,7 @@ type Props = {
 };
 
 export const BookmarkForm = ({ open, onOpenChange, collections }: Props) => {
+  const t = useTranslations("library");
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
 
@@ -42,18 +44,22 @@ export const BookmarkForm = ({ open, onOpenChange, collections }: Props) => {
     const collectionId = fd.get("collection") as string;
     const tagsRaw = (fd.get("tags") as string).trim();
     const tags = tagsRaw
-      ? tagsRaw.split(",").map((t) => t.trim()).filter(Boolean).slice(0, 10)
+      ? tagsRaw
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean)
+          .slice(0, 10)
       : [];
 
     if (!url || !title) {
-      setError("URL and title are required.");
+      setError(t("urlTitleRequired"));
       return;
     }
 
     try {
       new URL(url);
     } catch {
-      setError("Please enter a valid URL (e.g. https://example.com).");
+      setError(t("invalidUrl"));
       return;
     }
 
@@ -69,7 +75,9 @@ export const BookmarkForm = ({ open, onOpenChange, collections }: Props) => {
         onOpenChange(false);
         (e.target as HTMLFormElement).reset();
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to create bookmark");
+        setError(
+          err instanceof Error ? err.message : t("failedCreate"),
+        );
       }
     });
   };
@@ -78,13 +86,13 @@ export const BookmarkForm = ({ open, onOpenChange, collections }: Props) => {
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>New Bookmark</SheetTitle>
-          <SheetDescription>Save a resource to your library.</SheetDescription>
+          <SheetTitle>{t("newBookmark")}</SheetTitle>
+          <SheetDescription>{t("saveAResource")}</SheetDescription>
         </SheetHeader>
 
         <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="bm-url">URL *</Label>
+            <Label htmlFor="bm-url">{t("urlLabel")}</Label>
             <Input
               id="bm-url"
               name="url"
@@ -95,7 +103,7 @@ export const BookmarkForm = ({ open, onOpenChange, collections }: Props) => {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="bm-title">Title *</Label>
+            <Label htmlFor="bm-title">{t("titleFormLabel")}</Label>
             <Input
               id="bm-title"
               name="title"
@@ -106,7 +114,7 @@ export const BookmarkForm = ({ open, onOpenChange, collections }: Props) => {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="bm-desc">Description</Label>
+            <Label htmlFor="bm-desc">{t("descriptionLabel")}</Label>
             <Input
               id="bm-desc"
               name="description"
@@ -116,7 +124,7 @@ export const BookmarkForm = ({ open, onOpenChange, collections }: Props) => {
 
           {collections.length > 0 && (
             <div className="flex flex-col gap-1.5">
-              <Label>Collection</Label>
+              <Label>{t("collectionLabel")}</Label>
               <Select name="collection">
                 <SelectTrigger>
                   <SelectValue placeholder="None" />
@@ -133,7 +141,7 @@ export const BookmarkForm = ({ open, onOpenChange, collections }: Props) => {
           )}
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="bm-tags">Tags (comma-separated, max 10)</Label>
+            <Label htmlFor="bm-tags">{t("tagsLabel")}</Label>
             <Input
               id="bm-tags"
               name="tags"
@@ -144,7 +152,7 @@ export const BookmarkForm = ({ open, onOpenChange, collections }: Props) => {
           {error && <p className="text-sm text-destructive">{error}</p>}
 
           <Button type="submit" disabled={isPending} className="mt-2">
-            {isPending ? "Saving..." : "Save Bookmark"}
+            {isPending ? t("saving") : t("saveBookmark")}
           </Button>
         </form>
       </SheetContent>

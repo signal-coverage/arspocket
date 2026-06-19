@@ -1,32 +1,8 @@
 "use server";
 
-import {
-  addDays,
-  addWeeks,
-  addMonths,
-  addYears,
-} from "date-fns";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
-import { RecurringFrequency, TransactionType } from "@prisma/client";
-
-export const computeNextDueDate = (
-  current: Date,
-  frequency: RecurringFrequency
-): Date => {
-  switch (frequency) {
-    case RecurringFrequency.DAILY:
-      return addDays(current, 1);
-    case RecurringFrequency.WEEKLY:
-      return addWeeks(current, 1);
-    case RecurringFrequency.BIWEEKLY:
-      return addWeeks(current, 2);
-    case RecurringFrequency.MONTHLY:
-      return addMonths(current, 1);
-    case RecurringFrequency.YEARLY:
-      return addYears(current, 1);
-  }
-};
+import { computeNextDueDate } from "@/lib/dates";
 
 export const processRecurringTransactions = async (): Promise<{
   processed: number;
@@ -41,10 +17,7 @@ export const processRecurringTransactions = async (): Promise<{
       isRecurring: true,
       recurringFrequency: { not: null },
       nextDueDate: { lte: now },
-      OR: [
-        { recurringEndDate: null },
-        { recurringEndDate: { gte: now } },
-      ],
+      OR: [{ recurringEndDate: null }, { recurringEndDate: { gte: now } }],
     },
   });
 
@@ -68,7 +41,7 @@ export const processRecurringTransactions = async (): Promise<{
           data: {
             nextDueDate: computeNextDueDate(
               t.nextDueDate ?? now,
-              t.recurringFrequency!
+              t.recurringFrequency!,
             ),
           },
         }),
@@ -76,7 +49,7 @@ export const processRecurringTransactions = async (): Promise<{
       processed++;
     } catch (err) {
       errors.push(
-        `Transaction ${t.id}: ${err instanceof Error ? err.message : String(err)}`
+        `Transaction ${t.id}: ${err instanceof Error ? err.message : String(err)}`,
       );
     }
   }

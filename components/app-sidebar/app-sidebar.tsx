@@ -3,6 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   Leaf,
   LayoutDashboard,
@@ -43,10 +44,11 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { NavUser } from "./components";
+import { SettingsModal } from "@/components/settings/settings-modal";
 
 const navItems = [
   {
-    title: "Overview",
+    titleKey: "nav.overview",
     icon: LayoutDashboard,
     href: "/dashboard",
   },
@@ -54,22 +56,22 @@ const navItems = [
 
 const movementItems = [
   {
-    title: "Income",
+    titleKey: "nav.income",
     icon: MoveUpRight,
     href: "/dashboard/income",
   },
   {
-    title: "Expenses",
+    titleKey: "nav.expenses",
     icon: MoveDownLeft,
     href: "/dashboard/outcome",
   },
   {
-    title: "Savings",
+    titleKey: "nav.savings",
     icon: PiggyBank,
     href: "/dashboard/savings",
   },
   {
-    title: "Calendar",
+    titleKey: "nav.calendar",
     icon: CalendarDays,
     href: "/dashboard/calendar",
   },
@@ -77,22 +79,22 @@ const movementItems = [
 
 const planningItems = [
   {
-    title: "Goals Timeline",
+    titleKey: "nav.goalsTimeline",
     icon: GanttChartSquare,
     href: "/dashboard/goals",
   },
   {
-    title: "Budget",
+    titleKey: "nav.budget",
     icon: PieChart,
     href: "/dashboard/budget",
   },
   {
-    title: "Bills",
+    titleKey: "nav.bills",
     icon: CalendarClock,
     href: "/dashboard/bills",
   },
   {
-    title: "Net Worth",
+    titleKey: "nav.netWorth",
     icon: TrendingUp,
     href: "/dashboard/net-worth",
   },
@@ -100,12 +102,12 @@ const planningItems = [
 
 const habitsAndTasksItems = [
   {
-    title: "Habits",
+    titleKey: "nav.habits",
     icon: Flame,
     href: "/dashboard/habits",
   },
   {
-    title: "To-Dos",
+    titleKey: "nav.todos",
     icon: ListChecks,
     href: "/dashboard/tasks",
   },
@@ -113,12 +115,12 @@ const habitsAndTasksItems = [
 
 const vaultItems = [
   {
-    title: "Receipts",
+    titleKey: "nav.receipts",
     icon: Receipt,
     href: "/dashboard/receipts",
   },
   {
-    title: "Resource Library",
+    titleKey: "nav.library",
     icon: BookMarked,
     href: "/dashboard/library",
   },
@@ -126,7 +128,7 @@ const vaultItems = [
 
 const exploreItems = [
   {
-    title: "Spending Map",
+    titleKey: "nav.spendingMap",
     icon: MapPin,
     href: "/dashboard/map",
   },
@@ -134,7 +136,7 @@ const exploreItems = [
 
 const reportItems = [
   {
-    title: "Reports",
+    titleKey: "nav.reports",
     icon: BarChart3,
     href: "/dashboard/reports",
   },
@@ -144,12 +146,14 @@ export const AppSidebar = ({
   ...props
 }: React.ComponentProps<typeof Sidebar>) => {
   const pathname = usePathname();
+  const t = useTranslations();
   const [movementsOpen, setMovementsOpen] = React.useState(true);
   const [planningOpen, setPlanningOpen] = React.useState(true);
   const [habitsOpen, setHabitsOpen] = React.useState(true);
   const [vaultOpen, setVaultOpen] = React.useState(true);
   const [exploreOpen, setExploreOpen] = React.useState(true);
   const [reportsOpen, setReportsOpen] = React.useState(true);
+  const [settingsOpen, setSettingsOpen] = React.useState(false);
 
   return (
     <Sidebar collapsible="offcanvas" className="lg:border-r-0!" {...props}>
@@ -167,7 +171,7 @@ export const AppSidebar = ({
           <SidebarGroupContent>
             <SidebarMenu>
               {navItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
+                <SidebarMenuItem key={item.titleKey}>
                   <SidebarMenuButton
                     asChild
                     isActive={pathname === item.href}
@@ -175,7 +179,7 @@ export const AppSidebar = ({
                   >
                     <Link href={item.href}>
                       <item.icon className="size-4" />
-                      <span className="text-sm">{item.title}</span>
+                      <span className="text-sm">{t(item.titleKey as any)}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -192,7 +196,7 @@ export const AppSidebar = ({
                   <ChevronDown
                     className={`size-3.5 transition-transform ${movementsOpen ? "" : "-rotate-90"}`}
                   />
-                  MOVEMENTS
+                  {t("nav.movements")}
                 </div>
               </CollapsibleTrigger>
             </SidebarGroupLabel>
@@ -200,7 +204,7 @@ export const AppSidebar = ({
               <SidebarGroupContent>
                 <SidebarMenu className="mt-2">
                   {movementItems.map((item) => (
-                    <SidebarMenuItem key={item.title}>
+                    <SidebarMenuItem key={item.titleKey}>
                       <SidebarMenuButton
                         asChild
                         isActive={pathname === item.href}
@@ -209,7 +213,7 @@ export const AppSidebar = ({
                         <Link href={item.href}>
                           <item.icon className="size-4 text-muted-foreground" />
                           <span className="flex-1 text-sm text-muted-foreground">
-                            {item.title}
+                            {t(item.titleKey as any)}
                           </span>
                         </Link>
                       </SidebarMenuButton>
@@ -229,7 +233,7 @@ export const AppSidebar = ({
                   <ChevronDown
                     className={`size-3.5 transition-transform ${planningOpen ? "" : "-rotate-90"}`}
                   />
-                  PLANNING
+                  {t("nav.planning")}
                 </div>
               </CollapsibleTrigger>
             </SidebarGroupLabel>
@@ -237,7 +241,7 @@ export const AppSidebar = ({
               <SidebarGroupContent>
                 <SidebarMenu className="mt-2">
                   {planningItems.map((item) => (
-                    <SidebarMenuItem key={item.title}>
+                    <SidebarMenuItem key={item.titleKey}>
                       <SidebarMenuButton
                         asChild
                         isActive={pathname === item.href}
@@ -246,7 +250,7 @@ export const AppSidebar = ({
                         <Link href={item.href}>
                           <item.icon className="size-4 text-muted-foreground" />
                           <span className="flex-1 text-sm text-muted-foreground">
-                            {item.title}
+                            {t(item.titleKey as any)}
                           </span>
                         </Link>
                       </SidebarMenuButton>
@@ -266,7 +270,7 @@ export const AppSidebar = ({
                   <ChevronDown
                     className={`size-3.5 transition-transform ${habitsOpen ? "" : "-rotate-90"}`}
                   />
-                  HABITS &amp; TASKS
+                  {t("nav.habitsAndTasks")}
                 </div>
               </CollapsibleTrigger>
             </SidebarGroupLabel>
@@ -274,7 +278,7 @@ export const AppSidebar = ({
               <SidebarGroupContent>
                 <SidebarMenu className="mt-2">
                   {habitsAndTasksItems.map((item) => (
-                    <SidebarMenuItem key={item.title}>
+                    <SidebarMenuItem key={item.titleKey}>
                       <SidebarMenuButton
                         asChild
                         isActive={pathname === item.href}
@@ -283,7 +287,7 @@ export const AppSidebar = ({
                         <Link href={item.href}>
                           <item.icon className="size-4 text-muted-foreground" />
                           <span className="flex-1 text-sm text-muted-foreground">
-                            {item.title}
+                            {t(item.titleKey as any)}
                           </span>
                         </Link>
                       </SidebarMenuButton>
@@ -303,7 +307,7 @@ export const AppSidebar = ({
                   <ChevronDown
                     className={`size-3.5 transition-transform ${vaultOpen ? "" : "-rotate-90"}`}
                   />
-                  VAULT
+                  {t("nav.vault")}
                 </div>
               </CollapsibleTrigger>
             </SidebarGroupLabel>
@@ -311,7 +315,7 @@ export const AppSidebar = ({
               <SidebarGroupContent>
                 <SidebarMenu className="mt-2">
                   {vaultItems.map((item) => (
-                    <SidebarMenuItem key={item.title}>
+                    <SidebarMenuItem key={item.titleKey}>
                       <SidebarMenuButton
                         asChild
                         isActive={pathname.startsWith(item.href)}
@@ -320,7 +324,7 @@ export const AppSidebar = ({
                         <Link href={item.href}>
                           <item.icon className="size-4 text-muted-foreground" />
                           <span className="flex-1 text-sm text-muted-foreground">
-                            {item.title}
+                            {t(item.titleKey as any)}
                           </span>
                         </Link>
                       </SidebarMenuButton>
@@ -340,7 +344,7 @@ export const AppSidebar = ({
                   <ChevronDown
                     className={`size-3.5 transition-transform ${exploreOpen ? "" : "-rotate-90"}`}
                   />
-                  EXPLORE
+                  {t("nav.explore")}
                 </div>
               </CollapsibleTrigger>
             </SidebarGroupLabel>
@@ -348,7 +352,7 @@ export const AppSidebar = ({
               <SidebarGroupContent>
                 <SidebarMenu className="mt-2">
                   {exploreItems.map((item) => (
-                    <SidebarMenuItem key={item.title}>
+                    <SidebarMenuItem key={item.titleKey}>
                       <SidebarMenuButton
                         asChild
                         isActive={pathname === item.href}
@@ -357,7 +361,7 @@ export const AppSidebar = ({
                         <Link href={item.href}>
                           <item.icon className="size-4 text-muted-foreground" />
                           <span className="flex-1 text-sm text-muted-foreground">
-                            {item.title}
+                            {t(item.titleKey as any)}
                           </span>
                         </Link>
                       </SidebarMenuButton>
@@ -377,7 +381,7 @@ export const AppSidebar = ({
                   <ChevronDown
                     className={`size-3.5 transition-transform ${reportsOpen ? "" : "-rotate-90"}`}
                   />
-                  INSIGHTS
+                  {t("nav.insights")}
                 </div>
               </CollapsibleTrigger>
             </SidebarGroupLabel>
@@ -385,7 +389,7 @@ export const AppSidebar = ({
               <SidebarGroupContent>
                 <SidebarMenu className="mt-2">
                   {reportItems.map((item) => (
-                    <SidebarMenuItem key={item.title}>
+                    <SidebarMenuItem key={item.titleKey}>
                       <SidebarMenuButton
                         asChild
                         isActive={pathname === item.href}
@@ -394,7 +398,7 @@ export const AppSidebar = ({
                         <Link href={item.href}>
                           <item.icon className="size-4 text-muted-foreground" />
                           <span className="flex-1 text-sm text-muted-foreground">
-                            {item.title}
+                            {t(item.titleKey as any)}
                           </span>
                         </Link>
                       </SidebarMenuButton>
@@ -413,21 +417,24 @@ export const AppSidebar = ({
             <SidebarMenuButton asChild className="h-9">
               <Link href="#">
                 <HelpCircle className="size-4" />
-                <span className="text-sm">Help</span>
+                <span className="text-sm">{t("nav.help")}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild className="h-9">
-              <Link href="#">
-                <Settings className="size-4" />
-                <span className="text-sm">Settings</span>
-              </Link>
+            <SidebarMenuButton
+              className="h-9"
+              onClick={() => setSettingsOpen(true)}
+            >
+              <Settings className="size-4" />
+              <span className="text-sm">{t("nav.settings")}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
         <NavUser />
       </SidebarFooter>
+
+      <SettingsModal open={settingsOpen} onOpenChange={setSettingsOpen} />
     </Sidebar>
   );
 };

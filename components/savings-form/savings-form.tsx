@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { z } from "zod";
+import { useTranslations } from "next-intl";
 
 import {
   Button,
@@ -13,10 +14,10 @@ import {
 } from "@/components/ui";
 
 const savingsSchema = z.object({
-  amount: z.coerce.number().positive("Must be greater than zero"),
-  goalName: z.string().min(1, "Goal name is required"),
+  amount: z.coerce.number().positive("mustBePositive"),
+  goalName: z.string().min(1, "goalNameRequired"),
   description: z.string().optional(),
-  date: z.string().min(1, "Date is required"),
+  date: z.string().min(1, "dateRequired"),
 });
 
 export type SavingsFormValues = z.infer<typeof savingsSchema>;
@@ -26,6 +27,9 @@ interface SavingsFormProps {
 }
 
 export const SavingsForm = ({ onSubmit }: SavingsFormProps) => {
+  const t = useTranslations("savings");
+  const tCommon = useTranslations("common");
+
   const today = new Date().toISOString().split("T")[0];
 
   const [values, setValues] = useState({
@@ -38,6 +42,13 @@ export const SavingsForm = ({ onSubmit }: SavingsFormProps) => {
     Partial<Record<keyof SavingsFormValues, string>>
   >({});
 
+  const resolveError = (code: string): string => {
+    if (code === "mustBePositive") return tCommon("mustBePositive");
+    if (code === "goalNameRequired") return t("goalNameRequired");
+    if (code === "dateRequired") return tCommon("dateRequired");
+    return code;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = savingsSchema.safeParse(values);
@@ -45,7 +56,8 @@ export const SavingsForm = ({ onSubmit }: SavingsFormProps) => {
       const fieldErrors: Partial<Record<keyof SavingsFormValues, string>> = {};
       for (const issue of result.error.issues) {
         const field = issue.path[0] as keyof SavingsFormValues;
-        if (!fieldErrors[field]) fieldErrors[field] = issue.message;
+        if (!fieldErrors[field])
+          fieldErrors[field] = resolveError(issue.message);
       }
       setErrors(fieldErrors);
       return;
@@ -59,7 +71,7 @@ export const SavingsForm = ({ onSubmit }: SavingsFormProps) => {
     <form onSubmit={handleSubmit} noValidate>
       <FieldGroup>
         <Field>
-          <FieldLabel htmlFor="amount">Amount</FieldLabel>
+          <FieldLabel htmlFor="amount">{tCommon("amount")}</FieldLabel>
           <Input
             id="amount"
             type="number"
@@ -76,11 +88,11 @@ export const SavingsForm = ({ onSubmit }: SavingsFormProps) => {
         </Field>
 
         <Field>
-          <FieldLabel htmlFor="goalName">Goal</FieldLabel>
+          <FieldLabel htmlFor="goalName">{t("goalLabel")}</FieldLabel>
           <Input
             id="goalName"
             type="text"
-            placeholder="What are you saving for?"
+            placeholder={t("savingFor")}
             value={values.goalName}
             onChange={(e) =>
               setValues((v) => ({ ...v, goalName: e.target.value }))
@@ -91,11 +103,11 @@ export const SavingsForm = ({ onSubmit }: SavingsFormProps) => {
         </Field>
 
         <Field>
-          <FieldLabel htmlFor="description">Notes (optional)</FieldLabel>
+          <FieldLabel htmlFor="description">{t("notesOptional")}</FieldLabel>
           <Input
             id="description"
             type="text"
-            placeholder="Any additional details..."
+            placeholder={t("additionalDetails")}
             value={values.description}
             onChange={(e) =>
               setValues((v) => ({ ...v, description: e.target.value }))
@@ -104,7 +116,7 @@ export const SavingsForm = ({ onSubmit }: SavingsFormProps) => {
         </Field>
 
         <Field>
-          <FieldLabel htmlFor="date">Date</FieldLabel>
+          <FieldLabel htmlFor="date">{tCommon("date")}</FieldLabel>
           <Input
             id="date"
             type="date"
@@ -116,7 +128,7 @@ export const SavingsForm = ({ onSubmit }: SavingsFormProps) => {
         </Field>
 
         <Button type="submit" className="w-full mt-2">
-          Add Savings
+          {t("addSavingsBtn")}
         </Button>
       </FieldGroup>
     </form>

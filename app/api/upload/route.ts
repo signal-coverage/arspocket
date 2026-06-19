@@ -1,6 +1,10 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
-import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
+import {
+  S3Client,
+  PutObjectCommand,
+  GetObjectCommand,
+} from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 const ALLOWED_MIME_TYPES = [
@@ -32,7 +36,10 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Invalid request body" },
+      { status: 400 },
+    );
   }
 
   const { fileName, mimeType, fileSize } = body;
@@ -40,21 +47,21 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
   if (!fileName || typeof fileName !== "string" || fileName.trim() === "") {
     return NextResponse.json(
       { error: "fileName is required" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
   if (!mimeType || !ALLOWED_MIME_TYPES.includes(mimeType)) {
     return NextResponse.json(
       { error: `mimeType must be one of: ${ALLOWED_MIME_TYPES.join(", ")}` },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
   if (fileSize !== undefined && fileSize > MAX_FILE_SIZE) {
     return NextResponse.json(
       { error: "File exceeds 10 MB limit" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 

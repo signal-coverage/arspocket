@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { SerializedSavingsGoalWithMilestones } from "@/app/actions/savings-goals-v2";
 import { GoalsGanttBar } from "./goals-gantt-bar";
 import { GoalDetailSheet } from "./goal-detail-sheet";
@@ -15,16 +16,35 @@ type Props = {
 };
 
 const MONTH_NAMES = [
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
 ];
 
-export const GoalsTimeline = ({ goalsWithDeadline, goalsNoDeadline }: Props) => {
+export const GoalsTimeline = ({
+  goalsWithDeadline,
+  goalsNoDeadline,
+}: Props) => {
+  const t = useTranslations("goals");
   const [viewYear, setViewYear] = useState(new Date().getFullYear());
-  const [selectedGoal, setSelectedGoal] = useState<SerializedSavingsGoalWithMilestones | null>(null);
+  const [selectedGoal, setSelectedGoal] =
+    useState<SerializedSavingsGoalWithMilestones | null>(null);
 
   const today = new Date();
-  const months = MONTH_NAMES.map((name, i) => ({ name, monthIndex: i, year: viewYear }));
+  const months = MONTH_NAMES.map((name, i) => ({
+    name,
+    monthIndex: i,
+    year: viewYear,
+  }));
 
   // Helper: get month index (0-11) relative to viewYear start
   const getColIndex = (dateStr: string, clampToYear = false): number => {
@@ -68,9 +88,12 @@ export const GoalsTimeline = ({ goalsWithDeadline, goalsNoDeadline }: Props) => 
 
       {goalsWithDeadline.length === 0 && goalsNoDeadline.length === 0 && (
         <div className="rounded-lg border border-dashed p-12 text-center">
-          <p className="text-sm text-muted-foreground">No savings goals yet.</p>
-          <Link href="/dashboard/savings" className="text-sm text-primary underline mt-1 inline-block">
-            Create your first goal on the Savings page
+          <p className="text-sm text-muted-foreground">{t("noGoals")}</p>
+          <Link
+            href="/dashboard/savings"
+            className="text-sm text-primary underline mt-1 inline-block"
+          >
+            {t("noGoalsSavingsLink")}
           </Link>
         </div>
       )}
@@ -79,11 +102,17 @@ export const GoalsTimeline = ({ goalsWithDeadline, goalsNoDeadline }: Props) => 
       {visibleGoals.length > 0 && (
         <div className="rounded-lg border overflow-x-auto">
           {/* Header row */}
-          <div className="grid border-b" style={{ gridTemplateColumns: `160px repeat(12, 1fr)` }}>
-            <div className="border-r p-2 text-xs font-medium text-muted-foreground">Goal</div>
+          <div
+            className="grid border-b"
+            style={{ gridTemplateColumns: `160px repeat(12, 1fr)` }}
+          >
+            <div className="border-r p-2 text-xs font-medium text-muted-foreground">
+              {t("goalColumn")}
+            </div>
             {months.map((m) => {
               const isCurrent =
-                m.year === today.getFullYear() && m.monthIndex === today.getMonth();
+                m.year === today.getFullYear() &&
+                m.monthIndex === today.getMonth();
               return (
                 <div
                   key={m.name}
@@ -98,7 +127,10 @@ export const GoalsTimeline = ({ goalsWithDeadline, goalsNoDeadline }: Props) => 
           {/* Goal rows */}
           {visibleGoals.map((goal) => {
             const startCol = Math.max(0, getColIndex(goal.createdAt));
-            const endCol = Math.min(11, goal.targetDate ? getColIndex(goal.targetDate) : 11);
+            const endCol = Math.min(
+              11,
+              goal.targetDate ? getColIndex(goal.targetDate) : 11,
+            );
             const isPast = goal.targetDate
               ? new Date(goal.targetDate) < today
               : false;
@@ -107,10 +139,15 @@ export const GoalsTimeline = ({ goalsWithDeadline, goalsNoDeadline }: Props) => 
               <div
                 key={goal.id}
                 className="grid border-b last:border-b-0 hover:bg-muted/30 transition-colors"
-                style={{ gridTemplateColumns: `160px repeat(12, 1fr)`, height: "48px" }}
+                style={{
+                  gridTemplateColumns: `160px repeat(12, 1fr)`,
+                  height: "48px",
+                }}
               >
                 <div className="border-r px-3 flex items-center">
-                  <span className="text-xs font-medium truncate">{goal.goalName}</span>
+                  <span className="text-xs font-medium truncate">
+                    {goal.goalName}
+                  </span>
                 </div>
                 <div
                   className="col-span-12 relative"
@@ -137,7 +174,7 @@ export const GoalsTimeline = ({ goalsWithDeadline, goalsNoDeadline }: Props) => 
       {goalsNoDeadline.length > 0 && (
         <div>
           <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-3">
-            No Deadline
+            {t("noDeadline")}
           </h3>
           <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {goalsNoDeadline.map((goal) => (

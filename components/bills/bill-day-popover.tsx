@@ -8,6 +8,7 @@ import { formatDateDisplay } from "@/lib/dates";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, Circle } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type Props = {
   bills: SerializedBill[];
@@ -15,10 +16,12 @@ type Props = {
 };
 
 export const BillDayPopover = ({ bills, date }: Props) => {
+  const t = useTranslations("bills");
+
   return (
     <div className="rounded-lg border p-4 flex flex-col gap-3">
       <h3 className="text-sm font-medium">
-        Bills for {formatDateDisplay(date, "MMMM d")}
+        {t("billsFor", { date: formatDateDisplay(date, "MMMM d") })}
       </h3>
       <ul className="flex flex-col gap-2">
         {bills.map((bill) => (
@@ -30,6 +33,7 @@ export const BillDayPopover = ({ bills, date }: Props) => {
 };
 
 const BillDayItem = ({ bill }: { bill: SerializedBill }) => {
+  const t = useTranslations("bills");
   const [isPending, startTransition] = useTransition();
 
   const handleTogglePaid = () => {
@@ -48,7 +52,7 @@ const BillDayItem = ({ bill }: { bill: SerializedBill }) => {
         onClick={handleTogglePaid}
         disabled={isPending}
         className="shrink-0 text-muted-foreground hover:text-primary transition-colors disabled:opacity-50"
-        aria-label={bill.isPaid ? "Mark as unpaid" : "Mark as paid"}
+        aria-label={bill.isPaid ? t("markAsUnpaid") : t("markAsPaid")}
       >
         {bill.isPaid ? (
           <CheckCircle2 className="size-5 text-green-500" />

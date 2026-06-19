@@ -30,55 +30,56 @@ export type SerializedSavingsGoalWithMilestones = {
   pct: number;
 };
 
-export const getSavingsGoalsWithMilestones =
-  async (): Promise<SerializedSavingsGoalWithMilestones[]> => {
-    const { userId } = await auth();
-    if (!userId) return [];
+export const getSavingsGoalsWithMilestones = async (): Promise<
+  SerializedSavingsGoalWithMilestones[]
+> => {
+  const { userId } = await auth();
+  if (!userId) return [];
 
-    const goals = await prisma.savingsGoal.findMany({
-      where: { userId },
-      include: {
-        milestones: { orderBy: { targetDate: "asc" } },
-      },
-      orderBy: { createdAt: "asc" },
-    });
+  const goals = await prisma.savingsGoal.findMany({
+    where: { userId },
+    include: {
+      milestones: { orderBy: { targetDate: "asc" } },
+    },
+    orderBy: { createdAt: "asc" },
+  });
 
-    return goals.map((g) => {
-      const targetAmount = Number(g.targetAmount);
-      const currentAmount = Number(g.currentAmount);
-      const pct =
-        targetAmount > 0
-          ? Math.min(Math.round((currentAmount / targetAmount) * 100), 100)
-          : 0;
+  return goals.map((g) => {
+    const targetAmount = Number(g.targetAmount);
+    const currentAmount = Number(g.currentAmount);
+    const pct =
+      targetAmount > 0
+        ? Math.min(Math.round((currentAmount / targetAmount) * 100), 100)
+        : 0;
 
-      return {
-        id: g.id,
-        userId: g.userId,
-        goalName: g.goalName,
-        targetAmount,
-        currentAmount,
-        description: g.description,
-        targetDate: g.targetDate ? g.targetDate.toISOString() : null,
-        createdAt: g.createdAt.toISOString(),
-        color: g.color,
-        status: g.status,
-        pct,
-        milestones: g.milestones.map((m) => ({
-          id: m.id,
-          goalId: m.goalId,
-          userId: m.userId,
-          title: m.title,
-          targetDate: m.targetDate.toISOString(),
-          isCompleted: m.isCompleted,
-          createdAt: m.createdAt.toISOString(),
-        })),
-      };
-    });
-  };
+    return {
+      id: g.id,
+      userId: g.userId,
+      goalName: g.goalName,
+      targetAmount,
+      currentAmount,
+      description: g.description,
+      targetDate: g.targetDate ? g.targetDate.toISOString() : null,
+      createdAt: g.createdAt.toISOString(),
+      color: g.color,
+      status: g.status,
+      pct,
+      milestones: g.milestones.map((m) => ({
+        id: m.id,
+        goalId: m.goalId,
+        userId: m.userId,
+        title: m.title,
+        targetDate: m.targetDate.toISOString(),
+        isCompleted: m.isCompleted,
+        createdAt: m.createdAt.toISOString(),
+      })),
+    };
+  });
+};
 
 export const updateSavingsGoalMeta = async (
   id: string,
-  data: { color?: string; status?: GoalStatus }
+  data: { color?: string; status?: GoalStatus },
 ): Promise<void> => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
@@ -123,7 +124,7 @@ export const createMilestone = async (data: {
 
 export const updateMilestone = async (
   id: string,
-  data: { title?: string; targetDate?: string; isCompleted?: boolean }
+  data: { title?: string; targetDate?: string; isCompleted?: boolean },
 ): Promise<void> => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");

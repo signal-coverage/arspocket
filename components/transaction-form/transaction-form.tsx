@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { z } from "zod";
+import { useTranslations } from "next-intl";
 
 import {
   Button,
@@ -35,10 +36,10 @@ const OUTCOME_CATEGORIES = [
 ] as const;
 
 const transactionSchema = z.object({
-  amount: z.coerce.number().positive("Must be greater than zero"),
-  description: z.string().min(1, "Description is required"),
-  category: z.string().min(1, "Category is required"),
-  date: z.string().min(1, "Date is required"),
+  amount: z.coerce.number().positive("mustBePositive"),
+  description: z.string().min(1, "descriptionRequired"),
+  category: z.string().min(1, "categoryRequired"),
+  date: z.string().min(1, "dateRequired"),
 });
 
 export type TransactionFormValues = z.infer<typeof transactionSchema>;
@@ -49,6 +50,9 @@ interface TransactionFormProps {
 }
 
 export const TransactionForm = ({ type, onSubmit }: TransactionFormProps) => {
+  const tCommon = useTranslations("common");
+  const tForm = useTranslations("transactionForm");
+
   const categories = type === "income" ? INCOME_CATEGORIES : OUTCOME_CATEGORIES;
   const today = new Date().toISOString().split("T")[0];
 
@@ -62,6 +66,14 @@ export const TransactionForm = ({ type, onSubmit }: TransactionFormProps) => {
     Partial<Record<keyof TransactionFormValues, string>>
   >({});
 
+  const resolveError = (code: string): string => {
+    if (code === "mustBePositive") return tCommon("mustBePositive");
+    if (code === "descriptionRequired") return tCommon("descriptionRequired");
+    if (code === "categoryRequired") return tCommon("categoryRequired");
+    if (code === "dateRequired") return tCommon("dateRequired");
+    return code;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = transactionSchema.safeParse(values);
@@ -70,7 +82,8 @@ export const TransactionForm = ({ type, onSubmit }: TransactionFormProps) => {
         {};
       for (const issue of result.error.issues) {
         const field = issue.path[0] as keyof TransactionFormValues;
-        if (!fieldErrors[field]) fieldErrors[field] = issue.message;
+        if (!fieldErrors[field])
+          fieldErrors[field] = resolveError(issue.message);
       }
       setErrors(fieldErrors);
       return;
@@ -84,13 +97,13 @@ export const TransactionForm = ({ type, onSubmit }: TransactionFormProps) => {
     <form onSubmit={handleSubmit} noValidate>
       <FieldGroup>
         <Field>
-          <FieldLabel htmlFor="amount">Amount</FieldLabel>
+          <FieldLabel htmlFor="amount">{tCommon("amount")}</FieldLabel>
           <Input
             id="amount"
             type="number"
             min="0"
             step="0.01"
-            placeholder="0.00"
+            placeholder={tForm("amountPlaceholder")}
             value={values.amount}
             onChange={(e) =>
               setValues((v) => ({ ...v, amount: e.target.value }))
@@ -101,11 +114,13 @@ export const TransactionForm = ({ type, onSubmit }: TransactionFormProps) => {
         </Field>
 
         <Field>
-          <FieldLabel htmlFor="description">Description</FieldLabel>
+          <FieldLabel htmlFor="description">
+            {tCommon("description")}
+          </FieldLabel>
           <Input
             id="description"
             type="text"
-            placeholder="What was this for?"
+            placeholder={tForm("descriptionPlaceholder")}
             value={values.description}
             onChange={(e) =>
               setValues((v) => ({ ...v, description: e.target.value }))
@@ -116,13 +131,13 @@ export const TransactionForm = ({ type, onSubmit }: TransactionFormProps) => {
         </Field>
 
         <Field>
-          <FieldLabel>Category</FieldLabel>
+          <FieldLabel>{tCommon("category")}</FieldLabel>
           <Select
             value={values.category}
             onValueChange={(val) => setValues((v) => ({ ...v, category: val }))}
           >
             <SelectTrigger className="w-full" aria-invalid={!!errors.category}>
-              <SelectValue placeholder="Select a category" />
+              <SelectValue placeholder={tCommon("selectCategory")} />
             </SelectTrigger>
             <SelectContent>
               {categories.map((cat) => (
@@ -136,7 +151,7 @@ export const TransactionForm = ({ type, onSubmit }: TransactionFormProps) => {
         </Field>
 
         <Field>
-          <FieldLabel htmlFor="date">Date</FieldLabel>
+          <FieldLabel htmlFor="date">{tCommon("date")}</FieldLabel>
           <Input
             id="date"
             type="date"
@@ -148,7 +163,7 @@ export const TransactionForm = ({ type, onSubmit }: TransactionFormProps) => {
         </Field>
 
         <Button type="submit" className="w-full mt-2">
-          Add {type === "income" ? "Income" : "Expense"}
+          {type === "income" ? tForm("addIncome") : tForm("addExpense")}
         </Button>
       </FieldGroup>
     </form>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
+import { useTranslations } from "next-intl";
 import { SerializedBookmark } from "@/app/actions/library";
 import {
   toggleFavorite,
@@ -11,7 +12,14 @@ import {
 } from "@/app/actions/library";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Star, Archive, Trash2, RotateCcw, ExternalLink, BookMarked } from "lucide-react";
+import {
+  Star,
+  Archive,
+  Trash2,
+  RotateCcw,
+  ExternalLink,
+  BookMarked,
+} from "lucide-react";
 import Image from "next/image";
 
 type Props = {
@@ -20,6 +28,8 @@ type Props = {
 };
 
 export const BookmarkCard = ({ bookmark, variant = "default" }: Props) => {
+  const t = useTranslations("library");
+  const tCommon = useTranslations("common");
   const [isPending, startTransition] = useTransition();
 
   const domain = (() => {
@@ -75,7 +85,11 @@ export const BookmarkCard = ({ bookmark, variant = "default" }: Props) => {
       {bookmark.tags.length > 0 && (
         <div className="flex flex-wrap gap-1">
           {bookmark.tags.map((tag) => (
-            <Badge key={tag} variant="secondary" className="text-xs px-1.5 py-0">
+            <Badge
+              key={tag}
+              variant="secondary"
+              className="text-xs px-1.5 py-0"
+            >
               {tag}
             </Badge>
           ))}
@@ -105,7 +119,7 @@ export const BookmarkCard = ({ bookmark, variant = "default" }: Props) => {
               }
             >
               <RotateCcw className="size-3" />
-              Restore
+              {t("restore")}
             </Button>
             <Button
               size="sm"
@@ -119,7 +133,7 @@ export const BookmarkCard = ({ bookmark, variant = "default" }: Props) => {
               }
             >
               <Trash2 className="size-3" />
-              Delete forever
+              {t("deletePermanently")}
             </Button>
           </>
         ) : (
@@ -134,9 +148,15 @@ export const BookmarkCard = ({ bookmark, variant = "default" }: Props) => {
                   await toggleFavorite(bookmark.id);
                 })
               }
-              title={bookmark.isFavorite ? "Remove from favorites" : "Add to favorites"}
+              title={
+                bookmark.isFavorite
+                  ? t("removeFromFavorites")
+                  : t("addToFavorites")
+              }
             >
-              <Star className={`size-3.5 ${bookmark.isFavorite ? "fill-amber-500" : ""}`} />
+              <Star
+                className={`size-3.5 ${bookmark.isFavorite ? "fill-amber-500" : ""}`}
+              />
             </Button>
             <Button
               size="icon"
@@ -148,7 +168,7 @@ export const BookmarkCard = ({ bookmark, variant = "default" }: Props) => {
                   await archiveBookmark(bookmark.id);
                 })
               }
-              title="Archive"
+              title={t("archiveAction")}
             >
               <Archive className="size-3.5" />
             </Button>
@@ -162,7 +182,7 @@ export const BookmarkCard = ({ bookmark, variant = "default" }: Props) => {
                   await softDeleteBookmark(bookmark.id);
                 })
               }
-              title="Delete"
+              title={tCommon("delete")}
             >
               <Trash2 className="size-3.5" />
             </Button>

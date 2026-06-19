@@ -2,6 +2,7 @@
 
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
+import { useTranslations } from "next-intl";
 import { SerializedTask } from "@/app/actions/tasks";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -19,14 +20,24 @@ const PRIORITY_STYLES = {
   LOW: "bg-muted text-muted-foreground",
   MEDIUM: "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-200",
   HIGH: "bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-200",
-  URGENT: "bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-200",
+  URGENT:
+    "bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-200",
 };
 
+const PRIORITY_KEY_MAP = {
+  LOW: "priority.low",
+  MEDIUM: "priority.medium",
+  HIGH: "priority.high",
+  URGENT: "priority.urgent",
+} as const;
+
 export const TaskCard = ({ task }: Props) => {
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id: task.id,
-    data: { task },
-  });
+  const t = useTranslations("tasks");
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: task.id,
+      data: { task },
+    });
   const [isPending, startTransition] = useTransition();
   const [editOpen, setEditOpen] = useState(false);
 
@@ -56,13 +67,18 @@ export const TaskCard = ({ task }: Props) => {
         className={`rounded-lg border bg-card p-3 flex flex-col gap-2 cursor-grab active:cursor-grabbing shadow-sm ${isDragging ? "ring-2 ring-primary" : ""}`}
       >
         <div className="flex items-start justify-between gap-1">
-          <p className="text-sm font-medium line-clamp-2 flex-1">{task.title}</p>
+          <p className="text-sm font-medium line-clamp-2 flex-1">
+            {task.title}
+          </p>
           <div className="flex items-center gap-0.5 shrink-0">
             <Button
               size="icon"
               variant="ghost"
               className="size-6 text-muted-foreground"
-              onClick={(e) => { e.stopPropagation(); setEditOpen(true); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                setEditOpen(true);
+              }}
               onPointerDown={(e) => e.stopPropagation()}
             >
               <Pencil className="size-3" />
@@ -71,7 +87,10 @@ export const TaskCard = ({ task }: Props) => {
               size="icon"
               variant="ghost"
               className="size-6 text-muted-foreground hover:text-destructive"
-              onClick={(e) => { e.stopPropagation(); handleDelete(); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete();
+              }}
               onPointerDown={(e) => e.stopPropagation()}
               disabled={isPending}
             >
@@ -81,34 +100,40 @@ export const TaskCard = ({ task }: Props) => {
         </div>
 
         {task.description && (
-          <p className="text-xs text-muted-foreground line-clamp-2">{task.description}</p>
+          <p className="text-xs text-muted-foreground line-clamp-2">
+            {task.description}
+          </p>
         )}
 
         <div className="flex flex-wrap items-center gap-1">
-          <Badge className={`text-xs px-1.5 py-0 ${PRIORITY_STYLES[task.priority]}`}>
-            {task.priority}
+          <Badge
+            className={`text-xs px-1.5 py-0 ${PRIORITY_STYLES[task.priority]}`}
+          >
+            {t(PRIORITY_KEY_MAP[task.priority])}
           </Badge>
           {task.labels.map((label) => (
-            <Badge key={label} variant="outline" className="text-xs px-1.5 py-0">
+            <Badge
+              key={label}
+              variant="outline"
+              className="text-xs px-1.5 py-0"
+            >
               {label}
             </Badge>
           ))}
         </div>
 
         {task.dueDate && (
-          <div className={`flex items-center gap-1 text-xs ${isOverdue ? "text-destructive" : "text-muted-foreground"}`}>
+          <div
+            className={`flex items-center gap-1 text-xs ${isOverdue ? "text-destructive" : "text-muted-foreground"}`}
+          >
             {isOverdue && <AlertCircle className="size-3 shrink-0" />}
             <span>{formatDateDisplay(task.dueDate, "MMM d, yyyy")}</span>
-            {isOverdue && <span className="font-medium">(overdue)</span>}
+            {isOverdue && <span className="font-medium">({t("overdue")})</span>}
           </div>
         )}
       </div>
 
-      <TaskForm
-        open={editOpen}
-        onOpenChange={setEditOpen}
-        editTask={task}
-      />
+      <TaskForm open={editOpen} onOpenChange={setEditOpen} editTask={task} />
     </>
   );
 };

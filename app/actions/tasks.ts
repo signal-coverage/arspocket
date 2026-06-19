@@ -54,7 +54,9 @@ export const getTasks = async (): Promise<SerializedTask[]> => {
   return tasks.map(serializeTask);
 };
 
-export const getTasksByStatus = async (): Promise<Record<TaskStatus, SerializedTask[]>> => {
+export const getTasksByStatus = async (): Promise<
+  Record<TaskStatus, SerializedTask[]>
+> => {
   const { userId } = await auth();
   if (!userId) {
     return {
@@ -119,7 +121,7 @@ export const updateTask = async (
     priority?: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
     dueDate?: string | null;
     labels?: string[];
-  }
+  },
 ): Promise<void> => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
@@ -133,7 +135,9 @@ export const updateTask = async (
     data: {
       ...(data.title !== undefined && { title: data.title }),
       ...(data.description !== undefined && { description: data.description }),
-      ...(data.priority !== undefined && { priority: data.priority as TaskPriority }),
+      ...(data.priority !== undefined && {
+        priority: data.priority as TaskPriority,
+      }),
       ...(data.dueDate !== undefined && {
         dueDate: data.dueDate ? new Date(data.dueDate) : null,
       }),
@@ -146,7 +150,7 @@ export const updateTask = async (
 
 export const updateTaskStatus = async (
   id: string,
-  status: TaskStatus
+  status: TaskStatus,
 ): Promise<void> => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");

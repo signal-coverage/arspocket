@@ -1,6 +1,7 @@
 "use client";
 
 import { useOptimistic, useTransition, useState } from "react";
+import { useTranslations } from "next-intl";
 import { SerializedHabit, StreakData } from "@/app/actions/habits";
 import { toggleHabitLog, deleteHabit } from "@/app/actions/habits";
 import { dateToString } from "@/lib/dates";
@@ -15,12 +16,13 @@ type Props = {
 };
 
 export const HabitsTodayView = ({ habits, streak }: Props) => {
+  const t = useTranslations("habits");
   const [optimisticHabits, setOptimisticHabits] = useOptimistic(
     habits,
     (state, payload: { id: string; completed: boolean }) =>
       state.map((h) =>
-        h.id === payload.id ? { ...h, todayCompleted: payload.completed } : h
-      )
+        h.id === payload.id ? { ...h, todayCompleted: payload.completed } : h,
+      ),
   );
   const [, startTransition] = useTransition();
   const [addOpen, setAddOpen] = useState(false);
@@ -47,19 +49,21 @@ export const HabitsTodayView = ({ habits, streak }: Props) => {
         <Flame className="size-8 text-orange-500" />
         <div>
           <p className="text-2xl font-bold">{streak.currentStreak}</p>
-          <p className="text-xs text-muted-foreground">Day streak</p>
+          <p className="text-xs text-muted-foreground">{t("dayStreak")}</p>
         </div>
         {streak.longestStreak > 0 && (
           <div className="ml-auto text-right">
             <p className="text-sm font-medium">{streak.longestStreak}</p>
-            <p className="text-xs text-muted-foreground">Best streak</p>
+            <p className="text-xs text-muted-foreground">
+              {t("bestStreakShort")}
+            </p>
           </div>
         )}
       </div>
 
       {/* Actions row */}
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-medium">Today&apos;s Habits</h2>
+        <h2 className="text-sm font-medium">{t("todaysHabits")}</h2>
         <div className="flex items-center gap-2">
           <NoActivityDialog />
           <Button
@@ -68,7 +72,7 @@ export const HabitsTodayView = ({ habits, streak }: Props) => {
             className="gap-1.5"
           >
             <Plus className="size-4" />
-            Add Habit
+            {t("addHabit")}
           </Button>
         </div>
       </div>
@@ -77,7 +81,7 @@ export const HabitsTodayView = ({ habits, streak }: Props) => {
       {optimisticHabits.length === 0 ? (
         <div className="rounded-lg border border-dashed p-12 text-center">
           <p className="text-sm text-muted-foreground">
-            No habits yet. Add your first habit to get started.
+            {t("noHabitsStarted")}
           </p>
         </div>
       ) : (
@@ -91,7 +95,7 @@ export const HabitsTodayView = ({ habits, streak }: Props) => {
                 onClick={() => handleToggle(habit)}
                 className="shrink-0 transition-colors"
                 aria-label={
-                  habit.todayCompleted ? "Mark incomplete" : "Mark complete"
+                  habit.todayCompleted ? t("markIncomplete") : t("markComplete")
                 }
               >
                 {habit.todayCompleted ? (
@@ -111,7 +115,7 @@ export const HabitsTodayView = ({ habits, streak }: Props) => {
                   </p>
                   {habit.weekCompletionRate !== undefined && (
                     <p className="text-xs text-muted-foreground">
-                      {habit.weekCompletionRate}% this week
+                      {t("thisWeekPct", { pct: habit.weekCompletionRate })}
                     </p>
                   )}
                 </div>

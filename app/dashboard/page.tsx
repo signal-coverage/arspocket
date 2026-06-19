@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 import { TransactionType } from "@prisma/client";
+import { getTranslations } from "next-intl/server";
 
 import { formatCurrency } from "@/lib/format";
 
@@ -72,58 +73,66 @@ const getMonthlyChartData = async (userId: string) => {
 
 export const DashboardPage = async () => {
   const { userId } = await auth();
+  const t = await getTranslations("dashboard");
 
-  const [stats, savingsGoals, recentTransactions, chartData, projection30, projection60, projection90] =
-    await Promise.all([
-      getDashboardStats(),
-      getSavingsGoals(),
-      userId
-        ? prisma.transaction.findMany({
-            where: { userId },
-            orderBy: { date: "desc" },
-            take: 5,
-            select: {
-              id: true,
-              type: true,
-              amount: true,
-              description: true,
-              category: true,
-              date: true,
-            },
-          })
-        : Promise.resolve([]),
-      userId ? getMonthlyChartData(userId) : Promise.resolve([]),
-      userId ? getCashFlowProjection(userId, 30) : Promise.resolve([]),
-      userId ? getCashFlowProjection(userId, 60) : Promise.resolve([]),
-      userId ? getCashFlowProjection(userId, 90) : Promise.resolve([]),
-    ]);
+  const [
+    stats,
+    savingsGoals,
+    recentTransactions,
+    chartData,
+    projection30,
+    projection60,
+    projection90,
+  ] = await Promise.all([
+    getDashboardStats(),
+    getSavingsGoals(),
+    userId
+      ? prisma.transaction.findMany({
+          where: { userId },
+          orderBy: { date: "desc" },
+          take: 5,
+          select: {
+            id: true,
+            type: true,
+            amount: true,
+            description: true,
+            category: true,
+            date: true,
+          },
+        })
+      : Promise.resolve([]),
+    userId ? getMonthlyChartData(userId) : Promise.resolve([]),
+    userId ? getCashFlowProjection(userId, 30) : Promise.resolve([]),
+    userId ? getCashFlowProjection(userId, 60) : Promise.resolve([]),
+    userId ? getCashFlowProjection(userId, 90) : Promise.resolve([]),
+  ]);
 
   const kpiCards = [
     {
-      title: "Balance",
+      title: t("balance"),
       value: formatCurrency(stats.balance),
-      change: stats.balance >= 0 ? "Positive" : "Negative",
+      change: stats.balance >= 0 ? t("positive") : t("negative"),
       isPositive: stats.balance >= 0,
       icon: TrendingUp,
     },
     {
-      title: "Monthly Income",
+      title: t("monthlyIncome"),
       value: formatCurrency(stats.monthlyIncome),
-      change: "This month",
+      change: t("thisMonth"),
       isPositive: true,
       icon: MoveUpRight,
     },
     {
-      title: "Monthly Expenses",
+      title: t("monthlyExpenses"),
       value: formatCurrency(stats.monthlyExpenses),
-      change: "This month",
+      change: t("thisMonth"),
       isPositive: false,
       icon: MoveDownLeft,
     },
     {
-      title: "Savings Goals",
-      value: `${savingsGoals.length} active`,
-      change: "Active goals",
+      title: t("savingsGoals"),
+      value: `${savingsGoals.length} ${t("activeGoalsLabel")}`,
+      change: t("activeGoalsLabel"),
       isPositive: true,
       icon: PiggyBank,
     },
@@ -137,9 +146,7 @@ export const DashboardPage = async () => {
           <h2 className="text-xl sm:text-[22px] font-semibold">
             <TimeGreeting />
           </h2>
-          <p className="text-sm text-muted-foreground">
-            Here&apos;s an overview of your finances.
-          </p>
+          <p className="text-sm text-muted-foreground">{t("overview")}</p>
         </div>
         <QuickActions />
       </div>
@@ -180,29 +187,31 @@ export const DashboardPage = async () => {
         {/* Recent Transactions */}
         <Card className="flex flex-col lg:col-span-1">
           <CardHeader className="pb-3">
-            <CardTitle className="text-base">Recent Transactions</CardTitle>
+            <CardTitle className="text-base">
+              {t("recentTransactions")}
+            </CardTitle>
           </CardHeader>
           <CardContent className="flex-1 overflow-auto">
             {recentTransactions.length === 0 ? (
               <div className="flex flex-col items-center justify-center gap-3 py-10 text-center">
                 <Inbox className="size-10 text-muted-foreground/50" />
                 <div>
-                  <p className="text-sm font-medium">No transactions yet</p>
+                  <p className="text-sm font-medium">{t("noTransactions")}</p>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Add your first income or expense to get started.
+                    {t("noTransactionsDescription")}
                   </p>
                 </div>
                 <Button asChild size="sm" variant="outline">
-                  <Link href="/dashboard/income">Add transaction</Link>
+                  <Link href="/dashboard/income">{t("addTransaction")}</Link>
                 </Button>
               </div>
             ) : (
               <ul className="divide-y">
-                {recentTransactions.map((t) => {
-                  const isIncome = t.type === TransactionType.INCOME;
+                {recentTransactions.map((tx) => {
+                  const isIncome = tx.type === TransactionType.INCOME;
                   return (
                     <li
-                      key={t.id}
+                      key={tx.id}
                       className="flex items-center gap-3 py-3 first:pt-0"
                     >
                       <div
@@ -216,14 +225,14 @@ export const DashboardPage = async () => {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium truncate">
-                          {t.description}
+                          {tx.description}
                         </p>
                         <div className="flex items-center gap-1.5 mt-0.5">
                           <Badge variant="secondary" className="text-xs">
-                            {t.category}
+                            {tx.category}
                           </Badge>
                           <span className="text-xs text-muted-foreground">
-                            {format(new Date(t.date), "MMM d")}
+                            {format(new Date(tx.date), "MMM d")}
                           </span>
                         </div>
                       </div>
@@ -232,7 +241,7 @@ export const DashboardPage = async () => {
                           className={`text-sm font-semibold ${isIncome ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}
                         >
                           {isIncome ? "+" : "-"}$
-                          {Number(t.amount).toLocaleString("en-US", {
+                          {Number(tx.amount).toLocaleString("en-US", {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           })}
@@ -240,7 +249,7 @@ export const DashboardPage = async () => {
                         <form
                           action={async () => {
                             "use server";
-                            await deleteTransaction(t.id);
+                            await deleteTransaction(tx.id);
                           }}
                         >
                           <Button
@@ -265,14 +274,14 @@ export const DashboardPage = async () => {
         <Card>
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-base">Savings Goals</CardTitle>
+              <CardTitle className="text-base">{t("savingsGoals")}</CardTitle>
               <Button
                 asChild
                 size="sm"
                 variant="ghost"
                 className="h-7 text-xs text-muted-foreground"
               >
-                <Link href="/dashboard/savings">View all</Link>
+                <Link href="/dashboard/savings">{t("viewAll")}</Link>
               </Button>
             </div>
           </CardHeader>
@@ -280,9 +289,9 @@ export const DashboardPage = async () => {
             {savingsGoals.length === 0 ? (
               <div className="flex flex-col items-center justify-center gap-3 py-8 text-center">
                 <Target className="size-8 text-muted-foreground/50" />
-                <p className="text-sm text-muted-foreground">No goals yet</p>
+                <p className="text-sm text-muted-foreground">{t("noGoals")}</p>
                 <Button asChild size="sm" variant="outline">
-                  <Link href="/dashboard/savings">Create goal</Link>
+                  <Link href="/dashboard/savings">{t("createGoal")}</Link>
                 </Button>
               </div>
             ) : (

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   LineChart,
   Line,
@@ -30,13 +31,16 @@ const fmt = (n: number) =>
   }).format(n);
 
 export const CashFlowChart = ({ data30, data60, data90 }: Props) => {
+  const t = useTranslations("dashboard");
   const [days, setDays] = useState<30 | 60 | 90>(30);
 
   const data = days === 30 ? data30 : days === 60 ? data60 : data90;
   const hasData = data.some((p) => p.projected !== 0 || p.cumulative !== 0);
 
   // Only show every 7th point label to avoid crowding
-  const labeledData = data.filter((_, i) => i % 7 === 0 || i === data.length - 1);
+  const labeledData = data.filter(
+    (_, i) => i % 7 === 0 || i === data.length - 1,
+  );
   const labelSet = new Set(labeledData.map((d) => d.date));
 
   return (
@@ -44,9 +48,9 @@ export const CashFlowChart = ({ data30, data60, data90 }: Props) => {
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base">
-            Cash Flow Projection{" "}
+            {t("cashFlowProjection")}{" "}
             <span className="text-xs font-normal text-muted-foreground ml-1">
-              (Estimate)
+              ({t("estimate")})
             </span>
           </CardTitle>
           <div className="flex gap-1">
@@ -67,11 +71,14 @@ export const CashFlowChart = ({ data30, data60, data90 }: Props) => {
       <CardContent>
         {!hasData ? (
           <div className="flex items-center justify-center h-48 text-sm text-muted-foreground">
-            Not enough data for an accurate projection
+            {t("notEnoughData")}
           </div>
         ) : (
           <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={data} margin={{ top: 5, right: 20, left: 20, bottom: 5 }}>
+            <LineChart
+              data={data}
+              margin={{ top: 5, right: 20, left: 20, bottom: 5 }}
+            >
               <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
               <XAxis
                 dataKey="date"
@@ -80,12 +87,15 @@ export const CashFlowChart = ({ data30, data60, data90 }: Props) => {
                 interval={0}
               />
               <YAxis tickFormatter={fmt} className="text-xs" width={70} />
-              <Tooltip formatter={(v) => fmt(Number(v))} labelFormatter={(l) => `Date: ${l}`} />
+              <Tooltip
+                formatter={(v) => fmt(Number(v))}
+                labelFormatter={(l) => `${t("dateLabel")}: ${l}`}
+              />
               <Legend />
               <Line
                 type="monotone"
                 dataKey="projected"
-                name="Daily"
+                name={t("daily")}
                 stroke="#6366f1"
                 strokeWidth={1.5}
                 strokeDasharray="4 4"
@@ -94,7 +104,7 @@ export const CashFlowChart = ({ data30, data60, data90 }: Props) => {
               <Line
                 type="monotone"
                 dataKey="cumulative"
-                name="Cumulative"
+                name={t("cumulative")}
                 stroke="#10b981"
                 strokeWidth={2}
                 dot={false}

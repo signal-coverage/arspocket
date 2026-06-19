@@ -20,7 +20,7 @@ export const POST = async (req: NextRequest) => {
   if (!file || !columnMapRaw) {
     return NextResponse.json(
       { error: "file and columnMap are required" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -33,7 +33,7 @@ export const POST = async (req: NextRequest) => {
   if (rows.length > MAX_ROWS) {
     return NextResponse.json(
       { error: "max_rows_exceeded", limit: MAX_ROWS, found: rows.length },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -57,8 +57,12 @@ export const POST = async (req: NextRequest) => {
       amount: raw[columnMap.amount] ?? "",
       currency: raw[columnMap.currency] ?? "ARS",
       date: raw[columnMap.date] ?? "",
-      description: columnMap.description ? (raw[columnMap.description] ?? "") : "",
-      category: columnMap.category ? (raw[columnMap.category] ?? "Other") : "Other",
+      description: columnMap.description
+        ? (raw[columnMap.description] ?? "")
+        : "",
+      category: columnMap.category
+        ? (raw[columnMap.category] ?? "Other")
+        : "Other",
     };
 
     const parsed = importRowSchema.safeParse(mapped);

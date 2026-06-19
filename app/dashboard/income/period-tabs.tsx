@@ -1,21 +1,35 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 
-const PERIODS = [
-  { value: "this-week", label: "This Week" },
-  { value: "this-month", label: "This Month" },
-  { value: "last-month", label: "Last Month" },
-  { value: "this-year", label: "This Year" },
-  { value: "all", label: "All Time" },
+const PERIOD_VALUES = [
+  "this-week",
+  "this-month",
+  "last-month",
+  "this-year",
+  "all",
 ] as const;
 
-export type IncomePeriod = (typeof PERIODS)[number]["value"];
+export type IncomePeriod = (typeof PERIOD_VALUES)[number];
 
-export const PeriodTabs = ({ currentPeriod }: { currentPeriod: IncomePeriod }) => {
+export const PeriodTabs = ({
+  currentPeriod,
+}: {
+  currentPeriod: IncomePeriod;
+}) => {
+  const t = useTranslations("common");
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const PERIODS: { value: IncomePeriod; label: string }[] = [
+    { value: "this-week", label: t("thisWeek") },
+    { value: "this-month", label: t("thisMonth") },
+    { value: "last-month", label: t("lastMonth") },
+    { value: "this-year", label: t("thisYear") },
+    { value: "all", label: t("allTime") },
+  ];
 
   const handleChange = (period: IncomePeriod) => {
     const params = new URLSearchParams(searchParams.toString());

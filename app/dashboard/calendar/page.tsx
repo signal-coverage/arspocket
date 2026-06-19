@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { getTransactionsByDay } from "@/app/actions/transactions";
 import { TransactionCalendar } from "@/components/transactions/transaction-calendar";
 
@@ -9,6 +10,7 @@ export const CalendarPage = async ({
 }: {
   searchParams: Promise<{ year?: string; month?: string }>;
 }) => {
+  const t = await getTranslations("calendar");
   const params = await searchParams;
   const now = new Date();
   const year = params.year ? parseInt(params.year) : now.getFullYear();
@@ -19,7 +21,7 @@ export const CalendarPage = async ({
   return (
     <div className="flex flex-1 flex-col gap-6 p-6">
       <div>
-        <h1 className="text-xl font-semibold">Calendar</h1>
+        <h1 className="text-xl font-semibold">{t("title")}</h1>
         <p className="text-sm text-muted-foreground">
           {new Date(year, month - 1).toLocaleString("default", {
             month: "long",

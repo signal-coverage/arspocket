@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { getTasksByStatus } from "@/app/actions/tasks";
 import { TaskBoard } from "@/components/tasks/task-board";
 import { ListChecks } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 export const metadata: Metadata = { title: "Tasks — ARSPocket" };
 
 export const TasksPage = async () => {
+  const t = await getTranslations("tasks");
   const tasksByStatus = await getTasksByStatus();
 
   return (
@@ -14,11 +16,9 @@ export const TasksPage = async () => {
         <div>
           <h1 className="text-xl font-semibold flex items-center gap-2">
             <ListChecks className="size-5" />
-            Financial To-Dos
+            {t("financialTodos")}
           </h1>
-          <p className="text-sm text-muted-foreground">
-            Manage your financial tasks in a Kanban board.
-          </p>
+          <p className="text-sm text-muted-foreground">{t("kanbanSubtitle")}</p>
         </div>
       </div>
 

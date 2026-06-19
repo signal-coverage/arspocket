@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { HeatmapDay } from "@/app/actions/habits";
 
 type Props = {
@@ -7,11 +8,11 @@ type Props = {
 };
 
 const INTENSITY_COLORS = [
-  "bg-muted",            // 0 — no activity
-  "bg-primary/20",      // 1
-  "bg-primary/40",      // 2-3
-  "bg-primary/60",      // 4-5
-  "bg-primary/80",      // 6+
+  "bg-muted", // 0 — no activity
+  "bg-primary/20", // 1
+  "bg-primary/40", // 2-3
+  "bg-primary/60", // 4-5
+  "bg-primary/80", // 6+
 ];
 
 const getIntensity = (count: number): number => {
@@ -22,10 +23,25 @@ const getIntensity = (count: number): number => {
   return 4;
 };
 
-const MONTH_LABELS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const MONTH_LABELS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 const DAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 export const ContributionHeatmap = ({ data }: Props) => {
+  const t = useTranslations("habits");
+
   if (data.length === 0) return null;
 
   // Build weekly columns from data
@@ -65,7 +81,10 @@ export const ContributionHeatmap = ({ data }: Props) => {
         {weeks.map((_, colIdx) => {
           const mp = monthPositions.find((m) => m.col === colIdx);
           return (
-            <div key={colIdx} className="w-3.5 shrink-0 mr-0.5 text-[9px] text-muted-foreground">
+            <div
+              key={colIdx}
+              className="w-3.5 shrink-0 mr-0.5 text-[9px] text-muted-foreground"
+            >
               {mp?.label ?? ""}
             </div>
           );
@@ -76,7 +95,10 @@ export const ContributionHeatmap = ({ data }: Props) => {
         {/* Day labels */}
         <div className="flex flex-col gap-0.5 mr-1">
           {DAY_LABELS.map((d, i) => (
-            <div key={d} className="h-3.5 text-[9px] text-muted-foreground flex items-center">
+            <div
+              key={d}
+              className="h-3.5 text-[9px] text-muted-foreground flex items-center"
+            >
               {i % 2 === 1 ? d : ""}
             </div>
           ))}
@@ -106,11 +128,11 @@ export const ContributionHeatmap = ({ data }: Props) => {
 
       {/* Legend */}
       <div className="flex items-center gap-1 mt-1 ml-8 text-[10px] text-muted-foreground">
-        <span>Less</span>
+        <span>{t("less")}</span>
         {INTENSITY_COLORS.map((c, i) => (
           <div key={i} className={`size-3 rounded-sm ${c}`} />
         ))}
-        <span>More</span>
+        <span>{t("more")}</span>
       </div>
     </div>
   );

@@ -1,8 +1,12 @@
 "use client";
 
 import { useTransition } from "react";
+import { useTranslations } from "next-intl";
 import { SerializedSavingsGoalWithMilestones } from "@/app/actions/savings-goals-v2";
-import { toggleMilestoneComplete, deleteMilestone } from "@/app/actions/savings-goals-v2";
+import {
+  toggleMilestoneComplete,
+  deleteMilestone,
+} from "@/app/actions/savings-goals-v2";
 import {
   Sheet,
   SheetContent,
@@ -24,10 +28,13 @@ type Props = {
 };
 
 export const GoalDetailSheet = ({ goal, open, onOpenChange }: Props) => {
+  const t = useTranslations("goals");
   const today = new Date();
   const targetDate = goal.targetDate ? new Date(goal.targetDate) : null;
   const daysRemaining = targetDate
-    ? Math.ceil((targetDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
+    ? Math.ceil(
+        (targetDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
+      )
     : null;
 
   return (
@@ -44,7 +51,7 @@ export const GoalDetailSheet = ({ goal, open, onOpenChange }: Props) => {
           {/* Progress */}
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">Progress</span>
+              <span className="text-muted-foreground">{t("progress")}</span>
               <span className="font-semibold">{formatPercent(goal.pct)}</span>
             </div>
             <div className="h-2 rounded-full bg-muted overflow-hidden">
@@ -63,7 +70,9 @@ export const GoalDetailSheet = ({ goal, open, onOpenChange }: Props) => {
           {targetDate && (
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
-                <span className="text-xs text-muted-foreground">Target Date</span>
+                <span className="text-xs text-muted-foreground">
+                  {t("targetDate")}
+                </span>
                 <span className="text-sm font-medium">
                   {formatDateDisplay(targetDate, "MMMM d, yyyy")}
                 </span>
@@ -73,8 +82,8 @@ export const GoalDetailSheet = ({ goal, open, onOpenChange }: Props) => {
                   variant={daysRemaining < 0 ? "destructive" : "secondary"}
                 >
                   {daysRemaining < 0
-                    ? `Overdue by ${Math.abs(daysRemaining)} days`
-                    : `${daysRemaining} days left`}
+                    ? t("overdueBy", { days: Math.abs(daysRemaining) })
+                    : t("daysLeftLabel", { days: daysRemaining })}
                 </Badge>
               )}
             </div>
@@ -82,9 +91,11 @@ export const GoalDetailSheet = ({ goal, open, onOpenChange }: Props) => {
 
           {/* Milestones */}
           <div className="flex flex-col gap-3">
-            <h4 className="text-sm font-medium">Milestones</h4>
+            <h4 className="text-sm font-medium">{t("milestones")}</h4>
             {goal.milestones.length === 0 ? (
-              <p className="text-xs text-muted-foreground">No milestones yet.</p>
+              <p className="text-xs text-muted-foreground">
+                {t("noMilestones")}
+              </p>
             ) : (
               <ul className="flex flex-col gap-2">
                 {goal.milestones.map((m) => (
@@ -96,7 +107,7 @@ export const GoalDetailSheet = ({ goal, open, onOpenChange }: Props) => {
 
           {/* Add milestone form */}
           <div className="border-t pt-4">
-            <h4 className="text-sm font-medium mb-3">Add Milestone</h4>
+            <h4 className="text-sm font-medium mb-3">{t("addMilestone")}</h4>
             <MilestoneForm goalId={goal.id} />
           </div>
         </div>
@@ -138,7 +149,9 @@ const MilestoneItem = ({ milestone }: MilestoneItemProps) => {
         )}
       </button>
       <div className="flex-1 min-w-0">
-        <p className={`text-sm ${milestone.isCompleted ? "line-through text-muted-foreground" : ""}`}>
+        <p
+          className={`text-sm ${milestone.isCompleted ? "line-through text-muted-foreground" : ""}`}
+        >
           {milestone.title}
         </p>
         <p className="text-xs text-muted-foreground">

@@ -5,12 +5,14 @@ import { BudgetWithSpend } from "@/app/actions/budgets";
 import { BudgetCard } from "./budget-card";
 import { BudgetForm } from "./budget-form";
 import { PieChart } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type Props = {
   budgets: BudgetWithSpend[];
 };
 
 export const BudgetList = ({ budgets }: Props) => {
+  const t = useTranslations("budget");
   const [editBudget, setEditBudget] = useState<BudgetWithSpend | null>(null);
 
   if (budgets.length === 0) {
@@ -18,9 +20,9 @@ export const BudgetList = ({ budgets }: Props) => {
       <div className="flex flex-col items-center justify-center gap-3 py-16 text-center rounded-lg border border-dashed">
         <PieChart className="size-10 text-muted-foreground/40" />
         <div>
-          <p className="text-sm font-medium">No budgets yet</p>
+          <p className="text-sm font-medium">{t("noBudgetsYet")}</p>
           <p className="text-xs text-muted-foreground mt-1">
-            Create your first budget to start tracking spending.
+            {t("noBudgetsYetDescription")}
           </p>
         </div>
       </div>

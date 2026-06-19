@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { format } from "date-fns";
 import { Inbox, MoveUpRight, Trash2 } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 import { deleteTransaction, getTransactions } from "@/app/actions/transactions";
 import {
@@ -39,7 +40,9 @@ const VALID_PERIODS: IncomePeriod[] = [
   "all",
 ];
 
-const getPeriodRange = (period: IncomePeriod): { start: Date; end: Date } | null => {
+const getPeriodRange = (
+  period: IncomePeriod,
+): { start: Date; end: Date } | null => {
   const now = new Date();
   switch (period) {
     case "this-week":
@@ -58,14 +61,22 @@ const getPeriodRange = (period: IncomePeriod): { start: Date; end: Date } | null
 export const IncomePage = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ search?: string; category?: string; period?: string }>;
+  searchParams: Promise<{
+    search?: string;
+    category?: string;
+    period?: string;
+  }>;
 }) => {
+  const t = await getTranslations("income");
+  const tCommon = await getTranslations("common");
+
   const { search, category, period: periodParam } = await searchParams;
 
-  const period: IncomePeriod =
-    VALID_PERIODS.includes(periodParam as IncomePeriod)
-      ? (periodParam as IncomePeriod)
-      : "this-month";
+  const period: IncomePeriod = VALID_PERIODS.includes(
+    periodParam as IncomePeriod,
+  )
+    ? (periodParam as IncomePeriod)
+    : "this-month";
 
   const dateRange = getPeriodRange(period);
 
@@ -81,9 +92,9 @@ export const IncomePage = async ({
 
   // Compute category aggregation for chart
   const categoryAgg: Record<string, number> = {};
-  for (const t of filteredTransactions) {
-    const cat = t.category;
-    categoryAgg[cat] = (categoryAgg[cat] ?? 0) + Number(t.amount);
+  for (const tx of filteredTransactions) {
+    const cat = tx.category;
+    categoryAgg[cat] = (categoryAgg[cat] ?? 0) + Number(tx.amount);
   }
 
   const categoryData = Object.entries(categoryAgg)
@@ -91,9 +102,14 @@ export const IncomePage = async ({
     .sort((a, b) => b.total - a.total);
 
   const totalIncome = filteredTransactions.reduce(
-    (acc, t) => acc + Number(t.amount),
-    0
+    (acc, tx) => acc + Number(tx.amount),
+    0,
   );
+
+  const breakdownLabel =
+    period === "all"
+      ? t("allTimeBreakdown")
+      : `${period.replace(/-/g, " ")} breakdown`;
 
   return (
     <div className="flex flex-1 flex-col gap-6 p-6">
@@ -109,8 +125,8 @@ export const IncomePage = async ({
       <div className="grid lg:grid-cols-2 gap-6 items-start">
         <Card className="w-full">
           <CardHeader>
-            <CardTitle>Add Income</CardTitle>
-            <CardDescription>Record a new income entry</CardDescription>
+            <CardTitle>{t("addIncome")}</CardTitle>
+            <CardDescription>{t("addIncomeDescription")}</CardDescription>
           </CardHeader>
           <CardContent>
             <IncomeFormWrapper />
@@ -120,9 +136,9 @@ export const IncomePage = async ({
         {/* Category breakdown chart */}
         <Card className="w-full">
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">Income by Category</CardTitle>
+            <CardTitle className="text-base">{t("incomeByCategory")}</CardTitle>
             <CardDescription className="text-xs">
-              {period === "all" ? "All time" : period.replace("-", " ")} breakdown
+              {breakdownLabel}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -133,7 +149,7 @@ export const IncomePage = async ({
 
       <Card className="w-full">
         <CardHeader className="pb-3">
-          <CardTitle className="text-base mb-3">Recent Income</CardTitle>
+          <CardTitle className="text-base mb-3">{t("recentIncome")}</CardTitle>
           <Suspense fallback={null}>
             <TransactionFilters
               categories={[
@@ -150,47 +166,47 @@ export const IncomePage = async ({
           {filteredTransactions.length === 0 && (search || category) ? (
             <div className="flex flex-col items-center justify-center gap-2 py-10 text-center">
               <p className="text-sm text-muted-foreground">
-                No transactions match your filters.
+                {tCommon("noResults")}
               </p>
             </div>
           ) : filteredTransactions.length === 0 ? (
             <div className="flex flex-col items-center justify-center gap-3 py-10 text-center">
               <Inbox className="size-10 text-muted-foreground/50" />
               <div>
-                <p className="text-sm font-medium">No income for this period</p>
+                <p className="text-sm font-medium">{t("noIncomePeriod")}</p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Your income entries will appear here.
+                  {t("incomeEntriesAppear")}
                 </p>
               </div>
             </div>
           ) : (
             <ul className="divide-y">
-              {filteredTransactions.map((t) => (
-                <li key={t.id} className="flex items-center gap-3 py-3">
+              {filteredTransactions.map((tx) => (
+                <li key={tx.id} className="flex items-center gap-3 py-3">
                   <div className="flex items-center justify-center rounded-md bg-green-50 dark:bg-green-950 p-1.5 shrink-0">
                     <MoveUpRight className="size-4 text-green-600 dark:text-green-400" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium truncate">
-                      {t.description}
+                      {tx.description}
                     </p>
                     <div className="flex items-center gap-1.5 mt-0.5">
                       <Badge variant="secondary" className="text-xs">
-                        {t.category}
+                        {tx.category}
                       </Badge>
                       <span className="text-xs text-muted-foreground">
-                        {format(new Date(t.date), "MMM d, yyyy")}
+                        {format(new Date(tx.date), "MMM d, yyyy")}
                       </span>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
                     <span className="text-sm font-semibold text-green-600 dark:text-green-400">
-                      {formatCurrency(Number(t.amount))}
+                      {formatCurrency(Number(tx.amount))}
                     </span>
                     <form
                       action={async () => {
                         "use server";
-                        await deleteTransaction(t.id);
+                        await deleteTransaction(tx.id);
                       }}
                     >
                       <Button

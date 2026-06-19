@@ -1,6 +1,7 @@
 "use client";
 
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 import { createTransaction } from "@/app/actions/transactions";
 import {
@@ -13,9 +14,11 @@ interface IncomeFormWrapperProps {
 }
 
 export const IncomeFormWrapper = ({ onSuccess }: IncomeFormWrapperProps) => {
+  const t = useTranslations("income");
+
   const handleSubmit = async (data: TransactionFormValues) => {
     await createTransaction({ ...data, type: "income" });
-    toast.success("Income added successfully");
+    toast.success(t("addedSuccessfully"));
     onSuccess?.();
   };
 

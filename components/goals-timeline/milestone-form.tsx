@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,6 +13,7 @@ type Props = {
 };
 
 export const MilestoneForm = ({ goalId, onDone }: Props) => {
+  const t = useTranslations("goals");
   const [isPending, startTransition] = useTransition();
   const [title, setTitle] = useState("");
   const [targetDate, setTargetDate] = useState("");
@@ -20,7 +22,7 @@ export const MilestoneForm = ({ goalId, onDone }: Props) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!title || !targetDate) {
-      setError("Title and target date are required.");
+      setError(t("milestoneRequired"));
       return;
     }
     startTransition(async () => {
@@ -30,7 +32,7 @@ export const MilestoneForm = ({ goalId, onDone }: Props) => {
         setTargetDate("");
         onDone?.();
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to create milestone");
+        setError(err instanceof Error ? err.message : t("failedMilestone"));
       }
     });
   };
@@ -38,7 +40,7 @@ export const MilestoneForm = ({ goalId, onDone }: Props) => {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="milestone-title">Milestone Title</Label>
+        <Label htmlFor="milestone-title">{t("milestoneTitle")}</Label>
         <Input
           id="milestone-title"
           value={title}
@@ -47,7 +49,7 @@ export const MilestoneForm = ({ goalId, onDone }: Props) => {
         />
       </div>
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="milestone-date">Target Date</Label>
+        <Label htmlFor="milestone-date">{t("milestoneDate")}</Label>
         <Input
           id="milestone-date"
           type="date"
@@ -57,7 +59,7 @@ export const MilestoneForm = ({ goalId, onDone }: Props) => {
       </div>
       {error && <p className="text-xs text-destructive">{error}</p>}
       <Button type="submit" size="sm" disabled={isPending}>
-        {isPending ? "Adding..." : "Add Milestone"}
+        {isPending ? t("adding") : t("addMilestone")}
       </Button>
     </form>
   );

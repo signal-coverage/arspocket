@@ -6,7 +6,8 @@ import { TransactionType } from "@prisma/client";
 
 export const GET = async () => {
   const { userId } = await auth();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!userId)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const now = new Date();
   const ninetyDaysAgo = new Date(now);

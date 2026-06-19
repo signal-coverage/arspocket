@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { DayPicker } from "react-day-picker";
 import { SerializedBill } from "@/app/actions/bills";
 import { BillDayPopover } from "./bill-day-popover";
@@ -16,6 +17,7 @@ const clampDay = (dueDay: number, year: number, month: number): number => {
 };
 
 export const BillsCalendar = ({ bills }: Props) => {
+  const t = useTranslations("bills");
   const [month, setMonth] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState<Date | null>(null);
 
@@ -43,7 +45,7 @@ export const BillsCalendar = ({ bills }: Props) => {
   }
 
   const selectedBills = selectedDay
-    ? billsByDay.get(clampDay(selectedDay.getDate(), year, monthIndex)) ?? []
+    ? (billsByDay.get(clampDay(selectedDay.getDate(), year, monthIndex)) ?? [])
     : [];
 
   return (
@@ -65,7 +67,11 @@ export const BillsCalendar = ({ bills }: Props) => {
           }}
           components={{
             DayButton: ({ day, modifiers, className, ...props }) => {
-              const effectiveDay = clampDay(day.date.getDate(), year, monthIndex);
+              const effectiveDay = clampDay(
+                day.date.getDate(),
+                year,
+                monthIndex,
+              );
               const dayBills = billsByDay.get(effectiveDay) ?? [];
               const isCurrentMonth = day.date.getMonth() === monthIndex;
 
@@ -97,30 +103,34 @@ export const BillsCalendar = ({ bills }: Props) => {
           <BillDayPopover bills={selectedBills} date={selectedDay} />
         ) : selectedDay ? (
           <div className="rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground">
-            No bills due on this day.
+            {t("noBillsOnDay")}
           </div>
         ) : (
           <div className="rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground">
-            Click a day to view bills due.
+            {t("clickDayToView")}
           </div>
         )}
 
         {/* Upcoming bills list */}
         <div>
-          <h3 className="text-sm font-medium mb-3">Bills This Month</h3>
+          <h3 className="text-sm font-medium mb-3">{t("billsThisMonth")}</h3>
           {bills.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No bills added yet.</p>
+            <p className="text-sm text-muted-foreground">{t("noBillsYet")}</p>
           ) : (
             <ul className="divide-y">
               {bills
                 .slice()
                 .sort((a, b) => a.dueDay - b.dueDay)
                 .map((bill) => (
-                  <li key={bill.id} className="flex items-center justify-between py-2.5">
+                  <li
+                    key={bill.id}
+                    className="flex items-center justify-between py-2.5"
+                  >
                     <div className="flex flex-col">
                       <span className="text-sm font-medium">{bill.name}</span>
                       <span className="text-xs text-muted-foreground">
-                        Day {clampDay(bill.dueDay, year, monthIndex)} · {bill.category}
+                        Day {clampDay(bill.dueDay, year, monthIndex)} ·{" "}
+                        {bill.category}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
@@ -128,9 +138,13 @@ export const BillsCalendar = ({ bills }: Props) => {
                         {formatCurrency(bill.amount)}
                       </span>
                       {bill.isPaid ? (
-                        <span className="text-xs text-green-600 font-medium">Paid</span>
+                        <span className="text-xs text-green-600 font-medium">
+                          {t("paid")}
+                        </span>
                       ) : (
-                        <span className="text-xs text-muted-foreground">Unpaid</span>
+                        <span className="text-xs text-muted-foreground">
+                          {t("unpaid")}
+                        </span>
                       )}
                     </div>
                   </li>
