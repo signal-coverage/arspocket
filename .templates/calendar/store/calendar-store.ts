@@ -20,10 +20,10 @@ interface CalendarState {
   goToDate: (date: Date) => void;
   setSearchQuery: (query: string) => void;
   setEventTypeFilter: (
-    filter: "all" | "with-meeting" | "without-meeting"
+    filter: "all" | "with-meeting" | "without-meeting",
   ) => void;
   setParticipantsFilter: (
-    filter: "all" | "with-participants" | "without-participants"
+    filter: "all" | "with-participants" | "without-participants",
   ) => void;
   addEvent: (event: Omit<Event, "id">) => void;
   getCurrentWeekEvents: () => Event[];
@@ -92,7 +92,7 @@ export const useCalendarStore = create<CalendarState>((set, get) => ({
   setEventTypeFilter: (filter: "all" | "with-meeting" | "without-meeting") =>
     set({ eventTypeFilter: filter }),
   setParticipantsFilter: (
-    filter: "all" | "with-participants" | "without-participants"
+    filter: "all" | "with-participants" | "without-participants",
   ) => set({ participantsFilter: filter }),
 
   addEvent: (event: Omit<Event, "id">) => {
@@ -108,7 +108,7 @@ export const useCalendarStore = create<CalendarState>((set, get) => ({
       weekEvents = weekEvents.filter(
         (event) =>
           event.title.toLowerCase().includes(query) ||
-          event.participants.some((p) => p.toLowerCase().includes(query))
+          event.participants.some((p) => p.toLowerCase().includes(query)),
       );
     }
 
@@ -122,7 +122,7 @@ export const useCalendarStore = create<CalendarState>((set, get) => ({
       weekEvents = weekEvents.filter((event) => event.participants.length > 0);
     } else if (state.participantsFilter === "without-participants") {
       weekEvents = weekEvents.filter(
-        (event) => event.participants.length === 0
+        (event) => event.participants.length === 0,
       );
     }
 

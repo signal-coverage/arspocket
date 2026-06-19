@@ -30,7 +30,11 @@ export function HabitHeader() {
 
       <div className="flex items-center gap-1.5">
         <AddHabitDialog>
-          <Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-full">
+          <Button
+            size="sm"
+            variant="outline"
+            className="h-8 gap-1.5 rounded-full"
+          >
             <Plus className="size-3.5" />
             <span className="hidden sm:inline">New habit</span>
           </Button>

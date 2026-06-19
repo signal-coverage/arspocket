@@ -21,7 +21,7 @@ export const getGoals = async () => {
       Number(g.targetAmount) > 0
         ? (Number(g.currentAmount) / Number(g.targetAmount)) * 100
         : 0,
-      100
+      100,
     ),
   }));
 };
@@ -96,14 +96,16 @@ export const deleteGoal = async (id: string) => {
 
 export const addGoalContribution = async (
   goalId: string,
-  formData: FormData
+  formData: FormData,
 ) => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
 
   const raw = {
     amount: formData.get("amount") as string,
-    date: (formData.get("date") as string) || new Date().toISOString().split("T")[0],
+    date:
+      (formData.get("date") as string) ||
+      new Date().toISOString().split("T")[0],
     note: (formData.get("note") as string) || undefined,
   };
 

@@ -63,7 +63,7 @@ export function TaskCard({ task }: TaskCardProps) {
                 variant="secondary"
                 className={cn(
                   "text-[10px] px-1.5 py-0.5 font-medium",
-                  label.color
+                  label.color,
                 )}
               >
                 {label.name}
@@ -149,4 +149,3 @@ export function TaskCard({ task }: TaskCardProps) {
     </div>
   );
 }
-

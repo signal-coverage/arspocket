@@ -21,7 +21,10 @@ export function AlertBanner() {
           <FileOutput className="size-4" />
           Export
         </Button>
-        <Button size="sm" className="gap-2 bg-foreground text-background hover:bg-foreground/90">
+        <Button
+          size="sm"
+          className="gap-2 bg-foreground text-background hover:bg-foreground/90"
+        >
           New
           <span className="h-4 w-px bg-background/20" />
           <ChevronDown className="size-4" />
@@ -30,4 +33,3 @@ export function AlertBanner() {
     </div>
   );
 }
-

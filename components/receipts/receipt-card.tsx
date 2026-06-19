@@ -1,6 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
+import { useTranslations } from "next-intl";
 import { SerializedReceipt } from "@/app/actions/receipts";
 import { deleteReceipt } from "@/app/actions/receipts";
 import { Button } from "@/components/ui/button";
@@ -19,13 +20,16 @@ const formatFileSize = (bytes: number): string => {
 };
 
 export const ReceiptCard = ({ receipt }: Props) => {
+  const t = useTranslations("receipts");
   const [isPending, startTransition] = useTransition();
 
   const isImage = receipt.mimeType.startsWith("image/");
 
   const handleView = async () => {
     try {
-      const res = await fetch(`/api/upload?fileKey=${encodeURIComponent(receipt.fileKey)}`);
+      const res = await fetch(
+        `/api/upload?fileKey=${encodeURIComponent(receipt.fileKey)}`,
+      );
       const data = await res.json();
       if (data.viewUrl) {
         window.open(data.viewUrl, "_blank");
@@ -69,7 +73,7 @@ export const ReceiptCard = ({ receipt }: Props) => {
       {/* Linked transaction */}
       {receipt.transactionDescription && (
         <div className="text-xs text-muted-foreground">
-          Linked to:{" "}
+          {t("linkedTo")}{" "}
           <span className="font-medium">{receipt.transactionDescription}</span>
         </div>
       )}
@@ -88,7 +92,7 @@ export const ReceiptCard = ({ receipt }: Props) => {
           onClick={handleView}
         >
           <ExternalLink className="size-3" />
-          View
+          {t("view")}
         </Button>
         <Button
           size="icon"

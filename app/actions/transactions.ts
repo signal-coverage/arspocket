@@ -33,7 +33,7 @@ export const createTransaction = async (data: {
       category: data.category,
       date: new Date(data.date),
       isRecurring: data.isRecurring ?? false,
-      recurringFrequency: data.recurringFrequency as never ?? null,
+      recurringFrequency: (data.recurringFrequency as never) ?? null,
       recurringEndDate: data.recurringEndDate
         ? new Date(data.recurringEndDate)
         : null,
@@ -41,7 +41,7 @@ export const createTransaction = async (data: {
         ? {
             nextDueDate: computeNextDueDateFromString(
               new Date(data.date),
-              data.recurringFrequency
+              data.recurringFrequency,
             ),
           }
         : {}),
@@ -68,7 +68,7 @@ export const createTransaction = async (data: {
         userId,
         data.category,
         txDate.getMonth() + 1,
-        txDate.getFullYear()
+        txDate.getFullYear(),
       );
     } catch {
       // Best-effort — alert check failure must not break transaction creation
@@ -122,9 +122,7 @@ export const getTransactions = async (
       ...(filters?.search
         ? { description: { contains: filters.search, mode: "insensitive" } }
         : {}),
-      ...(filters?.tagId
-        ? { tags: { some: { tagId: filters.tagId } } }
-        : {}),
+      ...(filters?.tagId ? { tags: { some: { tagId: filters.tagId } } } : {}),
     },
     include: {
       tags: {
@@ -148,7 +146,7 @@ export const updateTransaction = async (
     isRecurring?: boolean;
     recurringFrequency?: string;
     recurringEndDate?: string;
-  }
+  },
 ) => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
@@ -256,7 +254,7 @@ export const getDashboardStats = async () => {
 export const getDateRangeReport = async (
   from: Date,
   to: Date,
-  baseCurrency?: string
+  baseCurrency?: string,
 ) => {
   const { userId } = await auth();
   if (!userId) return null;
@@ -301,7 +299,7 @@ export const getDateRangeReport = async (
       rawExpenses,
       "ARS",
       baseCurrency,
-      rates
+      rates,
     );
   }
 
@@ -328,7 +326,7 @@ export const getDateRangeReport = async (
 export const getMonthlyReport = async (
   year: number,
   month: number,
-  baseCurrency?: string
+  baseCurrency?: string,
 ) => {
   const from = new Date(year, month - 1, 1);
   const to = new Date(year, month, 0, 23, 59, 59);
@@ -339,13 +337,15 @@ export const updateTransactionGeoTag = async (
   id: string,
   lat: number,
   lng: number,
-  locationName?: string
+  locationName?: string,
 ): Promise<void> => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
 
-  if (lat < -90 || lat > 90) throw new Error("Latitude must be between -90 and 90");
-  if (lng < -180 || lng > 180) throw new Error("Longitude must be between -180 and 180");
+  if (lat < -90 || lat > 90)
+    throw new Error("Latitude must be between -90 and 90");
+  if (lng < -180 || lng > 180)
+    throw new Error("Longitude must be between -180 and 180");
 
   await prisma.transaction.update({
     where: { id, userId },
@@ -406,8 +406,10 @@ export const getGeoTaggedTransactions = async () => {
 
 export const getTransactionsByDay = async (
   year: number,
-  month: number
-): Promise<Record<string, { income: number; expense: number; count: number }>> => {
+  month: number,
+): Promise<
+  Record<string, { income: number; expense: number; count: number }>
+> => {
   const { userId } = await auth();
   if (!userId) return {};
 

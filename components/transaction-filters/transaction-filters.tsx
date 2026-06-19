@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { SearchIcon, XIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import {
   Button,
   Input,
@@ -17,6 +18,7 @@ interface TransactionFiltersProps {
 }
 
 export const TransactionFilters = ({ categories }: TransactionFiltersProps) => {
+  const t = useTranslations("common");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -36,10 +38,10 @@ export const TransactionFilters = ({ categories }: TransactionFiltersProps) => {
 
   return (
     <div className="flex items-center gap-2 flex-wrap">
-      <div className="relative flex-1 min-w-[180px]">
+      <div className="relative flex-1 min-w-45">
         <SearchIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
         <Input
-          placeholder="Search..."
+          placeholder={t("searchPlaceholder")}
           className="pl-8 h-8 text-sm"
           value={search}
           onChange={(e) => update("search", e.target.value)}
@@ -49,11 +51,11 @@ export const TransactionFilters = ({ categories }: TransactionFiltersProps) => {
         value={category || "all"}
         onValueChange={(v) => update("category", v === "all" ? "" : v)}
       >
-        <SelectTrigger className="h-8 text-sm w-[160px]">
-          <SelectValue placeholder="All categories" />
+        <SelectTrigger className="h-8 text-sm w-40">
+          <SelectValue placeholder={t("allCategories")} />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All categories</SelectItem>
+          <SelectItem value="all">{t("allCategories")}</SelectItem>
           {categories.map((cat) => (
             <SelectItem key={cat} value={cat}>
               {cat}
@@ -64,7 +66,7 @@ export const TransactionFilters = ({ categories }: TransactionFiltersProps) => {
       {hasFilters && (
         <Button variant="ghost" size="sm" className="h-8 px-2" onClick={clear}>
           <XIcon className="size-3.5 mr-1" />
-          Clear
+          {t("clear")}
         </Button>
       )}
     </div>

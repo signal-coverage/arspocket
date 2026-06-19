@@ -24,7 +24,9 @@ export function FilterDropdown() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
-        <DropdownMenuLabel className="text-xs">Filter by Priority</DropdownMenuLabel>
+        <DropdownMenuLabel className="text-xs">
+          Filter by Priority
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuCheckboxItem
           checked={priorityFilter === null}
@@ -35,21 +37,27 @@ export function FilterDropdown() {
         </DropdownMenuCheckboxItem>
         <DropdownMenuCheckboxItem
           checked={priorityFilter === "urgent"}
-          onCheckedChange={() => setPriorityFilter(priorityFilter === "urgent" ? null : "urgent")}
+          onCheckedChange={() =>
+            setPriorityFilter(priorityFilter === "urgent" ? null : "urgent")
+          }
           className="text-xs"
         >
           Urgent
         </DropdownMenuCheckboxItem>
         <DropdownMenuCheckboxItem
           checked={priorityFilter === "medium"}
-          onCheckedChange={() => setPriorityFilter(priorityFilter === "medium" ? null : "medium")}
+          onCheckedChange={() =>
+            setPriorityFilter(priorityFilter === "medium" ? null : "medium")
+          }
           className="text-xs"
         >
           Medium
         </DropdownMenuCheckboxItem>
         <DropdownMenuCheckboxItem
           checked={priorityFilter === "low"}
-          onCheckedChange={() => setPriorityFilter(priorityFilter === "low" ? null : "low")}
+          onCheckedChange={() =>
+            setPriorityFilter(priorityFilter === "low" ? null : "low")
+          }
           className="text-xs"
         >
           Low
@@ -58,4 +66,3 @@ export function FilterDropdown() {
     </DropdownMenu>
   );
 }
-

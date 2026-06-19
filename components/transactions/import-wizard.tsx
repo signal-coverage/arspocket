@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import Papa from "papaparse";
 import { Upload, Download, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
@@ -25,6 +26,8 @@ const CSV_TEMPLATE =
   "type,amount,currency,date,description,category\nINCOME,50000,ARS,2026-06-01,Salary,Salary\nOUTCOME,5000,ARS,2026-06-05,Supermarket,Food\n";
 
 export const ImportWizard = () => {
+  const t = useTranslations("importWizard");
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [step, setStep] = useState<Step>(1);
   const [headers, setHeaders] = useState<string[]>([]);
@@ -49,9 +52,7 @@ export const ImportWizard = () => {
       skipEmptyLines: true,
       complete: ({ data, meta }) => {
         if (data.length > 500) {
-          toast.error(
-            `File exceeds maximum of 500 rows (found ${data.length})`
-          );
+          toast.error(t("fileExceedsLimit", { count: data.length }));
           if (fileInputRef.current) fileInputRef.current.value = "";
           return;
         }
@@ -61,7 +62,9 @@ export const ImportWizard = () => {
         const autoMap: Record<string, string> = {};
         for (const field of ALL_FIELDS) {
           const match = (meta.fields ?? []).find(
-            (h) => h.toLowerCase().includes(field.toLowerCase()) || field.toLowerCase().includes(h.toLowerCase())
+            (h) =>
+              h.toLowerCase().includes(field.toLowerCase()) ||
+              field.toLowerCase().includes(h.toLowerCase()),
           );
           if (match) autoMap[field] = match;
         }
@@ -87,13 +90,13 @@ export const ImportWizard = () => {
       const res = await fetch("/api/import", { method: "POST", body: fd });
       const data = await res.json();
       if (!res.ok) {
-        toast.error(data.error ?? "Import failed");
+        toast.error(data.error ?? t("importFailed"));
       } else {
         setResult(data);
-        toast.success(`${data.imported} transactions imported`);
+        toast.success(t("transactionsImported", { count: data.imported }));
       }
     } catch {
-      toast.error("Network error during import");
+      toast.error(t("networkError"));
     } finally {
       setImporting(false);
     }
@@ -124,10 +127,12 @@ export const ImportWizard = () => {
       <div className="space-y-4 text-center py-6">
         <CheckCircle2 className="size-10 text-emerald-500 mx-auto" />
         <div>
-          <p className="font-semibold">{result.imported} transactions imported</p>
+          <p className="font-semibold">
+            {t("transactionsImported", { count: result.imported })}
+          </p>
           {result.skipped > 0 && (
             <p className="text-sm text-muted-foreground">
-              {result.skipped} rows skipped due to errors
+              {t("rowsSkipped", { count: result.skipped })}
             </p>
           )}
         </div>
@@ -141,7 +146,7 @@ export const ImportWizard = () => {
           </div>
         )}
         <Button onClick={reset} variant="outline" size="sm">
-          Import another file
+          {t("importAnotherFile")}
         </Button>
       </div>
     );
@@ -169,7 +174,7 @@ export const ImportWizard = () => {
                 step === s ? "font-medium" : "text-muted-foreground text-xs"
               }
             >
-              {s === 1 ? "Upload" : s === 2 ? "Map columns" : "Preview"}
+              {s === 1 ? t("upload") : s === 2 ? t("mapColumns") : t("preview")}
             </span>
             {s < 3 && <span className="text-border mx-1">›</span>}
           </div>
@@ -181,10 +186,8 @@ export const ImportWizard = () => {
         <div className="space-y-4">
           <div className="border-2 border-dashed rounded-lg p-8 text-center">
             <Upload className="size-8 mx-auto text-muted-foreground mb-3" />
-            <p className="text-sm font-medium mb-1">Choose a CSV file</p>
-            <p className="text-xs text-muted-foreground mb-4">
-              Maximum 500 rows. Required columns: type, amount, date.
-            </p>
+            <p className="text-sm font-medium mb-1">{t("chooseFile")}</p>
+            <p className="text-xs text-muted-foreground mb-4">{t("maxRows")}</p>
             <input
               ref={fileInputRef}
               type="file"
@@ -195,7 +198,7 @@ export const ImportWizard = () => {
             />
             <Label htmlFor="csv-upload" asChild>
               <Button variant="outline" size="sm" asChild>
-                <span className="cursor-pointer">Select file</span>
+                <span className="cursor-pointer">{t("selectFile")}</span>
               </Button>
             </Label>
           </div>
@@ -205,7 +208,7 @@ export const ImportWizard = () => {
             onClick={downloadTemplate}
             className="gap-1"
           >
-            <Download className="size-3.5" /> Download template
+            <Download className="size-3.5" /> {t("downloadTemplate")}
           </Button>
         </div>
       )}
@@ -215,7 +218,10 @@ export const ImportWizard = () => {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <p className="text-sm text-muted-foreground">
-              <span className="font-medium">{rows.length}</span> rows detected
+              <span className="font-medium">{rows.length}</span>{" "}
+              {t("rowsDetected", { count: rows.length })
+                .replace(String(rows.length), "")
+                .trim()}
             </p>
             <Badge variant="secondary">{fileObj?.name}</Badge>
           </div>
@@ -223,7 +229,7 @@ export const ImportWizard = () => {
           <div className="space-y-3">
             {ALL_FIELDS.map((field) => {
               const required = REQUIRED_FIELDS.includes(
-                field as (typeof REQUIRED_FIELDS)[number]
+                field as (typeof REQUIRED_FIELDS)[number],
               );
               return (
                 <div key={field} className="flex items-center gap-3">
@@ -243,10 +249,10 @@ export const ImportWizard = () => {
                     }
                   >
                     <SelectTrigger className="flex-1">
-                      <SelectValue placeholder="Select CSV column" />
+                      <SelectValue placeholder={t("selectCsvColumn")} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="none">— None —</SelectItem>
+                      <SelectItem value="none">{t("none")}</SelectItem>
                       {headers.map((h) => (
                         <SelectItem key={h} value={h}>
                           {h}
@@ -261,14 +267,14 @@ export const ImportWizard = () => {
 
           <div className="flex gap-2">
             <Button variant="outline" size="sm" onClick={() => setStep(1)}>
-              Back
+              {t("backBtn")}
             </Button>
             <Button
               size="sm"
               disabled={!canAdvanceStep2}
               onClick={() => setStep(3)}
             >
-              Preview
+              {t("previewBtn")}
             </Button>
           </div>
         </div>
@@ -278,14 +284,17 @@ export const ImportWizard = () => {
       {step === 3 && (
         <div className="space-y-4">
           <p className="text-sm text-muted-foreground">
-            Preview (first 5 rows of {rows.length} total)
+            {t("previewLabel", { total: rows.length })}
           </p>
           <div className="overflow-auto rounded border">
             <table className="text-xs w-full">
               <thead className="bg-muted">
                 <tr>
                   {ALL_FIELDS.filter((f) => columnMap[f]).map((f) => (
-                    <th key={f} className="px-3 py-2 text-left capitalize font-medium">
+                    <th
+                      key={f}
+                      className="px-3 py-2 text-left capitalize font-medium"
+                    >
                       {f}
                     </th>
                   ))}
@@ -307,10 +316,12 @@ export const ImportWizard = () => {
 
           <div className="flex gap-2">
             <Button variant="outline" size="sm" onClick={() => setStep(2)}>
-              Back
+              {t("backBtn")}
             </Button>
             <Button size="sm" onClick={handleImport} disabled={importing}>
-              {importing ? "Importing..." : `Import ${rows.length} rows`}
+              {importing
+                ? t("importing")
+                : t("importRows", { count: rows.length })}
             </Button>
           </div>
         </div>

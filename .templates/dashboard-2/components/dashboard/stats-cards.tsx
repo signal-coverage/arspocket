@@ -45,19 +45,25 @@ export function StatsCards() {
           <div className="flex-1 space-y-2 sm:space-y-4 lg:space-y-6">
             <div className="flex items-center gap-1 sm:gap-1.5 text-muted-foreground">
               <stat.icon className="size-3.5 sm:size-[18px]" />
-              <span className="text-[10px] sm:text-xs lg:text-sm font-medium truncate">{stat.title}</span>
+              <span className="text-[10px] sm:text-xs lg:text-sm font-medium truncate">
+                {stat.title}
+              </span>
             </div>
             <p className="text-lg sm:text-xl lg:text-[28px] font-semibold leading-tight tracking-tight">
               {stat.value}
             </p>
             <div className="flex flex-wrap items-center gap-1 sm:gap-2 text-[10px] sm:text-xs lg:text-sm font-medium">
               <span
-                className={stat.isPositive ? "text-emerald-600" : "text-red-600"}
+                className={
+                  stat.isPositive ? "text-emerald-600" : "text-red-600"
+                }
               >
                 {stat.change}
                 <span className="hidden sm:inline">{stat.changeValue}</span>
               </span>
-              <span className="text-muted-foreground hidden sm:inline">vs Last Months</span>
+              <span className="text-muted-foreground hidden sm:inline">
+                vs Last Months
+              </span>
             </div>
           </div>
           {index < statsData.length - 1 && (

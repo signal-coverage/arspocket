@@ -33,7 +33,7 @@ export function Breadcrumb() {
           "flex items-center gap-1.5 px-2 py-1 rounded-md transition-colors",
           pathname === "/"
             ? "text-foreground font-medium"
-            : "text-muted-foreground hover:text-foreground hover:bg-muted"
+            : "text-muted-foreground hover:text-foreground hover:bg-muted",
         )}
       >
         <Home className="size-4" />

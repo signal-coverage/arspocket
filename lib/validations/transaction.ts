@@ -9,10 +9,10 @@ export const dateRangeSchema = z
       message: "Invalid end date",
     }),
   })
-  .refine(
-    (data) => new Date(data.from) <= new Date(data.to),
-    { message: "Start date must be before end date", path: ["from"] }
-  )
+  .refine((data) => new Date(data.from) <= new Date(data.to), {
+    message: "Start date must be before end date",
+    path: ["from"],
+  })
   .refine(
     (data) => {
       const diffMs =
@@ -20,7 +20,7 @@ export const dateRangeSchema = z
       const diffDays = diffMs / (1000 * 60 * 60 * 24);
       return diffDays <= 366;
     },
-    { message: "Date range cannot exceed 366 days", path: ["to"] }
+    { message: "Date range cannot exceed 366 days", path: ["to"] },
   );
 
 export type DateRange = z.infer<typeof dateRangeSchema>;

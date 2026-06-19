@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -28,9 +29,10 @@ type Props = {
 export const GoalForm = ({
   action,
   defaultValues,
-  submitLabel = "Create Goal",
+  submitLabel,
   onDone,
 }: Props) => {
+  const t = useTranslations("goals");
   const formRef = useRef<HTMLFormElement>(null);
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
@@ -54,7 +56,7 @@ export const GoalForm = ({
   return (
     <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <Label htmlFor="name">Goal Name</Label>
+        <Label htmlFor="name">{t("goalName")}</Label>
         <Input
           id="name"
           name="name"
@@ -65,7 +67,7 @@ export const GoalForm = ({
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <Label htmlFor="targetAmount">Target Amount</Label>
+          <Label htmlFor="targetAmount">{t("targetAmount")}</Label>
           <Input
             id="targetAmount"
             name="targetAmount"
@@ -78,7 +80,7 @@ export const GoalForm = ({
           />
         </div>
         <div>
-          <Label htmlFor="currency">Currency</Label>
+          <Label htmlFor="currency">{t("currency")}</Label>
           <Select
             name="currency"
             defaultValue={defaultValues?.currency ?? "ARS"}
@@ -96,7 +98,7 @@ export const GoalForm = ({
         </div>
       </div>
       <div>
-        <Label htmlFor="deadline">Deadline (optional)</Label>
+        <Label htmlFor="deadline">{t("deadline")}</Label>
         <Input
           id="deadline"
           name="deadline"
@@ -105,7 +107,7 @@ export const GoalForm = ({
         />
       </div>
       <div>
-        <Label htmlFor="description">Description (optional)</Label>
+        <Label htmlFor="description">{t("descriptionOptional")}</Label>
         <Input
           id="description"
           name="description"
@@ -115,7 +117,7 @@ export const GoalForm = ({
       </div>
       {error && <p className="text-sm text-destructive">{error}</p>}
       <Button type="submit" disabled={pending} className="w-full">
-        {pending ? "Saving..." : submitLabel}
+        {pending ? t("saving") : (submitLabel ?? t("createGoal"))}
       </Button>
     </form>
   );

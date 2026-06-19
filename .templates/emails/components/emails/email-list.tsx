@@ -49,7 +49,7 @@ export function EmailList({ onEmailClick }: EmailListProps) {
               className={cn(
                 "flex w-full gap-2.5 border-b border-border p-4 text-left transition-colors hover:bg-muted/70",
                 isSelected && "bg-muted",
-                !isRead && "bg-muted/50"
+                !isRead && "bg-muted/50",
               )}
             >
               <div className={cn("flex w-full gap-2.5")}>
@@ -67,7 +67,7 @@ export function EmailList({ onEmailClick }: EmailListProps) {
                             "truncate text-[14px] tracking-tight",
                             !isRead || isSelected
                               ? "font-medium text-foreground"
-                              : "text-foreground"
+                              : "text-foreground",
                           )}
                         >
                           {email.from.name}
@@ -85,7 +85,7 @@ export function EmailList({ onEmailClick }: EmailListProps) {
                         "shrink-0 text-[12px] tracking-tight",
                         !isRead
                           ? "font-medium text-foreground"
-                          : "text-foreground"
+                          : "text-foreground",
                       )}
                     >
                       {format(email.date, "MMM dd")}

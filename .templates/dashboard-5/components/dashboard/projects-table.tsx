@@ -67,7 +67,9 @@ function StatusBadge({ status }: { status: ProjectStatus }) {
     return (
       <div className="flex items-center gap-1.5">
         <Circle className="size-3.5 fill-cyan-500 text-cyan-500" />
-        <span className="text-sm text-cyan-600 dark:text-cyan-400">In Progress</span>
+        <span className="text-sm text-cyan-600 dark:text-cyan-400">
+          In Progress
+        </span>
       </div>
     );
   }
@@ -75,25 +77,30 @@ function StatusBadge({ status }: { status: ProjectStatus }) {
     return (
       <div className="flex items-center gap-1.5">
         <CheckCircle2 className="size-3.5 text-emerald-500" />
-        <span className="text-sm text-emerald-600 dark:text-emerald-400">Completed</span>
+        <span className="text-sm text-emerald-600 dark:text-emerald-400">
+          Completed
+        </span>
       </div>
     );
   }
   return (
     <div className="flex items-center gap-1.5">
       <Clock className="size-3.5 text-amber-500" />
-      <span className="text-sm text-amber-600 dark:text-amber-400">On Hold</span>
+      <span className="text-sm text-amber-600 dark:text-amber-400">
+        On Hold
+      </span>
     </div>
   );
 }
 
-const projectIconMap: Record<string, { icon: LucideIcon; iconColor: string }> = {
-  blue: { icon: Folder, iconColor: "text-blue-500" },
-  violet: { icon: LayoutGrid, iconColor: "text-violet-500" },
-  cyan: { icon: Database, iconColor: "text-cyan-500" },
-  pink: { icon: Megaphone, iconColor: "text-pink-500" },
-  amber: { icon: Wallet, iconColor: "text-amber-500" },
-};
+const projectIconMap: Record<string, { icon: LucideIcon; iconColor: string }> =
+  {
+    blue: { icon: Folder, iconColor: "text-blue-500" },
+    violet: { icon: LayoutGrid, iconColor: "text-violet-500" },
+    cyan: { icon: Database, iconColor: "text-cyan-500" },
+    pink: { icon: Megaphone, iconColor: "text-pink-500" },
+    amber: { icon: Wallet, iconColor: "text-amber-500" },
+  };
 
 export function ProjectsTable() {
   const {
@@ -113,7 +120,9 @@ export function ProjectsTable() {
               table.getIsAllPageRowsSelected() ||
               (table.getIsSomePageRowsSelected() && "indeterminate")
             }
-            onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+            onCheckedChange={(value) =>
+              table.toggleAllPageRowsSelected(!!value)
+            }
             aria-label="Select all"
           />
         ),
@@ -201,16 +210,17 @@ export function ProjectsTable() {
         },
       },
     ],
-    []
+    [],
   );
 
   const filteredData = useMemo(() => {
     let result = projects;
     if (projectsSearchQuery.trim()) {
       const q = projectsSearchQuery.toLowerCase();
-      result = result.filter((p) =>
-        p.name.toLowerCase().includes(q) ||
-        p.ownerName.toLowerCase().includes(q)
+      result = result.filter(
+        (p) =>
+          p.name.toLowerCase().includes(q) ||
+          p.ownerName.toLowerCase().includes(q),
       );
     }
     if (projectStatusFilter !== "all") {
@@ -293,7 +303,9 @@ export function ProjectsTable() {
               {hasActiveFilters && (
                 <>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => setProjectStatusFilter("all")}>
+                  <DropdownMenuItem
+                    onClick={() => setProjectStatusFilter("all")}
+                  >
                     Clear filter
                   </DropdownMenuItem>
                 </>
@@ -311,7 +323,7 @@ export function ProjectsTable() {
                   <TableHead key={header.id}>
                     {flexRender(
                       header.column.columnDef.header,
-                      header.getContext()
+                      header.getContext(),
                     )}
                   </TableHead>
                 ))}
@@ -338,7 +350,7 @@ export function ProjectsTable() {
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}

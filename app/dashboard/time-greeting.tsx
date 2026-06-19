@@ -1,15 +1,15 @@
 "use client";
 
-import { useState } from "react";
-
-const getGreeting = () => {
-  const hours = new Date().getHours();
-  if (hours >= 5 && hours <= 11) return "Good morning";
-  if (hours >= 12 && hours <= 17) return "Good afternoon";
-  return "Good evening";
-};
+import { useTranslations } from "next-intl";
 
 export const TimeGreeting = () => {
-  const [greeting] = useState(getGreeting);
-  return <>{greeting}</>;
+  const t = useTranslations("timeGreeting");
+  const hours = new Date().getHours();
+  const key =
+    hours >= 5 && hours <= 11
+      ? "morning"
+      : hours >= 12 && hours <= 17
+        ? "afternoon"
+        : "evening";
+  return <>{t(key)}</>;
 };

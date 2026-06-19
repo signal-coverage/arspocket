@@ -15,7 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Rentals - Square UI",
-  description: "A beautiful property rental explorer with interactive maps by Square UI",
+  description:
+    "A beautiful property rental explorer with interactive maps by Square UI",
 };
 
 export default function RootLayout({

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,6 +30,7 @@ const emptyItem = (): Item => ({
 });
 
 export const NetWorthForm = ({ onDone }: { onDone?: () => void }) => {
+  const t = useTranslations("netWorth");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [note, setNote] = useState("");
   const [items, setItems] = useState<Item[]>([emptyItem()]);
@@ -37,7 +39,7 @@ export const NetWorthForm = ({ onDone }: { onDone?: () => void }) => {
 
   const updateItem = (i: number, field: keyof Item, value: string) => {
     setItems((prev) =>
-      prev.map((item, idx) => (idx === i ? { ...item, [field]: value } : item))
+      prev.map((item, idx) => (idx === i ? { ...item, [field]: value } : item)),
     );
   };
 
@@ -55,7 +57,7 @@ export const NetWorthForm = ({ onDone }: { onDone?: () => void }) => {
     }));
 
     if (parsed.some((i) => isNaN(i.amount) || i.amount <= 0 || !i.name)) {
-      setError("All items need a name and a positive amount.");
+      setError(t("allItemsValid"));
       return;
     }
 
@@ -82,7 +84,7 @@ export const NetWorthForm = ({ onDone }: { onDone?: () => void }) => {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <Label>Date</Label>
+          <Label>{t("date")}</Label>
           <Input
             type="date"
             value={date}
@@ -91,21 +93,21 @@ export const NetWorthForm = ({ onDone }: { onDone?: () => void }) => {
           />
         </div>
         <div>
-          <Label>Note (optional)</Label>
+          <Label>{t("noteOptional")}</Label>
           <Input
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            placeholder="Monthly snapshot"
+            placeholder={t("noteOptionalPlaceholder")}
           />
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label>Assets &amp; Liabilities</Label>
+        <Label>{t("assetsAndLiabilities")}</Label>
         {items.map((item, i) => (
           <div key={i} className="flex gap-2 items-center">
             <Input
-              placeholder="Name"
+              placeholder={t("itemName")}
               value={item.name}
               onChange={(e) => updateItem(i, "name", e.target.value)}
               className="flex-1"
@@ -119,8 +121,8 @@ export const NetWorthForm = ({ onDone }: { onDone?: () => void }) => {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="ASSET">Asset</SelectItem>
-                <SelectItem value="LIABILITY">Liability</SelectItem>
+                <SelectItem value="ASSET">{t("asset")}</SelectItem>
+                <SelectItem value="LIABILITY">{t("liability")}</SelectItem>
               </SelectContent>
             </Select>
             <Input
@@ -167,13 +169,13 @@ export const NetWorthForm = ({ onDone }: { onDone?: () => void }) => {
           onClick={addItem}
           className="gap-1"
         >
-          <Plus className="size-3.5" /> Add item
+          <Plus className="size-3.5" /> {t("addItem")}
         </Button>
       </div>
 
       {error && <p className="text-sm text-destructive">{error}</p>}
       <Button type="submit" disabled={pending} className="w-full">
-        {pending ? "Saving..." : "Save Snapshot"}
+        {pending ? t("saving") : t("saveSnapshot")}
       </Button>
     </form>
   );

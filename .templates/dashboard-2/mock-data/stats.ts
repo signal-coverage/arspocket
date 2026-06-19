@@ -62,5 +62,3 @@ export const revenueFlowData = [
   { month: "May", thisYear: 49000, prevYear: 35000 },
   { month: "Jun", thisYear: 45000, prevYear: 33000 },
 ];
-
-

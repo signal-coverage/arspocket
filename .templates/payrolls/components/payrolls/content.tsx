@@ -17,7 +17,7 @@ export function PayrollsContent() {
     <div
       className={cn(
         "flex-1 overflow-auto w-full space-y-6",
-        layout === "compact" ? "p-3 md:p-4" : "p-4 md:p-6"
+        layout === "compact" ? "p-3 md:p-4" : "p-4 md:p-6",
       )}
     >
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
@@ -29,7 +29,7 @@ export function PayrollsContent() {
         <div
           className={cn(
             "flex gap-6",
-            layout === "expanded" ? "flex-col" : "flex-col lg:flex-row"
+            layout === "expanded" ? "flex-col" : "flex-col lg:flex-row",
           )}
         >
           <ExpenseChart />

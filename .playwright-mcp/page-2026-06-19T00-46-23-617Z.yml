@@ -1,49 +1,49 @@
 - generic [active] [ref=e1]:
-  - generic [ref=e2]:
-    - generic [ref=e3]:
-      - link "ARSPocket" [ref=e4] [cursor=pointer]:
-        - /url: /
-        - img [ref=e6]
-        - generic [ref=e9]: ARSPocket
-      - generic [ref=e10]:
-        - generic [ref=e11]:
-          - heading "Your finances, simplified." [level=2] [ref=e12]:
-            - text: Your finances,
-            - text: simplified.
-          - paragraph [ref=e13]: Everything you need to take control of your money and build lasting financial habits.
-        - list [ref=e14]:
-          - listitem [ref=e15]:
-            - img [ref=e17]
-            - generic [ref=e19]: Track income, expenses and savings in one place
-          - listitem [ref=e20]:
-            - img [ref=e22]
-            - generic [ref=e24]: Set budgets and see live spending progress
-          - listitem [ref=e25]:
-            - img [ref=e27]
-            - generic [ref=e29]: Visual reports to understand where money goes
-      - paragraph [ref=e30]: Trusted by 10,000+ users worldwide.
-    - generic [ref=e31]:
-      - link "Back" [ref=e32] [cursor=pointer]:
-        - /url: /
-        - img [ref=e33]
-        - text: Back
-      - img [ref=e36]
-  - region "Notifications alt+T"
-  - button "Open Next.js Dev Tools" [ref=e43] [cursor=pointer]:
-    - img [ref=e44]
-  - alert [ref=e47]
-  - generic [ref=e48]:
-    - generic [ref=e49]:
-      - link "LocatorJS" [ref=e50] [cursor=pointer]:
-        - /url: https://www.locatorjs.com
-        - img [ref=e51]
-      - button "Settings" [ref=e58] [cursor=pointer]
-    - generic [ref=e59]:
-      - text: Go to component code with
-      - generic [ref=e60]: Alt
-      - text: +
-      - generic [ref=e61]: click
-    - generic [ref=e62]:
-      - link "What is Locator?" [ref=e63] [cursor=pointer]:
-        - /url: https://www.locatorjs.com
-      - generic [ref=e64] [cursor=pointer]: Stop showing this popup
+    - generic [ref=e2]:
+        - generic [ref=e3]:
+            - link "ARSPocket" [ref=e4] [cursor=pointer]:
+                - /url: /
+                - img [ref=e6]
+                - generic [ref=e9]: ARSPocket
+            - generic [ref=e10]:
+                - generic [ref=e11]:
+                    - heading "Your finances, simplified." [level=2] [ref=e12]:
+                        - text: Your finances,
+                        - text: simplified.
+                    - paragraph [ref=e13]: Everything you need to take control of your money and build lasting financial habits.
+                - list [ref=e14]:
+                    - listitem [ref=e15]:
+                        - img [ref=e17]
+                        - generic [ref=e19]: Track income, expenses and savings in one place
+                    - listitem [ref=e20]:
+                        - img [ref=e22]
+                        - generic [ref=e24]: Set budgets and see live spending progress
+                    - listitem [ref=e25]:
+                        - img [ref=e27]
+                        - generic [ref=e29]: Visual reports to understand where money goes
+            - paragraph [ref=e30]: Trusted by 10,000+ users worldwide.
+        - generic [ref=e31]:
+            - link "Back" [ref=e32] [cursor=pointer]:
+                - /url: /
+                - img [ref=e33]
+                - text: Back
+            - img [ref=e36]
+    - region "Notifications alt+T"
+    - button "Open Next.js Dev Tools" [ref=e43] [cursor=pointer]:
+        - img [ref=e44]
+    - alert [ref=e47]
+    - generic [ref=e48]:
+        - generic [ref=e49]:
+            - link "LocatorJS" [ref=e50] [cursor=pointer]:
+                - /url: https://www.locatorjs.com
+                - img [ref=e51]
+            - button "Settings" [ref=e58] [cursor=pointer]
+        - generic [ref=e59]:
+            - text: Go to component code with
+            - generic [ref=e60]: Alt
+            - text: +
+            - generic [ref=e61]: click
+        - generic [ref=e62]:
+            - link "What is Locator?" [ref=e63] [cursor=pointer]:
+                - /url: https://www.locatorjs.com
+            - generic [ref=e64] [cursor=pointer]: Stop showing this popup

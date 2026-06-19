@@ -44,4 +44,3 @@ export const useDashboardStore = create<DashboardStore>((set) => ({
       sortOrder: "asc",
     }),
 }));
-

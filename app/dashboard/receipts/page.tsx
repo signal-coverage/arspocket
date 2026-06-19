@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { getReceipts } from "@/app/actions/receipts";
 import { ReceiptsGrid } from "@/components/receipts/receipts-grid";
 import { Receipt } from "lucide-react";
@@ -6,6 +7,7 @@ import { Receipt } from "lucide-react";
 export const metadata: Metadata = { title: "Receipts — ARSPocket" };
 
 export const ReceiptsPage = async () => {
+  const t = await getTranslations("receipts");
   const receipts = await getReceipts(false);
 
   return (
@@ -13,11 +15,9 @@ export const ReceiptsPage = async () => {
       <div>
         <h1 className="text-xl font-semibold flex items-center gap-2">
           <Receipt className="size-5" />
-          Receipt Vault
+          {t("title")}
         </h1>
-        <p className="text-sm text-muted-foreground">
-          Store and organize your receipts.
-        </p>
+        <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
       </div>
 
       <ReceiptsGrid receipts={receipts} />

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
+import { useTranslations } from "next-intl";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,6 +18,8 @@ import { confirmNoActivity } from "@/app/actions/habits";
 import { dateToString } from "@/lib/dates";
 
 export const NoActivityDialog = () => {
+  const t = useTranslations("habits");
+  const tCommon = useTranslations("common");
   const [isPending, startTransition] = useTransition();
 
   const handleConfirm = () => {
@@ -29,22 +32,20 @@ export const NoActivityDialog = () => {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="outline" size="sm">
-          No activity today
+          {t("noActivityTrigger")}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Confirm no activity today?</AlertDialogTitle>
+          <AlertDialogTitle>{t("confirmNoActivityTitle")}</AlertDialogTitle>
           <AlertDialogDescription>
-            This will maintain your streak for today by confirming that you
-            intentionally had no financial activity. This action counts as a
-            "confirmed no-activity day" and your streak will be preserved.
+            {t("confirmNoActivityFull")}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>{tCommon("cancel")}</AlertDialogCancel>
           <AlertDialogAction onClick={handleConfirm} disabled={isPending}>
-            {isPending ? "Confirming..." : "Yes, confirm"}
+            {isPending ? t("confirming") : t("yesConfirm")}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

@@ -1,142 +1,142 @@
 - generic [active] [ref=e1]:
-  - generic [ref=e2]:
-    - generic [ref=e5]:
-      - generic [ref=e7]:
-        - img [ref=e9]
-        - generic [ref=e12]: ARSPocket
-      - generic [ref=e13]:
-        - list [ref=e16]:
-          - listitem [ref=e17]:
-            - link "Overview" [ref=e18] [cursor=pointer]:
-              - /url: /dashboard
-              - img [ref=e19]
-              - generic [ref=e24]: Overview
-        - generic [ref=e26]:
-          - generic [ref=e28] [cursor=pointer]:
-            - img [ref=e29]
-            - text: MOVEMENTS
-          - list [ref=e33]:
-            - listitem [ref=e34]:
-              - link "Income" [ref=e35] [cursor=pointer]:
-                - /url: /dashboard/income
-                - img [ref=e36]
-                - generic [ref=e39]: Income
-            - listitem [ref=e40]:
-              - link "Expenses" [ref=e41] [cursor=pointer]:
-                - /url: /dashboard/outcome
-                - img [ref=e42]
-                - generic [ref=e45]: Expenses
-            - listitem [ref=e46]:
-              - link "Savings" [ref=e47] [cursor=pointer]:
-                - /url: /dashboard/savings
-                - img [ref=e48]
-                - generic [ref=e51]: Savings
-            - listitem [ref=e52]:
-              - link "Calendar" [ref=e53] [cursor=pointer]:
-                - /url: /dashboard/calendar
-                - img [ref=e54]
-                - generic [ref=e56]: Calendar
-        - generic [ref=e58]:
-          - generic [ref=e60] [cursor=pointer]:
-            - img [ref=e61]
-            - text: PLANNING
-          - list [ref=e65]:
-            - listitem [ref=e66]:
-              - link "Goals Timeline" [ref=e67] [cursor=pointer]:
-                - /url: /dashboard/goals
-                - img [ref=e68]
-                - generic [ref=e70]: Goals Timeline
-            - listitem [ref=e71]:
-              - link "Budget" [ref=e72] [cursor=pointer]:
-                - /url: /dashboard/budget
-                - img [ref=e73]
-                - generic [ref=e76]: Budget
-            - listitem [ref=e77]:
-              - link "Bills" [ref=e78] [cursor=pointer]:
-                - /url: /dashboard/bills
-                - img [ref=e79]
-                - generic [ref=e83]: Bills
-            - listitem [ref=e84]:
-              - link "Net Worth" [ref=e85] [cursor=pointer]:
-                - /url: /dashboard/net-worth
-                - img [ref=e86]
-                - generic [ref=e89]: Net Worth
-        - generic [ref=e93] [cursor=pointer]:
-          - img [ref=e94]
-          - text: HABITS & TASKS
-        - generic [ref=e99] [cursor=pointer]:
-          - img [ref=e100]
-          - text: VAULT
-        - generic [ref=e105] [cursor=pointer]:
-          - img [ref=e106]
-          - text: EXPLORE
-        - generic [ref=e109]:
-          - generic [ref=e111] [cursor=pointer]:
-            - img [ref=e112]
-            - text: INSIGHTS
-          - list [ref=e116]:
-            - listitem [ref=e117]:
-              - link "Reports" [ref=e118] [cursor=pointer]:
-                - /url: /dashboard/reports
-                - img [ref=e119]
-                - generic [ref=e121]: Reports
-      - generic [ref=e122]:
-        - list [ref=e123]:
-          - listitem [ref=e124]:
-            - link "Help" [ref=e125] [cursor=pointer]:
-              - /url: "#"
-              - img [ref=e126]
-              - generic [ref=e129]: Help
-          - listitem [ref=e130]:
-            - link "Settings" [ref=e131] [cursor=pointer]:
-              - /url: "#"
-              - img [ref=e132]
-              - generic [ref=e135]: Settings
-        - button [ref=e136] [cursor=pointer]:
-          - img [ref=e138]
-    - generic [ref=e141]:
-      - banner [ref=e142]:
-        - button "Toggle Sidebar" [ref=e143] [cursor=pointer]:
-          - img
-          - generic [ref=e144]: Toggle Sidebar
-        - navigation "breadcrumb" [ref=e145]:
-          - list [ref=e146]:
-            - listitem [ref=e147]:
-              - link "Dashboard" [disabled] [ref=e148]
-        - button "Toggle theme" [ref=e150] [cursor=pointer]:
-          - img
-      - generic [ref=e151]:
-        - generic [ref=e152]:
-          - heading "Spending Map" [level=1] [ref=e153]:
-            - img [ref=e154]
-            - text: Spending Map
-          - paragraph [ref=e157]: View your geo-tagged transactions on a map.
-        - generic [ref=e158]:
-          - generic [ref=e161]:
-            - region "Map" [ref=e163]
-            - generic:
-              - generic:
-                - paragraph: No geo-tagged transactions yet.
-                - paragraph: Add a location to a transaction to see it here.
-          - generic [ref=e164]:
-            - generic [ref=e166]: Geo-tagged Transactions (0)
-            - paragraph [ref=e168]: No geo-tagged transactions.
-  - region "Notifications alt+T"
-  - button "Open Next.js Dev Tools" [ref=e174] [cursor=pointer]:
-    - img [ref=e175]
-  - alert [ref=e178]
-  - generic [ref=e179]:
-    - generic [ref=e180]:
-      - link "LocatorJS" [ref=e181] [cursor=pointer]:
-        - /url: https://www.locatorjs.com
-        - img [ref=e182]
-      - button "Settings" [ref=e189] [cursor=pointer]
-    - generic [ref=e190]:
-      - text: Go to component code with
-      - generic [ref=e191]: Alt
-      - text: +
-      - generic [ref=e192]: click
-    - generic [ref=e193]:
-      - link "What is Locator?" [ref=e194] [cursor=pointer]:
-        - /url: https://www.locatorjs.com
-      - generic [ref=e195] [cursor=pointer]: Stop showing this popup
+    - generic [ref=e2]:
+        - generic [ref=e5]:
+            - generic [ref=e7]:
+                - img [ref=e9]
+                - generic [ref=e12]: ARSPocket
+            - generic [ref=e13]:
+                - list [ref=e16]:
+                    - listitem [ref=e17]:
+                        - link "Overview" [ref=e18] [cursor=pointer]:
+                            - /url: /dashboard
+                            - img [ref=e19]
+                            - generic [ref=e24]: Overview
+                - generic [ref=e26]:
+                    - generic [ref=e28] [cursor=pointer]:
+                        - img [ref=e29]
+                        - text: MOVEMENTS
+                    - list [ref=e33]:
+                        - listitem [ref=e34]:
+                            - link "Income" [ref=e35] [cursor=pointer]:
+                                - /url: /dashboard/income
+                                - img [ref=e36]
+                                - generic [ref=e39]: Income
+                        - listitem [ref=e40]:
+                            - link "Expenses" [ref=e41] [cursor=pointer]:
+                                - /url: /dashboard/outcome
+                                - img [ref=e42]
+                                - generic [ref=e45]: Expenses
+                        - listitem [ref=e46]:
+                            - link "Savings" [ref=e47] [cursor=pointer]:
+                                - /url: /dashboard/savings
+                                - img [ref=e48]
+                                - generic [ref=e51]: Savings
+                        - listitem [ref=e52]:
+                            - link "Calendar" [ref=e53] [cursor=pointer]:
+                                - /url: /dashboard/calendar
+                                - img [ref=e54]
+                                - generic [ref=e56]: Calendar
+                - generic [ref=e58]:
+                    - generic [ref=e60] [cursor=pointer]:
+                        - img [ref=e61]
+                        - text: PLANNING
+                    - list [ref=e65]:
+                        - listitem [ref=e66]:
+                            - link "Goals Timeline" [ref=e67] [cursor=pointer]:
+                                - /url: /dashboard/goals
+                                - img [ref=e68]
+                                - generic [ref=e70]: Goals Timeline
+                        - listitem [ref=e71]:
+                            - link "Budget" [ref=e72] [cursor=pointer]:
+                                - /url: /dashboard/budget
+                                - img [ref=e73]
+                                - generic [ref=e76]: Budget
+                        - listitem [ref=e77]:
+                            - link "Bills" [ref=e78] [cursor=pointer]:
+                                - /url: /dashboard/bills
+                                - img [ref=e79]
+                                - generic [ref=e83]: Bills
+                        - listitem [ref=e84]:
+                            - link "Net Worth" [ref=e85] [cursor=pointer]:
+                                - /url: /dashboard/net-worth
+                                - img [ref=e86]
+                                - generic [ref=e89]: Net Worth
+                - generic [ref=e93] [cursor=pointer]:
+                    - img [ref=e94]
+                    - text: HABITS & TASKS
+                - generic [ref=e99] [cursor=pointer]:
+                    - img [ref=e100]
+                    - text: VAULT
+                - generic [ref=e105] [cursor=pointer]:
+                    - img [ref=e106]
+                    - text: EXPLORE
+                - generic [ref=e109]:
+                    - generic [ref=e111] [cursor=pointer]:
+                        - img [ref=e112]
+                        - text: INSIGHTS
+                    - list [ref=e116]:
+                        - listitem [ref=e117]:
+                            - link "Reports" [ref=e118] [cursor=pointer]:
+                                - /url: /dashboard/reports
+                                - img [ref=e119]
+                                - generic [ref=e121]: Reports
+            - generic [ref=e122]:
+                - list [ref=e123]:
+                    - listitem [ref=e124]:
+                        - link "Help" [ref=e125] [cursor=pointer]:
+                            - /url: "#"
+                            - img [ref=e126]
+                            - generic [ref=e129]: Help
+                    - listitem [ref=e130]:
+                        - link "Settings" [ref=e131] [cursor=pointer]:
+                            - /url: "#"
+                            - img [ref=e132]
+                            - generic [ref=e135]: Settings
+                - button [ref=e136] [cursor=pointer]:
+                    - img [ref=e138]
+        - generic [ref=e141]:
+            - banner [ref=e142]:
+                - button "Toggle Sidebar" [ref=e143] [cursor=pointer]:
+                    - img
+                    - generic [ref=e144]: Toggle Sidebar
+                - navigation "breadcrumb" [ref=e145]:
+                    - list [ref=e146]:
+                        - listitem [ref=e147]:
+                            - link "Dashboard" [disabled] [ref=e148]
+                - button "Toggle theme" [ref=e150] [cursor=pointer]:
+                    - img
+            - generic [ref=e151]:
+                - generic [ref=e152]:
+                    - heading "Spending Map" [level=1] [ref=e153]:
+                        - img [ref=e154]
+                        - text: Spending Map
+                    - paragraph [ref=e157]: View your geo-tagged transactions on a map.
+                - generic [ref=e158]:
+                    - generic [ref=e161]:
+                        - region "Map" [ref=e163]
+                        - generic:
+                            - generic:
+                                - paragraph: No geo-tagged transactions yet.
+                                - paragraph: Add a location to a transaction to see it here.
+                    - generic [ref=e164]:
+                        - generic [ref=e166]: Geo-tagged Transactions (0)
+                        - paragraph [ref=e168]: No geo-tagged transactions.
+    - region "Notifications alt+T"
+    - button "Open Next.js Dev Tools" [ref=e174] [cursor=pointer]:
+        - img [ref=e175]
+    - alert [ref=e178]
+    - generic [ref=e179]:
+        - generic [ref=e180]:
+            - link "LocatorJS" [ref=e181] [cursor=pointer]:
+                - /url: https://www.locatorjs.com
+                - img [ref=e182]
+            - button "Settings" [ref=e189] [cursor=pointer]
+        - generic [ref=e190]:
+            - text: Go to component code with
+            - generic [ref=e191]: Alt
+            - text: +
+            - generic [ref=e192]: click
+        - generic [ref=e193]:
+            - link "What is Locator?" [ref=e194] [cursor=pointer]:
+                - /url: https://www.locatorjs.com
+            - generic [ref=e195] [cursor=pointer]: Stop showing this popup

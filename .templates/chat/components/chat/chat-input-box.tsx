@@ -126,11 +126,7 @@ export function ChatInputBox({
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button
-              size="sm"
-              onClick={onSend}
-              className="h-7 px-4"
-            >
+            <Button size="sm" onClick={onSend} className="h-7 px-4">
               Send
             </Button>
           )}
@@ -139,4 +135,3 @@ export function ChatInputBox({
     </div>
   );
 }
-

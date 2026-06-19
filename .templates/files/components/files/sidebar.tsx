@@ -146,7 +146,7 @@ export function FilesSidebar({
                   <ChevronDown
                     className={cn(
                       "size-3 transition-transform",
-                      !foldersOpen && "-rotate-90"
+                      !foldersOpen && "-rotate-90",
                     )}
                   />
                   <span>Folders</span>

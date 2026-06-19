@@ -47,13 +47,13 @@ export function ProjectsFilter() {
               key={priority.value}
               onClick={() => {
                 setPriorityFilter(
-                  priority.value === "all" ? null : priority.value
+                  priority.value === "all" ? null : priority.value,
                 );
                 setOpen(false);
               }}
               className={cn(
                 "w-full text-left px-3 py-2 text-sm rounded-sm hover:bg-accent flex items-center justify-between transition-colors",
-                isSelected(priority.value) && "bg-accent"
+                isSelected(priority.value) && "bg-accent",
               )}
             >
               <span className="capitalize">{priority.label}</span>

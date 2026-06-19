@@ -88,7 +88,7 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.87 0.00 0);
+  --primary: oklch(0.87 0 0);
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
@@ -141,7 +141,9 @@
   padding: 0 !important;
   border-radius: 16px !important;
   overflow: hidden;
-  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  box-shadow:
+    0 10px 40px -10px rgba(0, 0, 0, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.1) !important;
 }
 
 .location-hover-popup .maplibregl-popup-tip {
@@ -153,7 +155,7 @@
   min-width: 320px;
   max-width: 360px;
   z-index: 1000;
-  cursor: pointer!important;
+  cursor: pointer !important;
 }
 
 .location-popup .popup-header {
@@ -308,5 +310,7 @@
 }
 
 .dark .location-hover-popup .maplibregl-popup-content {
-  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  box-shadow:
+    0 10px 40px -10px rgba(0, 0, 0, 0.5),
+    0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }

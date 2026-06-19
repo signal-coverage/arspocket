@@ -239,14 +239,14 @@ export function ListingsPanel({ mode = "all" }: ListingsPanelProps) {
                     },
                     () => {
                       alert(
-                        "Unable to get your location. Please try again later."
+                        "Unable to get your location. Please try again later.",
                       );
                     },
                     {
                       enableHighAccuracy: false,
                       timeout: 5000,
                       maximumAge: 300000,
-                    }
+                    },
                   );
                 }}
                 className="gap-2"
@@ -281,7 +281,7 @@ export function ListingsPanel({ mode = "all" }: ListingsPanelProps) {
                   className={cn(
                     "group cursor-pointer rounded-xl border bg-card transition-all hover:shadow-lg overflow-hidden",
                     isSelected &&
-                      "border-primary shadow-lg ring-2 ring-primary/20"
+                      "border-primary shadow-lg ring-2 ring-primary/20",
                   )}
                 >
                   <div className="relative aspect-4/3 overflow-hidden">
@@ -320,7 +320,7 @@ export function ListingsPanel({ mode = "all" }: ListingsPanelProps) {
                             "h-4 w-4 transition-colors",
                             listing.isFavorite
                               ? "fill-destructive text-destructive"
-                              : "text-foreground"
+                              : "text-foreground",
                           )}
                         />
                       </Button>
@@ -418,7 +418,7 @@ export function ListingsPanel({ mode = "all" }: ListingsPanelProps) {
                     "group cursor-pointer rounded-xl border bg-card transition-all hover:shadow-lg overflow-hidden",
                     isSelected &&
                       "border-primary shadow-lg ring-2 ring-primary/20",
-                    "flex flex-col sm:flex-row"
+                    "flex flex-col sm:flex-row",
                   )}
                 >
                   <div className="relative w-full h-48 sm:w-32 sm:h-32 md:w-40 md:h-40 flex-shrink-0 overflow-hidden">
@@ -447,7 +447,7 @@ export function ListingsPanel({ mode = "all" }: ListingsPanelProps) {
                             "h-3.5 w-3.5 sm:h-3 sm:w-3 transition-colors",
                             listing.isFavorite
                               ? "fill-destructive text-destructive"
-                              : "text-foreground"
+                              : "text-foreground",
                           )}
                         />
                       </Button>

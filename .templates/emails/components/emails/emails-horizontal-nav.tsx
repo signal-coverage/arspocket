@@ -80,7 +80,7 @@ export function EmailsHorizontalNav() {
                 onClick={() => setFolder(folder.id as any)}
                 className={cn(
                   "h-[30px] gap-1.5",
-                  isActive && "bg-muted text-foreground hover:bg-muted"
+                  isActive && "bg-muted text-foreground hover:bg-muted",
                 )}
               >
                 <Icon className="size-4" />
@@ -106,7 +106,7 @@ export function EmailsHorizontalNav() {
                 onClick={() => setFolder(folder.id as any)}
                 className={cn(
                   "h-[30px] gap-1.5",
-                  isActive && "bg-muted text-foreground hover:bg-muted"
+                  isActive && "bg-muted text-foreground hover:bg-muted",
                 )}
               >
                 <Icon className="size-4" />
@@ -160,7 +160,7 @@ export function EmailsHorizontalNav() {
                 onClick={() => setFolder(folder.id as any)}
                 className={cn(
                   "h-[30px] gap-1.5",
-                  isActive && "bg-muted text-foreground hover:bg-muted"
+                  isActive && "bg-muted text-foreground hover:bg-muted",
                 )}
               >
                 <Icon className="size-4" />
@@ -230,7 +230,7 @@ export function EmailsHorizontalNav() {
                 onClick={() => setFolder(folder.id as any)}
                 className={cn(
                   "h-[30px] gap-1.5",
-                  isActive && "bg-muted text-foreground hover:bg-muted"
+                  isActive && "bg-muted text-foreground hover:bg-muted",
                 )}
               >
                 <Icon className="size-4" />

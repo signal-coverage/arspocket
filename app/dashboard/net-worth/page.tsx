@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { format } from "date-fns";
 import { TrendingUp, Trash2 } from "lucide-react";
 import {
@@ -24,24 +25,21 @@ const fmt = (n: number) =>
   }).format(n);
 
 export const NetWorthPage = async () => {
+  const t = await getTranslations("netWorth");
   const snapshots = await getNetWorthSnapshots();
 
   return (
     <div className="flex flex-1 flex-col gap-6 p-6">
       <div>
-        <h1 className="text-xl font-semibold">Net Worth</h1>
-        <p className="text-sm text-muted-foreground">
-          Track your assets and liabilities over time.
-        </p>
+        <h1 className="text-xl font-semibold">{t("title")}</h1>
+        <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6 items-start">
         <Card>
           <CardHeader>
-            <CardTitle>New Snapshot</CardTitle>
-            <CardDescription>
-              Record your current assets and liabilities
-            </CardDescription>
+            <CardTitle>{t("newSnapshot")}</CardTitle>
+            <CardDescription>{t("newSnapshotDesc")}</CardDescription>
           </CardHeader>
           <CardContent>
             <NetWorthForm />
@@ -52,7 +50,7 @@ export const NetWorthPage = async () => {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-base flex items-center gap-2">
-                <TrendingUp className="size-4" /> Net Worth Trend
+                <TrendingUp className="size-4" /> {t("trend")}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -63,7 +61,7 @@ export const NetWorthPage = async () => {
           {snapshots.length > 0 && (
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-base">Snapshots</CardTitle>
+                <CardTitle className="text-base">{t("snapshots")}</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="divide-y">
@@ -81,19 +79,19 @@ export const NetWorthPage = async () => {
                             variant="secondary"
                             className="text-xs text-emerald-600"
                           >
-                            Assets: {fmt(s.totalAssets)}
+                            {t("assets")}: {fmt(s.totalAssets)}
                           </Badge>
                           <Badge
                             variant="secondary"
                             className="text-xs text-red-600"
                           >
-                            Liabilities: {fmt(s.totalLiabilities)}
+                            {t("liabilities")}: {fmt(s.totalLiabilities)}
                           </Badge>
                         </div>
                         <p
                           className={`text-sm font-semibold mt-1 ${s.netWorth >= 0 ? "text-emerald-600" : "text-red-600"}`}
                         >
-                          Net: {fmt(s.netWorth)}
+                          {t("net")}: {fmt(s.netWorth)}
                         </p>
                       </div>
                       <form

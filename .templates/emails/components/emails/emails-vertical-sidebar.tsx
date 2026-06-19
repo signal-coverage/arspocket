@@ -80,7 +80,7 @@ export function EmailsVerticalSidebar({
                 onClick={onItemClick}
                 className={cn(
                   "size-8",
-                  item.active && "bg-muted text-foreground hover:bg-muted"
+                  item.active && "bg-muted text-foreground hover:bg-muted",
                 )}
               >
                 <item.icon className="size-4" />

@@ -21,7 +21,10 @@ export type BudgetWithSpend = {
 export const getBudgets = async () => {
   const { userId } = await auth();
   if (!userId) return [];
-  return prisma.budget.findMany({ where: { userId }, orderBy: { createdAt: "desc" } });
+  return prisma.budget.findMany({
+    where: { userId },
+    orderBy: { createdAt: "desc" },
+  });
 };
 
 export const createBudget = async (data: {
@@ -76,7 +79,8 @@ export const getBudgetsWithSpend = async (): Promise<BudgetWithSpend[]> => {
     const amount = Number(budget.amount);
     const spent = Number(agg._sum.amount ?? 0);
     const remaining = Math.max(0, amount - spent);
-    const pct = amount > 0 ? Math.min(Math.round((spent / amount) * 100), 100) : 0;
+    const pct =
+      amount > 0 ? Math.min(Math.round((spent / amount) * 100), 100) : 0;
     const state: "SAFE" | "WARNING" | "DANGER" =
       pct >= 90 ? "DANGER" : pct >= 75 ? "WARNING" : "SAFE";
 
@@ -98,7 +102,7 @@ export const getBudgetsWithSpend = async (): Promise<BudgetWithSpend[]> => {
 
 export const updateBudget = async (
   id: string,
-  data: { amount?: number; startDate?: string }
+  data: { amount?: number; startDate?: string },
 ): Promise<void> => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
@@ -107,7 +111,9 @@ export const updateBudget = async (
     where: { id, userId },
     data: {
       ...(data.amount !== undefined && { amount: data.amount }),
-      ...(data.startDate !== undefined && { startDate: new Date(data.startDate) }),
+      ...(data.startDate !== undefined && {
+        startDate: new Date(data.startDate),
+      }),
     },
   });
 
@@ -131,7 +137,7 @@ export const checkAndSendBudgetAlert = async (
   userId: string,
   category: string,
   month: number,
-  year: number
+  year: number,
 ): Promise<"80" | "100" | null> => {
   const startOfMonth = new Date(year, month - 1, 1);
   const endOfMonth = new Date(year, month, 0, 23, 59, 59);

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { SerializedReceipt } from "@/app/actions/receipts";
 import { ReceiptCard } from "./receipt-card";
 import { ReceiptUpload } from "./receipt-upload";
@@ -12,14 +13,19 @@ type Props = {
 };
 
 export const ReceiptsGrid = ({ receipts }: Props) => {
+  const t = useTranslations("receipts");
   const [uploadOpen, setUploadOpen] = useState(false);
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex justify-end">
-        <Button onClick={() => setUploadOpen(true)} size="sm" className="gap-1.5">
+        <Button
+          onClick={() => setUploadOpen(true)}
+          size="sm"
+          className="gap-1.5"
+        >
           <Plus className="size-4" />
-          Upload Receipt
+          {t("uploadReceipt")}
         </Button>
       </div>
 
@@ -27,9 +33,9 @@ export const ReceiptsGrid = ({ receipts }: Props) => {
         <div className="flex flex-col items-center justify-center gap-3 py-16 rounded-lg border border-dashed">
           <Receipt className="size-10 text-muted-foreground/40" />
           <div className="text-center">
-            <p className="text-sm font-medium">No receipts yet</p>
+            <p className="text-sm font-medium">{t("noReceipts")}</p>
             <p className="text-xs text-muted-foreground mt-1">
-              Upload your first receipt to start organizing.
+              {t("noReceiptsStart")}
             </p>
           </div>
         </div>

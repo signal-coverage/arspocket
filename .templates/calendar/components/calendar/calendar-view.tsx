@@ -39,7 +39,7 @@ export function CalendarView() {
   });
 
   const isTodayInWeek = weekDays.some(
-    (day) => format(day, "yyyy-MM-dd") === format(today, "yyyy-MM-dd")
+    (day) => format(day, "yyyy-MM-dd") === format(today, "yyyy-MM-dd"),
   );
 
   useEffect(() => {

@@ -72,7 +72,7 @@ export const normalizeToBase = (
   amount: number,
   fromCurrency: string,
   toCurrency: string,
-  rates: FXRate[]
+  rates: FXRate[],
 ): number => {
   if (fromCurrency === toCurrency) return amount;
 

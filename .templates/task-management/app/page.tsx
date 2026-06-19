@@ -1,7 +1,7 @@
-import { TaskSidebar } from '@/components/task/sidebar/task-sidebar';
-import { TaskHeader } from '@/components/task/header/task-header';
-import { TaskBoard } from '@/components/task/board/task-board';
-import { SidebarProvider } from '@/components/ui/sidebar';
+import { TaskSidebar } from "@/components/task/sidebar/task-sidebar";
+import { TaskHeader } from "@/components/task/header/task-header";
+import { TaskBoard } from "@/components/task/board/task-board";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 export default function Home() {
   return (

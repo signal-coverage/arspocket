@@ -29,7 +29,9 @@ export function AddTaskDialog() {
   const [title, setTitle] = useState("");
   const [project, setProject] = useState("");
   const [statusId, setStatusId] = useState("draft");
-  const [priority, setPriority] = useState<"low" | "medium" | "urgent">("medium");
+  const [priority, setPriority] = useState<"low" | "medium" | "urgent">(
+    "medium",
+  );
   const { addTask } = useTasksStore();
 
   const handleSubmit = () => {
@@ -107,7 +109,11 @@ export function AddTaskDialog() {
               </SelectTrigger>
               <SelectContent>
                 {statuses.map((status) => (
-                  <SelectItem key={status.id} value={status.id} className="text-xs">
+                  <SelectItem
+                    key={status.id}
+                    value={status.id}
+                    className="text-xs"
+                  >
                     {status.name}
                   </SelectItem>
                 ))}
@@ -118,7 +124,12 @@ export function AddTaskDialog() {
             <Label htmlFor="priority" className="text-xs">
               Priority
             </Label>
-            <Select value={priority} onValueChange={(v) => setPriority(v as "low" | "medium" | "urgent")}>
+            <Select
+              value={priority}
+              onValueChange={(v) =>
+                setPriority(v as "low" | "medium" | "urgent")
+              }
+            >
               <SelectTrigger className="text-xs">
                 <SelectValue placeholder="Select priority" />
               </SelectTrigger>
@@ -137,7 +148,11 @@ export function AddTaskDialog() {
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)} className="text-xs">
+          <Button
+            variant="outline"
+            onClick={() => setOpen(false)}
+            className="text-xs"
+          >
             Cancel
           </Button>
           <Button onClick={handleSubmit} className="text-xs">
@@ -148,4 +163,3 @@ export function AddTaskDialog() {
     </Dialog>
   );
 }
-

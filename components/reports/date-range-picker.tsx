@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { DayPicker, type DateRange } from "react-day-picker";
+import { useTranslations } from "next-intl";
 import "react-day-picker/style.css";
 
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,7 @@ import {
 } from "@/components/ui/popover";
 
 export const DateRangePicker = () => {
+  const t = useTranslations("reports");
   const router = useRouter();
   const searchParams = useSearchParams();
   const [open, setOpen] = useState(false);
@@ -23,7 +25,7 @@ export const DateRangePicker = () => {
   const [range, setRange] = useState<DateRange | undefined>(
     fromParam && toParam
       ? { from: new Date(fromParam), to: new Date(toParam) }
-      : undefined
+      : undefined,
   );
 
   const apply = () => {
@@ -47,7 +49,7 @@ export const DateRangePicker = () => {
   const label =
     range?.from && range?.to
       ? `${range.from.toLocaleDateString()} – ${range.to.toLocaleDateString()}`
-      : "Pick date range";
+      : t("pickDateRange");
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -65,10 +67,14 @@ export const DateRangePicker = () => {
         />
         <div className="flex justify-end gap-2 mt-2">
           <Button variant="ghost" size="sm" onClick={clear}>
-            Clear
+            {t("clear")}
           </Button>
-          <Button size="sm" onClick={apply} disabled={!range?.from || !range?.to}>
-            Apply
+          <Button
+            size="sm"
+            onClick={apply}
+            disabled={!range?.from || !range?.to}
+          >
+            {t("apply")}
           </Button>
         </div>
       </PopoverContent>

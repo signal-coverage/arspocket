@@ -10,7 +10,7 @@ interface DashboardState {
   setDepartmentFilter: (filter: string) => void;
   setStatusFilter: (filter: string) => void;
   clearFilters: () => void;
-  
+
   showAlertBanner: boolean;
   showStatsCards: boolean;
   showChart: boolean;
@@ -37,7 +37,7 @@ export const useDashboardStore = create<DashboardState>((set) => ({
       departmentFilter: "all",
       statusFilter: "all",
     }),
-    
+
   showAlertBanner: true,
   showStatsCards: true,
   showChart: true,
@@ -57,4 +57,3 @@ export const useDashboardStore = create<DashboardState>((set) => ({
       layoutDensity: "default",
     }),
 }));
-

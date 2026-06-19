@@ -33,4 +33,3 @@ export const users: User[] = [
 ];
 
 export const currentUser = users[0];
-

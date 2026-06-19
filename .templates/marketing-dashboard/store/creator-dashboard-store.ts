@@ -11,17 +11,19 @@ interface CreatorDashboardStore {
   clearFilters: () => void;
 }
 
-export const useCreatorDashboardStore = create<CreatorDashboardStore>((set) => ({
-  searchQuery: "",
-  statusFilter: "all",
-  platformFilter: "all",
-  setSearchQuery: (query) => set({ searchQuery: query }),
-  setStatusFilter: (status) => set({ statusFilter: status }),
-  setPlatformFilter: (platform) => set({ platformFilter: platform }),
-  clearFilters: () =>
-    set({
-      searchQuery: "",
-      statusFilter: "all",
-      platformFilter: "all",
-    }),
-}));
+export const useCreatorDashboardStore = create<CreatorDashboardStore>(
+  (set) => ({
+    searchQuery: "",
+    statusFilter: "all",
+    platformFilter: "all",
+    setSearchQuery: (query) => set({ searchQuery: query }),
+    setStatusFilter: (status) => set({ statusFilter: status }),
+    setPlatformFilter: (platform) => set({ platformFilter: platform }),
+    clearFilters: () =>
+      set({
+        searchQuery: "",
+        statusFilter: "all",
+        platformFilter: "all",
+      }),
+  }),
+);

@@ -41,18 +41,90 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const fullYearData = [
-  { month: "Jan", moneyIn: 155000, moneyOut: 25000, moneyInChange: 8.5, moneyOutChange: -5.2 },
-  { month: "Feb", moneyIn: 200000, moneyOut: 100000, moneyInChange: 12.3, moneyOutChange: 8.7 },
-  { month: "Mar", moneyIn: 210000, moneyOut: 100000, moneyInChange: 5.0, moneyOutChange: 0.0 },
-  { month: "Apr", moneyIn: 280000, moneyOut: 175000, moneyInChange: 15.2, moneyOutChange: 12.7 },
-  { month: "May", moneyIn: 265000, moneyOut: 120000, moneyInChange: -5.4, moneyOutChange: -8.3 },
-  { month: "Jun", moneyIn: 210000, moneyOut: 100000, moneyInChange: -10.2, moneyOutChange: -6.5 },
-  { month: "Jul", moneyIn: 210000, moneyOut: 170000, moneyInChange: 0.0, moneyOutChange: 14.2 },
-  { month: "Aug", moneyIn: 265000, moneyOut: 175000, moneyInChange: 11.8, moneyOutChange: 2.9 },
-  { month: "Sep", moneyIn: 265000, moneyOut: 135000, moneyInChange: 0.0, moneyOutChange: -9.1 },
-  { month: "Oct", moneyIn: 265000, moneyOut: 135000, moneyInChange: 0.0, moneyOutChange: 0.0 },
-  { month: "Nov", moneyIn: 265000, moneyOut: 135000, moneyInChange: 0.0, moneyOutChange: 0.0 },
-  { month: "Dec", moneyIn: 210000, moneyOut: 100000, moneyInChange: -7.5, moneyOutChange: -6.2 },
+  {
+    month: "Jan",
+    moneyIn: 155000,
+    moneyOut: 25000,
+    moneyInChange: 8.5,
+    moneyOutChange: -5.2,
+  },
+  {
+    month: "Feb",
+    moneyIn: 200000,
+    moneyOut: 100000,
+    moneyInChange: 12.3,
+    moneyOutChange: 8.7,
+  },
+  {
+    month: "Mar",
+    moneyIn: 210000,
+    moneyOut: 100000,
+    moneyInChange: 5.0,
+    moneyOutChange: 0.0,
+  },
+  {
+    month: "Apr",
+    moneyIn: 280000,
+    moneyOut: 175000,
+    moneyInChange: 15.2,
+    moneyOutChange: 12.7,
+  },
+  {
+    month: "May",
+    moneyIn: 265000,
+    moneyOut: 120000,
+    moneyInChange: -5.4,
+    moneyOutChange: -8.3,
+  },
+  {
+    month: "Jun",
+    moneyIn: 210000,
+    moneyOut: 100000,
+    moneyInChange: -10.2,
+    moneyOutChange: -6.5,
+  },
+  {
+    month: "Jul",
+    moneyIn: 210000,
+    moneyOut: 170000,
+    moneyInChange: 0.0,
+    moneyOutChange: 14.2,
+  },
+  {
+    month: "Aug",
+    moneyIn: 265000,
+    moneyOut: 175000,
+    moneyInChange: 11.8,
+    moneyOutChange: 2.9,
+  },
+  {
+    month: "Sep",
+    moneyIn: 265000,
+    moneyOut: 135000,
+    moneyInChange: 0.0,
+    moneyOutChange: -9.1,
+  },
+  {
+    month: "Oct",
+    moneyIn: 265000,
+    moneyOut: 135000,
+    moneyInChange: 0.0,
+    moneyOutChange: 0.0,
+  },
+  {
+    month: "Nov",
+    moneyIn: 265000,
+    moneyOut: 135000,
+    moneyInChange: 0.0,
+    moneyOutChange: 0.0,
+  },
+  {
+    month: "Dec",
+    moneyIn: 210000,
+    moneyOut: 100000,
+    moneyInChange: -7.5,
+    moneyOutChange: -6.2,
+  },
 ];
 
 type ChartType = "bar" | "line" | "area";
@@ -98,8 +170,10 @@ function CustomTooltip({
   const moneyOutData = payload.find((p) => p.dataKey === "moneyOut");
   const moneyIn = moneyInData?.value || 0;
   const moneyOut = moneyOutData?.value || 0;
-  const moneyInChange = (moneyInData?.payload as { moneyInChange?: number })?.moneyInChange || 0;
-  const moneyOutChange = (moneyOutData?.payload as { moneyOutChange?: number })?.moneyOutChange || 0;
+  const moneyInChange =
+    (moneyInData?.payload as { moneyInChange?: number })?.moneyInChange || 0;
+  const moneyOutChange =
+    (moneyOutData?.payload as { moneyOutChange?: number })?.moneyOutChange || 0;
 
   return (
     <div className="bg-popover border border-border rounded-lg p-3 shadow-lg min-w-[160px]">
@@ -112,8 +186,11 @@ function CustomTooltip({
               ${(Number(moneyIn) / 1000).toFixed(0)}k
             </span>
           </div>
-          <span className={`text-xs font-medium ${moneyInChange >= 0 ? "text-red-500" : "text-emerald-500"}`}>
-            {moneyInChange >= 0 ? "↘" : "↗"} {Math.abs(moneyInChange).toFixed(1)}%
+          <span
+            className={`text-xs font-medium ${moneyInChange >= 0 ? "text-red-500" : "text-emerald-500"}`}
+          >
+            {moneyInChange >= 0 ? "↘" : "↗"}{" "}
+            {Math.abs(moneyInChange).toFixed(1)}%
           </span>
         </div>
         <div className="flex items-center justify-between gap-4">
@@ -123,8 +200,11 @@ function CustomTooltip({
               ${(Number(moneyOut) / 1000).toFixed(0)}k
             </span>
           </div>
-          <span className={`text-xs font-medium ${moneyOutChange >= 0 ? "text-emerald-500" : "text-red-500"}`}>
-            {moneyOutChange >= 0 ? "↗" : "↘"} {Math.abs(moneyOutChange).toFixed(1)}%
+          <span
+            className={`text-xs font-medium ${moneyOutChange >= 0 ? "text-emerald-500" : "text-red-500"}`}
+          >
+            {moneyOutChange >= 0 ? "↗" : "↘"}{" "}
+            {Math.abs(moneyOutChange).toFixed(1)}%
           </span>
         </div>
       </div>
@@ -194,23 +274,17 @@ export function FinancialFlowChart() {
               <DropdownMenuItem onClick={() => setChartType("bar")}>
                 <BarChart3 className="size-4 mr-2" />
                 Bar Chart
-                {chartType === "bar" && (
-                  <Check className="size-4 ml-auto" />
-                )}
+                {chartType === "bar" && <Check className="size-4 ml-auto" />}
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => setChartType("line")}>
                 <LineChartIcon className="size-4 mr-2" />
                 Line Chart
-                {chartType === "line" && (
-                  <Check className="size-4 ml-auto" />
-                )}
+                {chartType === "line" && <Check className="size-4 ml-auto" />}
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => setChartType("area")}>
                 <AreaChartIcon className="size-4 mr-2" />
                 Area Chart
-                {chartType === "area" && (
-                  <Check className="size-4 ml-auto" />
-                )}
+                {chartType === "area" && <Check className="size-4 ml-auto" />}
               </DropdownMenuItem>
 
               <DropdownMenuSeparator />
@@ -224,9 +298,7 @@ export function FinancialFlowChart() {
                   {(Object.keys(periodLabels) as TimePeriod[]).map((key) => (
                     <DropdownMenuItem key={key} onClick={() => setPeriod(key)}>
                       {periodLabels[key]}
-                      {period === key && (
-                        <Check className="size-4 ml-auto" />
-                      )}
+                      {period === key && <Check className="size-4 ml-auto" />}
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuSubContent>
@@ -310,7 +382,11 @@ export function FinancialFlowChart() {
                   y2="1"
                 >
                   <stop offset="0%" stopColor={moneyOutColor} stopOpacity={1} />
-                  <stop offset="100%" stopColor={moneyOutColor} stopOpacity={0.6} />
+                  <stop
+                    offset="100%"
+                    stopColor={moneyOutColor}
+                    stopOpacity={0.6}
+                  />
                 </linearGradient>
               </defs>
               {showGrid && (
@@ -433,8 +509,16 @@ export function FinancialFlowChart() {
                   x2="0"
                   y2="1"
                 >
-                  <stop offset="0%" stopColor={moneyOutColor} stopOpacity={0.3} />
-                  <stop offset="100%" stopColor={moneyOutColor} stopOpacity={0.05} />
+                  <stop
+                    offset="0%"
+                    stopColor={moneyOutColor}
+                    stopOpacity={0.3}
+                  />
+                  <stop
+                    offset="100%"
+                    stopColor={moneyOutColor}
+                    stopOpacity={0.05}
+                  />
                 </linearGradient>
               </defs>
               {showGrid && (
@@ -487,4 +571,3 @@ export function FinancialFlowChart() {
     </div>
   );
 }
-

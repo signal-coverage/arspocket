@@ -58,18 +58,18 @@ Multi-currency reports with income vs. expense breakdowns, category analysis, an
 
 ## Tech Stack
 
-| Layer | Technology |
-| --- | --- |
-| Framework | Next.js 16 (App Router) |
-| Auth | Clerk v7 |
-| Database | Neon PostgreSQL (serverless) |
-| ORM | Prisma 7 (HTTP adapter) |
-| Storage | AWS S3 (presigned URL flow) |
-| Mapping | MapLibre GL |
-| UI | Tailwind CSS + shadcn/ui |
-| Drag & Drop | @dnd-kit |
-| Calendar | react-day-picker |
-| Animations | Framer Motion |
+| Layer       | Technology                   |
+| ----------- | ---------------------------- |
+| Framework   | Next.js 16 (App Router)      |
+| Auth        | Clerk v7                     |
+| Database    | Neon PostgreSQL (serverless) |
+| ORM         | Prisma 7 (HTTP adapter)      |
+| Storage     | AWS S3 (presigned URL flow)  |
+| Mapping     | MapLibre GL                  |
+| UI          | Tailwind CSS + shadcn/ui     |
+| Drag & Drop | @dnd-kit                     |
+| Calendar    | react-day-picker             |
+| Animations  | Framer Motion                |
 
 ---
 

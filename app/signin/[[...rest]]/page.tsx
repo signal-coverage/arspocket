@@ -53,13 +53,17 @@ export const SignInPage = () => (
               <div className="w-5 h-5 rounded-full bg-[#A8F0B5]/15 border border-[#A8F0B5]/30 flex items-center justify-center shrink-0 mt-0.5">
                 <CheckIcon className="w-3 h-3 text-[#A8F0B5]" />
               </div>
-              <span className="text-[#C9D1D9] text-sm leading-relaxed">{f}</span>
+              <span className="text-[#C9D1D9] text-sm leading-relaxed">
+                {f}
+              </span>
             </li>
           ))}
         </ul>
       </div>
 
-      <p className="text-[#5D6370] text-xs">Trusted by 10,000+ users worldwide.</p>
+      <p className="text-[#5D6370] text-xs">
+        Trusted by 10,000+ users worldwide.
+      </p>
     </div>
 
     {/* Auth panel */}

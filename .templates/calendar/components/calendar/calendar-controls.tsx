@@ -42,7 +42,7 @@ export function CalendarControls() {
   const weekStart = format(currentWeekStart, "MMM dd");
   const weekEnd = format(
     new Date(currentWeekStart.getTime() + 6 * 24 * 60 * 60 * 1000),
-    "MMM dd yyyy"
+    "MMM dd yyyy",
   );
 
   const hasActiveFilters =
@@ -82,7 +82,7 @@ export function CalendarControls() {
               variant="outline"
               className={cn(
                 "h-8 px-3 gap-2 justify-start text-left font-normal shrink-0",
-                "hover:bg-accent"
+                "hover:bg-accent",
               )}
             >
               <CalendarIcon className="size-4 text-muted-foreground" />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -28,19 +29,28 @@ type Props = {
   editTask?: SerializedTask | null;
 };
 
-export const TaskForm = ({ open, onOpenChange, defaultStatus = "BACKLOG", editTask }: Props) => {
+export const TaskForm = ({
+  open,
+  onOpenChange,
+  defaultStatus = "BACKLOG",
+  editTask,
+}: Props) => {
+  const t = useTranslations("tasks");
+  const tCommon = useTranslations("common");
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [title, setTitle] = useState(editTask?.title ?? "");
   const [description, setDescription] = useState(editTask?.description ?? "");
-  const [priority, setPriority] = useState<"LOW" | "MEDIUM" | "HIGH" | "URGENT">(
-    (editTask?.priority as "LOW" | "MEDIUM" | "HIGH" | "URGENT") ?? "MEDIUM"
-  );
+  const [priority, setPriority] = useState<
+    "LOW" | "MEDIUM" | "HIGH" | "URGENT"
+  >((editTask?.priority as "LOW" | "MEDIUM" | "HIGH" | "URGENT") ?? "MEDIUM");
   const [dueDate, setDueDate] = useState(
-    editTask?.dueDate ? new Date(editTask.dueDate).toISOString().split("T")[0] : ""
+    editTask?.dueDate
+      ? new Date(editTask.dueDate).toISOString().split("T")[0]
+      : "",
   );
   const [labelsInput, setLabelsInput] = useState(
-    editTask?.labels.join(", ") ?? ""
+    editTask?.labels.join(", ") ?? "",
   );
 
   const parseLabels = (input: string): string[] =>
@@ -53,12 +63,12 @@ export const TaskForm = ({ open, onOpenChange, defaultStatus = "BACKLOG", editTa
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim()) {
-      setError("Title is required.");
+      setError(t("titleIsRequired"));
       return;
     }
     const labels = parseLabels(labelsInput);
     if (labels.length > 5) {
-      setError("Maximum 5 labels.");
+      setError(t("maxLabels"));
       return;
     }
 
@@ -83,7 +93,7 @@ export const TaskForm = ({ open, onOpenChange, defaultStatus = "BACKLOG", editTa
         }
         onOpenChange(false);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to save task");
+        setError(err instanceof Error ? err.message : t("failedSave"));
       }
     });
   };
@@ -92,15 +102,15 @@ export const TaskForm = ({ open, onOpenChange, defaultStatus = "BACKLOG", editTa
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>{editTask ? "Edit Task" : "New Task"}</SheetTitle>
+          <SheetTitle>{editTask ? t("editTask") : t("newTask")}</SheetTitle>
           <SheetDescription>
-            {editTask ? "Update this financial task." : "Add a task to your board."}
+            {editTask ? t("updateTaskDescription") : t("addTaskBoard")}
           </SheetDescription>
         </SheetHeader>
 
         <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="task-title">Title *</Label>
+            <Label htmlFor="task-title">{t("titleRequired")}</Label>
             <Input
               id="task-title"
               value={title}
@@ -111,17 +121,17 @@ export const TaskForm = ({ open, onOpenChange, defaultStatus = "BACKLOG", editTa
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="task-desc">Description</Label>
+            <Label htmlFor="task-desc">{tCommon("description")}</Label>
             <Input
               id="task-desc"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Optional description"
+              placeholder={t("optionalDescription")}
             />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label>Priority</Label>
+            <Label>{t("priorityLabel")}</Label>
             <Select
               value={priority}
               onValueChange={(v) =>
@@ -132,16 +142,16 @@ export const TaskForm = ({ open, onOpenChange, defaultStatus = "BACKLOG", editTa
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="LOW">Low</SelectItem>
-                <SelectItem value="MEDIUM">Medium</SelectItem>
-                <SelectItem value="HIGH">High</SelectItem>
-                <SelectItem value="URGENT">Urgent</SelectItem>
+                <SelectItem value="LOW">{t("priority.low")}</SelectItem>
+                <SelectItem value="MEDIUM">{t("priority.medium")}</SelectItem>
+                <SelectItem value="HIGH">{t("priority.high")}</SelectItem>
+                <SelectItem value="URGENT">{t("priority.urgent")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="task-due">Due Date</Label>
+            <Label htmlFor="task-due">{t("dueDateLabel")}</Label>
             <Input
               id="task-due"
               type="date"
@@ -151,7 +161,7 @@ export const TaskForm = ({ open, onOpenChange, defaultStatus = "BACKLOG", editTa
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="task-labels">Labels (comma-separated, max 5)</Label>
+            <Label htmlFor="task-labels">{t("labelsLabel")}</Label>
             <Input
               id="task-labels"
               value={labelsInput}
@@ -163,7 +173,11 @@ export const TaskForm = ({ open, onOpenChange, defaultStatus = "BACKLOG", editTa
           {error && <p className="text-sm text-destructive">{error}</p>}
 
           <Button type="submit" disabled={isPending} className="mt-2">
-            {isPending ? "Saving..." : editTask ? "Update Task" : "Create Task"}
+            {isPending
+              ? t("saving")
+              : editTask
+                ? t("updateTaskBtn")
+                : t("createTaskBtn")}
           </Button>
         </form>
       </SheetContent>

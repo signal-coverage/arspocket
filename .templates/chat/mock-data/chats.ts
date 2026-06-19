@@ -89,4 +89,3 @@ export const mockChats: Chat[] = [
     isArchived: true,
   },
 ];
-

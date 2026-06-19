@@ -16,7 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Creator Marketing Dashboard - Square UI",
-  description: "Creator marketing dashboard with campaigns and analytics management",
+  description:
+    "Creator marketing dashboard with campaigns and analytics management",
 };
 
 export default function RootLayout({

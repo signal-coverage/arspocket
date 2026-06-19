@@ -23,11 +23,7 @@ export function QuickActions() {
         {actions.map((action) => (
           <Tooltip key={action.label}>
             <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="size-9 rounded-lg"
-              >
+              <Button variant="ghost" size="icon" className="size-9 rounded-lg">
                 <action.icon className="size-4" />
               </Button>
             </TooltipTrigger>
@@ -43,4 +39,3 @@ export function QuickActions() {
     </TooltipProvider>
   );
 }
-

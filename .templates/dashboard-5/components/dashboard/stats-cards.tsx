@@ -41,7 +41,9 @@ export function StatsCards() {
           <div className="flex items-start justify-between">
             <div className="space-y-1">
               <p className="text-sm text-muted-foreground">{stat.title}</p>
-              <p className="text-2xl font-medium text-foreground">{stat.value}</p>
+              <p className="text-2xl font-medium text-foreground">
+                {stat.value}
+              </p>
               <p className="text-xs text-muted-foreground">
                 +{stat.change} vs last month
               </p>

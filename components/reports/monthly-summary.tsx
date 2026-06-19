@@ -1,9 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { getTranslations } from "next-intl/server";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 type ReportData = {
@@ -26,15 +22,11 @@ const fmt = (n: number, currency = "ARS") =>
     maximumFractionDigits: 2,
   }).format(n);
 
-export const MonthlySummary = ({
-  data,
-}: {
-  data: ReportData | null;
-}) => {
+export const MonthlySummary = async ({ data }: { data: ReportData | null }) => {
+  const t = await getTranslations("reports");
+
   if (!data) {
-    return (
-      <p className="text-sm text-muted-foreground">No report data available.</p>
-    );
+    return <p className="text-sm text-muted-foreground">{t("noData")}</p>;
   }
 
   const {
@@ -54,7 +46,7 @@ export const MonthlySummary = ({
     <div className="space-y-4">
       {ratesStale && baseCurrency && (
         <div className="rounded-md border border-amber-200 bg-amber-50 dark:bg-amber-950 dark:border-amber-800 px-3 py-2 text-sm text-amber-800 dark:text-amber-200">
-          Exchange rates may be outdated — could not reach the rates API.
+          {t("staleRates")}
         </div>
       )}
 
@@ -62,7 +54,7 @@ export const MonthlySummary = ({
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Income (ARS)
+              {t("incomeArs")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -80,7 +72,7 @@ export const MonthlySummary = ({
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Expenses (ARS)
+              {t("expensesArs")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -98,7 +90,7 @@ export const MonthlySummary = ({
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Net (ARS)
+              {t("netArs")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -117,19 +109,21 @@ export const MonthlySummary = ({
       </div>
 
       <p className="text-xs text-muted-foreground">
-        {transactionCount} transaction{transactionCount !== 1 ? "s" : ""} in
-        this period.
+        {t("transactionCount", { count: transactionCount })}
       </p>
 
       {Object.keys(byCategory).length > 0 && (
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm">By Category</CardTitle>
+            <CardTitle className="text-sm">{t("byCategory")}</CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="divide-y text-sm">
               {Object.entries(byCategory).map(([cat, vals]) => (
-                <li key={cat} className="flex items-center justify-between py-2">
+                <li
+                  key={cat}
+                  className="flex items-center justify-between py-2"
+                >
                   <Badge variant="secondary">{cat}</Badge>
                   <div className="flex gap-4 text-xs">
                     {vals.income > 0 && (

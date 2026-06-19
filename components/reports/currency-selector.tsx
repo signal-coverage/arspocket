@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import {
   Select,
@@ -18,6 +19,7 @@ const CURRENCIES = [
 ];
 
 export const CurrencySelector = () => {
+  const t = useTranslations("reports");
   const router = useRouter();
   const searchParams = useSearchParams();
   const current = searchParams.get("baseCurrency") ?? "";
@@ -35,10 +37,10 @@ export const CurrencySelector = () => {
   return (
     <Select value={current || "none"} onValueChange={handleChange}>
       <SelectTrigger className="w-48">
-        <SelectValue placeholder="Normalize to currency" />
+        <SelectValue placeholder={t("normalizeToCurrency")} />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="none">No normalization</SelectItem>
+        <SelectItem value="none">{t("noNormalization")}</SelectItem>
         {CURRENCIES.map((c) => (
           <SelectItem key={c.value} value={c.value}>
             {c.label}

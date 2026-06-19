@@ -4,6 +4,7 @@ import * as React from "react";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useTheme } from "next-themes";
+import { useTranslations } from "next-intl";
 import { formatCurrency } from "@/lib/format";
 import { formatDateDisplay } from "@/lib/dates";
 
@@ -32,6 +33,7 @@ const MAP_STYLES = {
 const DEFAULT_CENTER = { lng: -58.3816, lat: -34.6037 };
 
 export const SpendingMapInner = ({ transactions }: Props) => {
+  const t = useTranslations("map");
   const containerRef = React.useRef<HTMLDivElement>(null);
   const mapRef = React.useRef<maplibregl.Map | null>(null);
   const markersRef = React.useRef<maplibregl.Marker[]>([]);
@@ -57,7 +59,10 @@ export const SpendingMapInner = ({ transactions }: Props) => {
       attributionControl: false,
     });
 
-    map.addControl(new maplibregl.AttributionControl({ compact: true }), "bottom-right");
+    map.addControl(
+      new maplibregl.AttributionControl({ compact: true }),
+      "bottom-right",
+    );
     mapRef.current = map;
 
     return () => {
@@ -117,8 +122,10 @@ export const SpendingMapInner = ({ transactions }: Props) => {
           </div>
         `;
 
-        const popup = new maplibregl.Popup({ offset: 15, closeButton: true })
-          .setHTML(popupContent);
+        const popup = new maplibregl.Popup({
+          offset: 15,
+          closeButton: true,
+        }).setHTML(popupContent);
 
         const marker = new maplibregl.Marker({ element: el })
           .setLngLat([tx.longitude, tx.latitude])
@@ -151,9 +158,9 @@ export const SpendingMapInner = ({ transactions }: Props) => {
         <div ref={containerRef} className="absolute inset-0 w-full h-full" />
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="bg-background/90 backdrop-blur-sm rounded-lg border p-6 text-center max-w-xs">
-            <p className="text-sm font-medium">No geo-tagged transactions yet.</p>
+            <p className="text-sm font-medium">{t("noGeoTagged")}</p>
             <p className="text-xs text-muted-foreground mt-1">
-              Add a location to a transaction to see it here.
+              {t("noLocationsDescription")}
             </p>
           </div>
         </div>

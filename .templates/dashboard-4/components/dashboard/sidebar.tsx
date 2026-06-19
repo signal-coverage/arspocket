@@ -102,13 +102,13 @@ export function DashboardSidebar({
 
   const toggleItem = (id: string) => {
     setExpandedItems((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
     );
   };
 
   const renderWorkgroupItem = (
     item: (typeof workgroups)[0],
-    level: number = 0
+    level: number = 0,
   ) => {
     const hasChildren = "children" in item && item.children;
     const isExpanded = expandedItems.includes(item.id);
@@ -143,7 +143,7 @@ export function DashboardSidebar({
                   <SidebarMenuSubItem key={child.id}>
                     {renderWorkgroupItem(
                       child as (typeof workgroups)[0],
-                      level + 1
+                      level + 1,
                     )}
                   </SidebarMenuSubItem>
                 ))}

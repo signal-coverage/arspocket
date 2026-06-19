@@ -15,23 +15,109 @@ export interface Lead {
 }
 
 const firstNames = [
-  "John", "Jane", "Alex", "Emily", "Michael", "Sarah", "David", "Emma",
-  "James", "Olivia", "Robert", "Sophia", "William", "Isabella", "Thomas",
-  "Mia", "Daniel", "Charlotte", "Matthew", "Amelia", "Christopher", "Harper",
-  "Andrew", "Evelyn", "Joshua", "Abigail", "Ryan", "Lily", "Brandon", "Madison",
-  "Kevin", "Grace", "Justin", "Chloe", "Aaron", "Victoria", "Nathan", "Penelope",
-  "Jacob", "Riley", "Ethan", "Zoey", "Luke", "Natalie", "Benjamin", "Hannah",
-  "Henry", "Scarlett", "Sebastian", "Aria"
+  "John",
+  "Jane",
+  "Alex",
+  "Emily",
+  "Michael",
+  "Sarah",
+  "David",
+  "Emma",
+  "James",
+  "Olivia",
+  "Robert",
+  "Sophia",
+  "William",
+  "Isabella",
+  "Thomas",
+  "Mia",
+  "Daniel",
+  "Charlotte",
+  "Matthew",
+  "Amelia",
+  "Christopher",
+  "Harper",
+  "Andrew",
+  "Evelyn",
+  "Joshua",
+  "Abigail",
+  "Ryan",
+  "Lily",
+  "Brandon",
+  "Madison",
+  "Kevin",
+  "Grace",
+  "Justin",
+  "Chloe",
+  "Aaron",
+  "Victoria",
+  "Nathan",
+  "Penelope",
+  "Jacob",
+  "Riley",
+  "Ethan",
+  "Zoey",
+  "Luke",
+  "Natalie",
+  "Benjamin",
+  "Hannah",
+  "Henry",
+  "Scarlett",
+  "Sebastian",
+  "Aria",
 ];
 
 const lastNames = [
-  "Doe", "Smith", "Johnson", "Davis", "Brown", "Wilson", "Moore", "Taylor",
-  "Anderson", "Thomas", "Jackson", "White", "Harris", "Martin", "Thompson",
-  "Garcia", "Martinez", "Robinson", "Clark", "Rodriguez", "Lewis", "Lee",
-  "Walker", "Hall", "Allen", "Young", "Hernandez", "King", "Wright", "Lopez",
-  "Hill", "Scott", "Green", "Adams", "Baker", "Gonzalez", "Nelson", "Carter",
-  "Mitchell", "Perez", "Roberts", "Turner", "Phillips", "Campbell", "Parker",
-  "Evans", "Edwards", "Collins", "Stewart", "Sanchez"
+  "Doe",
+  "Smith",
+  "Johnson",
+  "Davis",
+  "Brown",
+  "Wilson",
+  "Moore",
+  "Taylor",
+  "Anderson",
+  "Thomas",
+  "Jackson",
+  "White",
+  "Harris",
+  "Martin",
+  "Thompson",
+  "Garcia",
+  "Martinez",
+  "Robinson",
+  "Clark",
+  "Rodriguez",
+  "Lewis",
+  "Lee",
+  "Walker",
+  "Hall",
+  "Allen",
+  "Young",
+  "Hernandez",
+  "King",
+  "Wright",
+  "Lopez",
+  "Hill",
+  "Scott",
+  "Green",
+  "Adams",
+  "Baker",
+  "Gonzalez",
+  "Nelson",
+  "Carter",
+  "Mitchell",
+  "Perez",
+  "Roberts",
+  "Turner",
+  "Phillips",
+  "Campbell",
+  "Parker",
+  "Evans",
+  "Edwards",
+  "Collins",
+  "Stewart",
+  "Sanchez",
 ];
 
 const owners = [
@@ -41,13 +127,39 @@ const owners = [
   { name: "Sarah Lee", initials: "SL" },
 ];
 
-const statuses: LeadStatus[] = ["new", "contacted", "qualified", "negotiation", "inactive", "recycled"];
-const sources: LeadSource[] = ["website", "paid_ads", "referral", "social", "email"];
+const statuses: LeadStatus[] = [
+  "new",
+  "contacted",
+  "qualified",
+  "negotiation",
+  "inactive",
+  "recycled",
+];
+const sources: LeadSource[] = [
+  "website",
+  "paid_ads",
+  "referral",
+  "social",
+  "email",
+];
 
 function getDateString(daysAgo: number): string {
   const date = new Date();
   date.setDate(date.getDate() - daysAgo);
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   return `${months[date.getMonth()]} ${date.getDate().toString().padStart(2, "0")}, ${date.getFullYear()}`;
 }
 
@@ -123,4 +235,3 @@ export const monthlyLeadGrowth = [
   { month: "Nov", leads: 0 },
   { month: "Dec", leads: 0 },
 ];
-

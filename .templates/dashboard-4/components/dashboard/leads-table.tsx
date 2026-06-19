@@ -64,7 +64,7 @@ type SortOrder = "asc" | "desc";
 function getSortIcon(
   sortField: SortField,
   sortOrder: SortOrder,
-  field: SortField
+  field: SortField,
 ) {
   if (sortField !== field) return <ArrowUpDown className="size-3" />;
   return sortOrder === "asc" ? (
@@ -303,7 +303,7 @@ export function LeadsTable() {
 
   const toggleSelectLead = (id: string) => {
     setSelectedLeads((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id],
     );
   };
 
@@ -849,7 +849,7 @@ export function LeadsTable() {
             Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
             {Math.min(
               currentPage * itemsPerPage,
-              filteredAndSortedLeads.length
+              filteredAndSortedLeads.length,
             )}{" "}
             of {filteredAndSortedLeads.length} leads
           </span>

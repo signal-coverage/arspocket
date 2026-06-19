@@ -12,4 +12,3 @@ export const mockChartData: ChartDataPoint[] = [
   { month: "May", newLeads: 500, replied: 350 },
   { month: "Jun", newLeads: 750, replied: 550 },
 ];
-

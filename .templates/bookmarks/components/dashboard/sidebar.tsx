@@ -166,7 +166,7 @@ export function BookmarksSidebar({
               <ChevronDown
                 className={cn(
                   "size-3.5 transition-transform",
-                  !collectionsOpen && "-rotate-90"
+                  !collectionsOpen && "-rotate-90",
                 )}
               />
               COLLECTIONS
@@ -221,7 +221,7 @@ export function BookmarksSidebar({
               <ChevronDown
                 className={cn(
                   "size-3.5 transition-transform",
-                  !tagsOpen && "-rotate-90"
+                  !tagsOpen && "-rotate-90",
                 )}
               />
               TAGS
@@ -249,7 +249,7 @@ export function BookmarksSidebar({
                       "inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium transition-colors",
                       selectedTags.includes(tag.id)
                         ? "bg-primary text-primary-foreground"
-                        : tag.color
+                        : tag.color,
                     )}
                   >
                     <Tag className="size-3" />

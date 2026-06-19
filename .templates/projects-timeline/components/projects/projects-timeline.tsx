@@ -61,7 +61,7 @@ export function ProjectsTimeline() {
       const endDate = new Date(project.endDate);
 
       const startIndex = currentWeek.findIndex((day) =>
-        isSameDay(day, startDate)
+        isSameDay(day, startDate),
       );
       const endIndex = currentWeek.findIndex((day) => isSameDay(day, endDate));
 
@@ -102,7 +102,7 @@ export function ProjectsTimeline() {
 
     const hasHorizontalOverlap = (
       pos1: { startIndex: number; endIndex: number },
-      pos2: { startIndex: number; endIndex: number }
+      pos2: { startIndex: number; endIndex: number },
     ): boolean => {
       return (
         pos1.startIndex <= pos2.endIndex && pos1.endIndex >= pos2.startIndex
@@ -116,7 +116,7 @@ export function ProjectsTimeline() {
 
       for (const row of rows) {
         const hasOverlap = row.projects.some((existingProject) =>
-          hasHorizontalOverlap(projectPos, existingProject)
+          hasHorizontalOverlap(projectPos, existingProject),
         );
 
         if (!hasOverlap) {
@@ -236,7 +236,7 @@ export function ProjectsTimeline() {
                         <ProjectCard project={projectInfo.project} />
                       </div>
                     );
-                  })
+                  }),
                 )}
               </div>
             </div>

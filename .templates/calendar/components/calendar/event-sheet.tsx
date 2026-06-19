@@ -89,7 +89,7 @@ function copyToClipboard(text: string) {
 
 export function EventSheet({ event, open, onOpenChange }: EventSheetProps) {
   const [rsvpStatus, setRsvpStatus] = useState<"yes" | "no" | "maybe" | null>(
-    null
+    null,
   );
 
   if (!event) return null;

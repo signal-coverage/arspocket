@@ -51,8 +51,14 @@ const mapStyles = [
 ] as const;
 
 export function MapControls() {
-  const { mapZoom, setMapZoom, setMapCenter, setUserLocation, mapStyle, setMapStyle } =
-    useRentalsStore();
+  const {
+    mapZoom,
+    setMapZoom,
+    setMapCenter,
+    setUserLocation,
+    mapStyle,
+    setMapStyle,
+  } = useRentalsStore();
 
   const handleZoomIn = () => {
     setMapZoom(Math.min(mapZoom + 1, 18));
@@ -77,7 +83,7 @@ export function MapControls() {
         () => {
           alert("Unable to get your location. Please try again later.");
         },
-        { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 }
+        { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 },
       );
     } else {
       alert("Geolocation is not supported by your browser.");
@@ -91,11 +97,7 @@ export function MapControls() {
           <TooltipTrigger asChild>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-9 w-9"
-                >
+                <Button variant="ghost" size="icon" className="h-9 w-9">
                   <Layers className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -105,8 +107,19 @@ export function MapControls() {
                   return (
                     <DropdownMenuItem
                       key={style.id}
-                      onClick={() => setMapStyle(style.id as "default" | "streets" | "outdoors" | "satellite")}
-                      className={cn("gap-3", mapStyle === style.id && "bg-accent")}
+                      onClick={() =>
+                        setMapStyle(
+                          style.id as
+                            | "default"
+                            | "streets"
+                            | "outdoors"
+                            | "satellite",
+                        )
+                      }
+                      className={cn(
+                        "gap-3",
+                        mapStyle === style.id && "bg-accent",
+                      )}
                     >
                       <Icon className="size-4 shrink-0" />
                       <div className="flex flex-col">

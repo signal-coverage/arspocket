@@ -310,7 +310,7 @@ export function EmailDetail() {
                   "size-4",
                   isFirstEmail
                     ? "text-muted-foreground/30"
-                    : "text-muted-foreground"
+                    : "text-muted-foreground",
                 )}
               />
             </Button>
@@ -325,7 +325,7 @@ export function EmailDetail() {
                   "size-4",
                   isLastEmail
                     ? "text-muted-foreground/30"
-                    : "text-muted-foreground"
+                    : "text-muted-foreground",
                 )}
               />
             </Button>
@@ -373,7 +373,7 @@ export function EmailDetail() {
                   "size-4",
                   email.starred
                     ? "fill-yellow-500 text-yellow-500"
-                    : "text-muted-foreground"
+                    : "text-muted-foreground",
                 )}
               />
             </Button>
@@ -422,7 +422,7 @@ export function EmailDetail() {
                   "size-4",
                   email.starred
                     ? "fill-yellow-500 text-yellow-500"
-                    : "text-muted-foreground"
+                    : "text-muted-foreground",
                 )}
               />
             </Button>

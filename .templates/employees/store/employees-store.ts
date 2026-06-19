@@ -1,7 +1,17 @@
 import { create } from "zustand";
-import { employees as initialEmployees, Employee, EmployeeStatus, Department } from "@/mock-data/employees";
+import {
+  employees as initialEmployees,
+  Employee,
+  EmployeeStatus,
+  Department,
+} from "@/mock-data/employees";
 
-export type DateFilter = "all" | "today" | "yesterday" | "last7days" | "last30days";
+export type DateFilter =
+  | "all"
+  | "today"
+  | "yesterday"
+  | "last7days"
+  | "last30days";
 
 interface EmployeesState {
   employees: Employee[];
@@ -27,11 +37,11 @@ export const useEmployeesStore = create<EmployeesState>((set) => ({
   setStatusFilter: (status) => set({ statusFilter: status }),
   setDateFilter: (date) => set({ dateFilter: date }),
   setDepartmentFilter: (department) => set({ departmentFilter: department }),
-  clearAllFilters: () => set({ 
-    searchQuery: "", 
-    statusFilter: "all", 
-    dateFilter: "all",
-    departmentFilter: "all"
-  }),
+  clearAllFilters: () =>
+    set({
+      searchQuery: "",
+      statusFilter: "all",
+      dateFilter: "all",
+      departmentFilter: "all",
+    }),
 }));
-

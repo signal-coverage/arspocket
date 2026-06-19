@@ -8,11 +8,7 @@ import { ContributionHeatmap } from "@/components/habits/contribution-heatmap";
 import { AddHabitDialog } from "@/components/habits/add-habit-dialog";
 
 import { useHabitStore } from "@/store/habit-store";
-import {
-  HABIT_COLORS,
-  getStreak,
-  getCompletionRate,
-} from "@/mock-data/habits";
+import { HABIT_COLORS, getStreak, getCompletionRate } from "@/mock-data/habits";
 import { cn } from "@/lib/utils";
 
 const DAYS_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -36,7 +32,12 @@ function StatCard({
         <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           {label}
         </span>
-        <div className={cn("size-7 rounded-lg flex items-center justify-center", color)}>
+        <div
+          className={cn(
+            "size-7 rounded-lg flex items-center justify-center",
+            color,
+          )}
+        >
           <Icon className="size-3.5" />
         </div>
       </div>
@@ -102,7 +103,7 @@ function DayOfWeekChart({
       if (done) counts[day]++;
     }
     return counts.map((c, i) =>
-      totals[i] > 0 ? Math.round((c / totals[i]) * 100) : 0
+      totals[i] > 0 ? Math.round((c / totals[i]) * 100) : 0,
     );
   }, [history]);
 
@@ -204,14 +205,21 @@ export function StatsView() {
           <span className="text-4xl">📊</span>
           <p className="font-medium">No habits to analyse yet.</p>
           <AddHabitDialog>
-            <Button variant="outline" size="sm" className="gap-1.5 rounded-full">
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-1.5 rounded-full"
+            >
               <Plus className="size-3.5" />
               Add a habit
             </Button>
           </AddHabitDialog>
         </div>
       ) : (
-        <Tabs defaultValue={habits[0]?.id ?? ""} className="gap-0 flex flex-col">
+        <Tabs
+          defaultValue={habits[0]?.id ?? ""}
+          className="gap-0 flex flex-col"
+        >
           <div className="mb-5">
             <h2 className="text-sm font-bold mb-3">Per habit</h2>
             <TabsList className="h-auto gap-1 bg-transparent p-0 flex-nowrap w-full overflow-x-auto justify-start pb-1 scrollbar-none">
@@ -249,7 +257,9 @@ export function StatsView() {
                     {habit.icon}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-base font-bold truncate">{habit.name}</h3>
+                    <h3 className="text-base font-bold truncate">
+                      {habit.name}
+                    </h3>
                     <p className="text-xs text-muted-foreground">
                       Tracking since{" "}
                       {new Date(habit.createdAt).toLocaleDateString("en-US", {
@@ -321,7 +331,10 @@ export function StatsView() {
                     Past year
                   </p>
                   <div className="overflow-x-auto">
-                    <ContributionHeatmap history={history} color={habit.color} />
+                    <ContributionHeatmap
+                      history={history}
+                      color={habit.color}
+                    />
                   </div>
                   <div className="flex items-center gap-2 mt-3 justify-end">
                     <span className="text-xs text-muted-foreground">Less</span>

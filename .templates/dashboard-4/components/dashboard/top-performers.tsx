@@ -165,13 +165,13 @@ export function TopPerformers() {
                   className={cn(
                     "relative h-[42px] rounded-lg border overflow-hidden",
                     style.borderColor,
-                    style.isDashed ? "border-dashed" : "border-solid"
+                    style.isDashed ? "border-dashed" : "border-solid",
                   )}
                 >
                   <div
                     className={cn(
                       "absolute inset-0 transition-all duration-300",
-                      style.bgGradient
+                      style.bgGradient,
                     )}
                     style={{
                       width: `${Math.max(progressWidth, 30)}%`,
@@ -186,7 +186,7 @@ export function TopPerformers() {
                     <span
                       className={cn(
                         "text-sm font-medium",
-                        isFirst ? "text-foreground" : "text-muted-foreground"
+                        isFirst ? "text-foreground" : "text-muted-foreground",
                       )}
                     >
                       {performer.score}

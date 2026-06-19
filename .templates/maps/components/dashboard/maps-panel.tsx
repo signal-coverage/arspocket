@@ -76,7 +76,7 @@ function calculateDistance(
   lat1: number,
   lng1: number,
   lat2: number,
-  lng2: number
+  lng2: number,
 ): number {
   const R = 6371;
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
@@ -140,10 +140,10 @@ export function MapsPanel({ mode = "all" }: MapsPanelProps) {
         userLocation.lat,
         userLocation.lng,
         location.coordinates.lat,
-        location.coordinates.lng
+        location.coordinates.lng,
       );
     },
-    [userLocation]
+    [userLocation],
   );
 
   const getLocationFromIP = React.useCallback(async (): Promise<{
@@ -196,7 +196,7 @@ export function MapsPanel({ mode = "all" }: MapsPanelProps) {
         () => {
           tryIPFallback();
         },
-        { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 }
+        { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 },
       );
     });
   }, [setUserLocation, getLocationFromIP]);
@@ -258,7 +258,7 @@ export function MapsPanel({ mode = "all" }: MapsPanelProps) {
 
   const handleGetDirections = async (
     e: React.MouseEvent,
-    location: Location
+    location: Location,
   ) => {
     e.stopPropagation();
 
@@ -443,7 +443,7 @@ export function MapsPanel({ mode = "all" }: MapsPanelProps) {
           ) : (
             locations.map((location) => {
               const category = categories.find(
-                (c) => c.id === location.categoryId
+                (c) => c.id === location.categoryId,
               );
               const isSelected = selectedLocationId === location.id;
               const isRouteActive = routeDestinationId === location.id;
@@ -456,7 +456,7 @@ export function MapsPanel({ mode = "all" }: MapsPanelProps) {
                       "flex flex-col rounded-lg border-2 overflow-hidden",
                       isRouteActive
                         ? "border-green-500 bg-green-500/10"
-                        : "border-primary bg-accent/30"
+                        : "border-primary bg-accent/30",
                     )}
                   >
                     <div className="p-4">
@@ -560,7 +560,8 @@ export function MapsPanel({ mode = "all" }: MapsPanelProps) {
                           <Heart
                             className={cn(
                               "size-4 mr-2",
-                              location.isFavorite && "fill-red-500 text-red-500"
+                              location.isFavorite &&
+                                "fill-red-500 text-red-500",
                             )}
                           />
                           {location.isFavorite ? "Unfavorite" : "Favorite"}
@@ -571,7 +572,7 @@ export function MapsPanel({ mode = "all" }: MapsPanelProps) {
                             "flex-1",
                             isRouteActive
                               ? "bg-green-500 hover:bg-green-600"
-                              : ""
+                              : "",
                           )}
                           onClick={(e) => handleGetDirections(e, location)}
                           disabled={isLoadingRoute || isRequestingLocation}
@@ -584,8 +585,8 @@ export function MapsPanel({ mode = "all" }: MapsPanelProps) {
                           {isRequestingLocation
                             ? "Getting location..."
                             : isRouteActive
-                            ? "Clear route"
-                            : "Get directions"}
+                              ? "Clear route"
+                              : "Get directions"}
                         </Button>
                       </div>
                     </div>
@@ -599,7 +600,7 @@ export function MapsPanel({ mode = "all" }: MapsPanelProps) {
                   className={cn(
                     "group flex flex-col gap-2 rounded-lg border p-3 cursor-pointer transition-colors hover:bg-accent/50",
                     routeDestinationId === location.id &&
-                      "border-green-500 bg-green-500/10"
+                      "border-green-500 bg-green-500/10",
                   )}
                   onClick={() => handleLocationClick(location)}
                 >
@@ -680,7 +681,7 @@ export function MapsPanel({ mode = "all" }: MapsPanelProps) {
                         <Heart
                           className={cn(
                             "size-3.5",
-                            location.isFavorite && "fill-red-500 text-red-500"
+                            location.isFavorite && "fill-red-500 text-red-500",
                           )}
                         />
                       </Button>
@@ -689,7 +690,8 @@ export function MapsPanel({ mode = "all" }: MapsPanelProps) {
                         size="icon"
                         className={cn(
                           "size-7",
-                          routeDestinationId === location.id && "text-green-500"
+                          routeDestinationId === location.id &&
+                            "text-green-500",
                         )}
                         onClick={(e) => handleGetDirections(e, location)}
                       >

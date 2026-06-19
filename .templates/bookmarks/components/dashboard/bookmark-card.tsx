@@ -67,7 +67,7 @@ export function BookmarkCard({
                     key={tag.id}
                     className={cn(
                       "inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium",
-                      tag.color
+                      tag.color,
                     )}
                   >
                     {tag.name}
@@ -95,7 +95,7 @@ export function BookmarkCard({
             <Heart
               className={cn(
                 "size-4",
-                bookmark.isFavorite && "fill-red-500 text-red-500"
+                bookmark.isFavorite && "fill-red-500 text-red-500",
               )}
             />
           </Button>
@@ -152,7 +152,7 @@ export function BookmarkCard({
           <Heart
             className={cn(
               "size-4",
-              bookmark.isFavorite && "fill-red-500 text-red-500"
+              bookmark.isFavorite && "fill-red-500 text-red-500",
             )}
           />
         </Button>
@@ -229,7 +229,7 @@ export function BookmarkCard({
                   key={tag.id}
                   className={cn(
                     "inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium",
-                    tag.color
+                    tag.color,
                   )}
                 >
                   {tag.name}

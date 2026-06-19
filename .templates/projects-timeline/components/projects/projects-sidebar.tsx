@@ -47,7 +47,7 @@ function SidebarItem({ icon, label, active }: SidebarItemProps) {
           "w-full justify-start gap-3",
           active
             ? "bg-background text-primary border border-border pl-3 shadow-xs"
-            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+            : "text-muted-foreground hover:bg-muted hover:text-foreground",
         )}
       >
         {icon}

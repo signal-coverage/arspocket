@@ -40,4 +40,3 @@ export const statsData = {
     comparison: "vs Last Months",
   },
 };
-

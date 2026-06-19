@@ -1,5 +1,8 @@
 import { create } from "zustand";
-import { bookmarks as initialBookmarks, type Bookmark } from "@/mock-data/bookmarks";
+import {
+  bookmarks as initialBookmarks,
+  type Bookmark,
+} from "@/mock-data/bookmarks";
 
 type ViewMode = "grid" | "list";
 type SortBy = "date-newest" | "date-oldest" | "alpha-az" | "alpha-za";
@@ -45,7 +48,8 @@ export const useBookmarksStore = create<BookmarksState>((set, get) => ({
   sortBy: "date-newest",
   filterType: "all",
 
-  setSelectedCollection: (collectionId) => set({ selectedCollection: collectionId }),
+  setSelectedCollection: (collectionId) =>
+    set({ selectedCollection: collectionId }),
 
   toggleTag: (tagId) =>
     set((state) => ({
@@ -69,7 +73,7 @@ export const useBookmarksStore = create<BookmarksState>((set, get) => ({
       bookmarks: state.bookmarks.map((bookmark) =>
         bookmark.id === bookmarkId
           ? { ...bookmark, isFavorite: !bookmark.isFavorite }
-          : bookmark
+          : bookmark,
       ),
     })),
 
@@ -88,7 +92,9 @@ export const useBookmarksStore = create<BookmarksState>((set, get) => ({
       const bookmark = state.archivedBookmarks.find((b) => b.id === bookmarkId);
       if (!bookmark) return state;
       return {
-        archivedBookmarks: state.archivedBookmarks.filter((b) => b.id !== bookmarkId),
+        archivedBookmarks: state.archivedBookmarks.filter(
+          (b) => b.id !== bookmarkId,
+        ),
         bookmarks: [...state.bookmarks, bookmark],
       };
     }),
@@ -108,14 +114,18 @@ export const useBookmarksStore = create<BookmarksState>((set, get) => ({
       const bookmark = state.trashedBookmarks.find((b) => b.id === bookmarkId);
       if (!bookmark) return state;
       return {
-        trashedBookmarks: state.trashedBookmarks.filter((b) => b.id !== bookmarkId),
+        trashedBookmarks: state.trashedBookmarks.filter(
+          (b) => b.id !== bookmarkId,
+        ),
         bookmarks: [...state.bookmarks, bookmark],
       };
     }),
 
   permanentlyDelete: (bookmarkId) =>
     set((state) => ({
-      trashedBookmarks: state.trashedBookmarks.filter((b) => b.id !== bookmarkId),
+      trashedBookmarks: state.trashedBookmarks.filter(
+        (b) => b.id !== bookmarkId,
+      ),
     })),
 
   getFilteredBookmarks: () => {
@@ -123,12 +133,14 @@ export const useBookmarksStore = create<BookmarksState>((set, get) => ({
     let filtered = [...state.bookmarks];
 
     if (state.selectedCollection !== "all") {
-      filtered = filtered.filter((b) => b.collectionId === state.selectedCollection);
+      filtered = filtered.filter(
+        (b) => b.collectionId === state.selectedCollection,
+      );
     }
 
     if (state.selectedTags.length > 0) {
       filtered = filtered.filter((b) =>
-        state.selectedTags.some((tag) => b.tags.includes(tag))
+        state.selectedTags.some((tag) => b.tags.includes(tag)),
       );
     }
 
@@ -138,7 +150,7 @@ export const useBookmarksStore = create<BookmarksState>((set, get) => ({
         (b) =>
           b.title.toLowerCase().includes(query) ||
           b.description.toLowerCase().includes(query) ||
-          b.url.toLowerCase().includes(query)
+          b.url.toLowerCase().includes(query),
       );
     }
 
@@ -156,10 +168,16 @@ export const useBookmarksStore = create<BookmarksState>((set, get) => ({
 
     switch (state.sortBy) {
       case "date-newest":
-        filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        filtered.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        );
         break;
       case "date-oldest":
-        filtered.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+        filtered.sort(
+          (a, b) =>
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+        );
         break;
       case "alpha-az":
         filtered.sort((a, b) => a.title.localeCompare(b.title));
@@ -182,16 +200,22 @@ export const useBookmarksStore = create<BookmarksState>((set, get) => ({
         (b) =>
           b.title.toLowerCase().includes(query) ||
           b.description.toLowerCase().includes(query) ||
-          b.url.toLowerCase().includes(query)
+          b.url.toLowerCase().includes(query),
       );
     }
 
     switch (state.sortBy) {
       case "date-newest":
-        filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        filtered.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        );
         break;
       case "date-oldest":
-        filtered.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+        filtered.sort(
+          (a, b) =>
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+        );
         break;
       case "alpha-az":
         filtered.sort((a, b) => a.title.localeCompare(b.title));
@@ -214,7 +238,7 @@ export const useBookmarksStore = create<BookmarksState>((set, get) => ({
         (b) =>
           b.title.toLowerCase().includes(query) ||
           b.description.toLowerCase().includes(query) ||
-          b.url.toLowerCase().includes(query)
+          b.url.toLowerCase().includes(query),
       );
     }
 
@@ -231,7 +255,7 @@ export const useBookmarksStore = create<BookmarksState>((set, get) => ({
         (b) =>
           b.title.toLowerCase().includes(query) ||
           b.description.toLowerCase().includes(query) ||
-          b.url.toLowerCase().includes(query)
+          b.url.toLowerCase().includes(query),
       );
     }
 

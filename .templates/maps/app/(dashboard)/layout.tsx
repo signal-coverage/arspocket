@@ -11,10 +11,7 @@ export default function DashboardLayout({
   return (
     <SidebarProvider>
       <LocationsSidebar />
-      <SidebarInset className="overflow-hidden">
-        {children}
-      </SidebarInset>
+      <SidebarInset className="overflow-hidden">{children}</SidebarInset>
     </SidebarProvider>
   );
 }
-

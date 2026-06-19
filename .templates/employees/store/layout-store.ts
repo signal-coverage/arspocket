@@ -19,4 +19,3 @@ export const useLayoutStore = create<LayoutState>((set) => ({
   setShowCharts: (show) => set({ showCharts: show }),
   setShowFilters: (show) => set({ showFilters: show }),
 }));
-

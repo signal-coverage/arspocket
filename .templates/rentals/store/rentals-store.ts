@@ -57,7 +57,7 @@ function calculateDistance(
   lat1: number,
   lng1: number,
   lat2: number,
-  lng2: number
+  lng2: number,
 ): number {
   const R = 6371;
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
@@ -122,7 +122,7 @@ export const useRentalsStore = create<RentalsState>((set, get) => ({
       listings: state.listings.map((listing) =>
         listing.id === listingId
           ? { ...listing, isFavorite: !listing.isFavorite }
-          : listing
+          : listing,
       ),
     })),
 
@@ -160,31 +160,31 @@ export const useRentalsStore = create<RentalsState>((set, get) => ({
           listing.title.toLowerCase().includes(query) ||
           listing.description.toLowerCase().includes(query) ||
           listing.city.toLowerCase().includes(query) ||
-          listing.address.toLowerCase().includes(query)
+          listing.address.toLowerCase().includes(query),
       );
     }
 
     if (state.selectedPropertyTypes.length > 0) {
       filtered = filtered.filter((listing) =>
-        state.selectedPropertyTypes.includes(listing.propertyType)
+        state.selectedPropertyTypes.includes(listing.propertyType),
       );
     }
 
     filtered = filtered.filter(
       (listing) =>
         listing.pricePerNight >= state.priceRange[0] &&
-        listing.pricePerNight <= state.priceRange[1]
+        listing.pricePerNight <= state.priceRange[1],
     );
 
     if (state.bedrooms !== null) {
       filtered = filtered.filter(
-        (listing) => listing.bedrooms >= state.bedrooms!
+        (listing) => listing.bedrooms >= state.bedrooms!,
       );
     }
 
     if (state.bathrooms !== null) {
       filtered = filtered.filter(
-        (listing) => listing.bathrooms >= state.bathrooms!
+        (listing) => listing.bathrooms >= state.bathrooms!,
       );
     }
 
@@ -198,7 +198,7 @@ export const useRentalsStore = create<RentalsState>((set, get) => ({
 
     if (state.amenities.length > 0) {
       filtered = filtered.filter((listing) =>
-        state.amenities.every((amenity) => listing.amenities.includes(amenity))
+        state.amenities.every((amenity) => listing.amenities.includes(amenity)),
       );
     }
 
@@ -225,13 +225,13 @@ export const useRentalsStore = create<RentalsState>((set, get) => ({
               state.userLocation!.lat,
               state.userLocation!.lng,
               a.coordinates.lat,
-              a.coordinates.lng
+              a.coordinates.lng,
             );
             const distB = calculateDistance(
               state.userLocation!.lat,
               state.userLocation!.lng,
               b.coordinates.lat,
-              b.coordinates.lng
+              b.coordinates.lng,
             );
             return distA - distB;
           });
@@ -241,7 +241,7 @@ export const useRentalsStore = create<RentalsState>((set, get) => ({
 
     if (state.selectedListingId) {
       const selectedIndex = filtered.findIndex(
-        (listing) => listing.id === state.selectedListingId
+        (listing) => listing.id === state.selectedListingId,
       );
       if (selectedIndex > 0) {
         const selected = filtered.splice(selectedIndex, 1)[0];
@@ -258,7 +258,7 @@ export const useRentalsStore = create<RentalsState>((set, get) => ({
 
     if (state.selectedListingId) {
       const selectedIndex = favorites.findIndex(
-        (listing) => listing.id === state.selectedListingId
+        (listing) => listing.id === state.selectedListingId,
       );
       if (selectedIndex > 0) {
         const selected = favorites.splice(selectedIndex, 1)[0];

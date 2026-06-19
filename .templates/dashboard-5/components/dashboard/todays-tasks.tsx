@@ -25,7 +25,12 @@ const projectColorMap: Record<string, string> = {
 };
 
 const uniqueProjects = Array.from(
-  new Map(todayTasks.map((t) => [t.projectId, { id: t.projectId, name: t.projectName }])).values()
+  new Map(
+    todayTasks.map((t) => [
+      t.projectId,
+      { id: t.projectId, name: t.projectName },
+    ]),
+  ).values(),
 );
 
 export function TodaysTasks() {
@@ -35,7 +40,7 @@ export function TodaysTasks() {
     tasksProjectFilter,
     toggleTasksProjectFilter,
     setTasksProjectFilter,
-    } = useDashboardStore();
+  } = useDashboardStore();
 
   const filteredTasks = useMemo(() => {
     let result = todayTasks;
@@ -44,7 +49,7 @@ export function TodaysTasks() {
       result = result.filter(
         (t) =>
           t.name.toLowerCase().includes(q) ||
-          t.projectName.toLowerCase().includes(q)
+          t.projectName.toLowerCase().includes(q),
       );
     }
     if (tasksProjectFilter.length > 0) {
@@ -123,7 +128,7 @@ export function TodaysTasks() {
               <div
                 className={cn(
                   "inline-flex items-center gap-1.5 px-2 py-1 text-xs font-medium",
-                  projectColorMap[task.projectColor] ?? projectColorMap.blue
+                  projectColorMap[task.projectColor] ?? projectColorMap.blue,
                 )}
               >
                 {task.projectName}

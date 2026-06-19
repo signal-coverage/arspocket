@@ -14,12 +14,9 @@ export function TimelineWeekHeader({ weekDays }: TimelineWeekHeaderProps) {
           key={day.toISOString()}
           className="flex-1 border-r border-border last:border-r-0 text-center py-2.5 min-w-[162px]"
         >
-          <div className="text-sm font-medium">
-            {format(day, "EEE dd")}
-          </div>
+          <div className="text-sm font-medium">{format(day, "EEE dd")}</div>
         </div>
       ))}
     </div>
   );
 }
-

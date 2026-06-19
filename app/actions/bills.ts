@@ -6,7 +6,11 @@ import { prisma } from "@/lib/db";
 import { BillFrequency, TransactionType } from "@prisma/client";
 
 // Helper: clamp dueDay to valid day for a given month/year
-const clampDueDayToMonth = (dueDay: number, year: number, month: number): number => {
+const clampDueDayToMonth = (
+  dueDay: number,
+  year: number,
+  month: number,
+): number => {
   const maxDay = new Date(year, month + 1, 0).getDate(); // last day of month
   return Math.min(dueDay, maxDay);
 };
@@ -15,7 +19,7 @@ const clampDueDayToMonth = (dueDay: number, year: number, month: number): number
 const computeNextDueDate = (
   current: Date,
   frequency: BillFrequency,
-  dueDay: number
+  dueDay: number,
 ): Date => {
   const next = new Date(current);
   switch (frequency) {
@@ -27,7 +31,8 @@ const computeNextDueDate = (
       break;
     case BillFrequency.MONTHLY: {
       const nextMonth = next.getMonth() + 1;
-      const nextYear = nextMonth > 11 ? next.getFullYear() + 1 : next.getFullYear();
+      const nextYear =
+        nextMonth > 11 ? next.getFullYear() + 1 : next.getFullYear();
       const adjustedMonth = nextMonth > 11 ? 0 : nextMonth;
       const clampedDay = clampDueDayToMonth(dueDay, nextYear, adjustedMonth);
       next.setFullYear(nextYear, adjustedMonth, clampedDay);
@@ -107,7 +112,7 @@ export const getBills = async (): Promise<SerializedBill[]> => {
 
 export const getBillsForMonth = async (
   year: number,
-  month: number
+  month: number,
 ): Promise<SerializedBill[]> => {
   const { userId } = await auth();
   if (!userId) return [];
@@ -121,7 +126,9 @@ export const getBillsForMonth = async (
   return bills.map(serializeBill);
 };
 
-export const getUpcomingBills = async (days: number): Promise<SerializedBill[]> => {
+export const getUpcomingBills = async (
+  days: number,
+): Promise<SerializedBill[]> => {
   const { userId } = await auth();
   if (!userId) return [];
 
@@ -153,8 +160,20 @@ export const createBill = async (data: {
   if (!userId) throw new Error("Unauthorized");
 
   const now = new Date();
-  const clampedDay = clampDueDayToMonth(data.dueDay, now.getFullYear(), now.getMonth());
-  const nextDueDate = new Date(now.getFullYear(), now.getMonth(), clampedDay, 0, 0, 0, 0);
+  const clampedDay = clampDueDayToMonth(
+    data.dueDay,
+    now.getFullYear(),
+    now.getMonth(),
+  );
+  const nextDueDate = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    clampedDay,
+    0,
+    0,
+    0,
+    0,
+  );
 
   await prisma.bill.create({
     data: {
@@ -184,7 +203,7 @@ export const updateBill = async (
     isRecurring?: boolean;
     frequency?: string;
     notes?: string;
-  }
+  },
 ): Promise<void> => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
@@ -197,7 +216,9 @@ export const updateBill = async (
       ...(data.dueDay !== undefined && { dueDay: data.dueDay }),
       ...(data.category !== undefined && { category: data.category }),
       ...(data.isRecurring !== undefined && { isRecurring: data.isRecurring }),
-      ...(data.frequency !== undefined && { frequency: data.frequency as BillFrequency }),
+      ...(data.frequency !== undefined && {
+        frequency: data.frequency as BillFrequency,
+      }),
       ...(data.notes !== undefined && { notes: data.notes }),
     },
   });
@@ -328,7 +349,11 @@ export const lazyResetOverdueBills = async (): Promise<void> => {
   });
 
   for (const bill of overdue) {
-    const nextDueDate = computeNextDueDate(bill.nextDueDate, bill.frequency, bill.dueDay);
+    const nextDueDate = computeNextDueDate(
+      bill.nextDueDate,
+      bill.frequency,
+      bill.dueDay,
+    );
     await prisma.bill.update({
       where: { id: bill.id },
       data: {

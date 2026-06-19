@@ -74,7 +74,7 @@ const fetchFavicon = async (url: string): Promise<string | null> => {
 
 export const getBookmarks = async (
   filter: "all" | "favorites" | "archive" | "trash" = "all",
-  collectionId?: string
+  collectionId?: string,
 ): Promise<SerializedBookmark[]> => {
   const { userId } = await auth();
   if (!userId) return [];
@@ -165,7 +165,7 @@ export const updateBookmark = async (
     description?: string;
     collectionId?: string | null;
     tags?: string[];
-  }
+  },
 ): Promise<void> => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
@@ -180,7 +180,9 @@ export const updateBookmark = async (
       ...(data.title !== undefined && { title: data.title }),
       ...(data.url !== undefined && { url: data.url }),
       ...(data.description !== undefined && { description: data.description }),
-      ...(data.collectionId !== undefined && { collectionId: data.collectionId }),
+      ...(data.collectionId !== undefined && {
+        collectionId: data.collectionId,
+      }),
       ...(data.tags !== undefined && { tags: data.tags }),
     },
   });
@@ -288,7 +290,7 @@ export const createCollection = async (data: {
 
 export const updateCollection = async (
   id: string,
-  data: { name?: string; icon?: string; color?: string }
+  data: { name?: string; icon?: string; color?: string },
 ): Promise<void> => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");

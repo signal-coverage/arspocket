@@ -26,7 +26,7 @@ export function FileTags({ selectedTag, onSelectTag }: FileTagsProps) {
             "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-all",
             selectedTag === tag.id
               ? "bg-foreground text-background font-medium"
-              : "bg-muted text-muted-foreground hover:bg-muted/80"
+              : "bg-muted text-muted-foreground hover:bg-muted/80",
           )}
         >
           {tag.label}
@@ -35,7 +35,7 @@ export function FileTags({ selectedTag, onSelectTag }: FileTagsProps) {
               "text-xs px-1.5 py-0.5 rounded-full",
               selectedTag === tag.id
                 ? "bg-background/20 text-background"
-                : "bg-background text-muted-foreground"
+                : "bg-background text-muted-foreground",
             )}
           >
             {tag.count}
@@ -45,4 +45,3 @@ export function FileTags({ selectedTag, onSelectTag }: FileTagsProps) {
     </div>
   );
 }
-

@@ -17,10 +17,16 @@ interface ContributionHeatmapProps {
 }
 
 function getDayLabel(date: Date): string {
-  return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 }
 
-function buildGrid(history: Record<string, boolean>): Array<Array<{ date: string; done: boolean | undefined }>> {
+function buildGrid(
+  history: Record<string, boolean>,
+): Array<Array<{ date: string; done: boolean | undefined }>> {
   const today = new Date();
   const startDate = new Date(today);
   startDate.setDate(today.getDate() - 364);
@@ -35,8 +41,17 @@ function buildGrid(history: Record<string, boolean>): Array<Array<{ date: string
     const week: Array<{ date: string; done: boolean | undefined }> = [];
     for (let d = 0; d < 7; d++) {
       const dateStr = cursor.toISOString().split("T")[0];
-      const isInRange = cursor >= new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()) && cursor <= today;
-      week.push({ date: dateStr, done: isInRange ? history[dateStr] : undefined });
+      const isInRange =
+        cursor >=
+          new Date(
+            today.getFullYear() - 1,
+            today.getMonth(),
+            today.getDate(),
+          ) && cursor <= today;
+      week.push({
+        date: dateStr,
+        done: isInRange ? history[dateStr] : undefined,
+      });
       cursor.setDate(cursor.getDate() + 1);
     }
     weeks.push(week);
@@ -45,9 +60,26 @@ function buildGrid(history: Record<string, boolean>): Array<Array<{ date: string
   return weeks;
 }
 
-const MONTH_LABELS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const MONTH_LABELS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
-export function ContributionHeatmap({ history, color, compact = false }: ContributionHeatmapProps) {
+export function ContributionHeatmap({
+  history,
+  color,
+  compact = false,
+}: ContributionHeatmapProps) {
   const weeks = useMemo(() => buildGrid(history), [history]);
   const colorVal = HABIT_COLORS[color].light;
 
@@ -82,18 +114,19 @@ export function ContributionHeatmap({ history, color, compact = false }: Contrib
           height={headerHeight + 7 * stride}
           style={{ display: "block" }}
         >
-          {!compact && monthPositions.map(({ label, x }) => (
-            <text
-              key={`${label}-${x}`}
-              x={x}
-              y={12}
-              fontSize={10}
-              fill="currentColor"
-              className="fill-muted-foreground"
-            >
-              {label}
-            </text>
-          ))}
+          {!compact &&
+            monthPositions.map(({ label, x }) => (
+              <text
+                key={`${label}-${x}`}
+                x={x}
+                y={12}
+                fontSize={10}
+                fill="currentColor"
+                className="fill-muted-foreground"
+              >
+                {label}
+              </text>
+            ))}
 
           {weeks.map((week, wi) =>
             week.map((day, di) => {
@@ -114,19 +147,27 @@ export function ContributionHeatmap({ history, color, compact = false }: Contrib
                       fill={day.done ? colorVal : "currentColor"}
                       className={cn(
                         "transition-opacity cursor-pointer",
-                        day.done ? "opacity-85 hover:opacity-100" : "opacity-10 hover:opacity-20 text-foreground"
+                        day.done
+                          ? "opacity-85 hover:opacity-100"
+                          : "opacity-10 hover:opacity-20 text-foreground",
                       )}
                     />
                   </TooltipTrigger>
                   <TooltipContent side="top" className="text-xs">
-                    <p className="font-medium">{getDayLabel(new Date(day.date + "T00:00:00"))}</p>
-                    <p className={day.done ? "text-primary" : "text-muted-foreground"}>
+                    <p className="font-medium">
+                      {getDayLabel(new Date(day.date + "T00:00:00"))}
+                    </p>
+                    <p
+                      className={
+                        day.done ? "text-primary" : "text-muted-foreground"
+                      }
+                    >
                       {day.done ? "✓ Completed" : "✗ Missed"}
                     </p>
                   </TooltipContent>
                 </Tooltip>
               );
-            })
+            }),
           )}
         </svg>
       </div>

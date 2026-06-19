@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages, getLocale } from "next-intl/server";
 import { LocatorSetup } from "@/components/locator-setup";
 import { TooltipProvider } from "@/components/ui";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -26,14 +28,17 @@ export const metadata: Metadata = {
   description: "Track expenses, grow savings and build wealth with confidence.",
 };
 
-export const RootLayout = ({
+export const RootLayout = async ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
     <html
-      lang="en"
+      lang={locale}
       className={cn(
         "h-full",
         "antialiased",
@@ -50,12 +55,14 @@ export const RootLayout = ({
           signInFallbackRedirectUrl="/dashboard"
           signUpFallbackRedirectUrl="/dashboard"
         >
-          <TooltipProvider>
-            <ThemeProvider>
-              {children}
-              <Toaster />
-            </ThemeProvider>
-          </TooltipProvider>
+          <NextIntlClientProvider messages={messages}>
+            <TooltipProvider>
+              <ThemeProvider>
+                {children}
+                <Toaster />
+              </ThemeProvider>
+            </TooltipProvider>
+          </NextIntlClientProvider>
         </ClerkProvider>
       </body>
     </html>

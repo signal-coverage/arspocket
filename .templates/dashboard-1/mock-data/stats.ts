@@ -31,4 +31,3 @@ export const mockStats: StatCard[] = [
     icon: "invoice",
   },
 ];
-

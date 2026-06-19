@@ -86,11 +86,9 @@ export function DealsTable() {
         deal.client.toLowerCase().includes(searchQuery.toLowerCase()) ||
         deal.owner.toLowerCase().includes(searchQuery.toLowerCase());
 
-      const matchesStage =
-        stageFilter === "all" || deal.stage === stageFilter;
+      const matchesStage = stageFilter === "all" || deal.stage === stageFilter;
 
-      const matchesOwner =
-        ownerFilter === "all" || deal.owner === ownerFilter;
+      const matchesOwner = ownerFilter === "all" || deal.owner === ownerFilter;
 
       let matchesValue = true;
       if (valueFilter === "under10k") {
@@ -125,7 +123,11 @@ export function DealsTable() {
     <div className="rounded-xl border bg-card">
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 p-3 sm:px-6 sm:py-3.5">
         <div className="flex items-center gap-2 sm:gap-2.5 flex-1">
-          <Button variant="outline" size="icon" className="size-7 sm:size-8 shrink-0">
+          <Button
+            variant="outline"
+            size="icon"
+            className="size-7 sm:size-8 shrink-0"
+          >
             <ClipboardList className="size-4 sm:size-[18px] text-muted-foreground" />
           </Button>
           <span className="text-sm sm:text-base font-medium">Active Deals</span>
@@ -228,7 +230,11 @@ export function DealsTable() {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="h-8 sm:h-9 gap-1.5 sm:gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-8 sm:h-9 gap-1.5 sm:gap-2"
+              >
                 <FileInput className="size-3.5 sm:size-4" />
                 <span className="hidden sm:inline">Import</span>
               </Button>
@@ -253,7 +259,9 @@ export function DealsTable() {
 
       {hasActiveFilters && (
         <div className="flex flex-wrap items-center gap-2 px-3 sm:px-6 pb-3">
-          <span className="text-[10px] sm:text-xs text-muted-foreground">Filters:</span>
+          <span className="text-[10px] sm:text-xs text-muted-foreground">
+            Filters:
+          </span>
           {stageFilter !== "all" && (
             <Badge
               variant="secondary"
@@ -339,8 +347,12 @@ export function DealsTable() {
                         {deal.dealInitial}
                       </div>
                       <div className="min-w-0">
-                        <span className="font-medium text-xs sm:text-sm block truncate">{deal.dealName}</span>
-                        <span className="text-[10px] text-muted-foreground md:hidden">{deal.client}</span>
+                        <span className="font-medium text-xs sm:text-sm block truncate">
+                          {deal.dealName}
+                        </span>
+                        <span className="text-[10px] text-muted-foreground md:hidden">
+                          {deal.client}
+                        </span>
                       </div>
                     </div>
                   </TableCell>
@@ -365,7 +377,9 @@ export function DealsTable() {
                           {deal.ownerInitials}
                         </AvatarFallback>
                       </Avatar>
-                      <span className="text-muted-foreground text-xs sm:text-sm">{deal.owner}</span>
+                      <span className="text-muted-foreground text-xs sm:text-sm">
+                        {deal.owner}
+                      </span>
                     </div>
                   </TableCell>
                   <TableCell className="hidden sm:table-cell text-muted-foreground text-xs sm:text-sm">
@@ -429,7 +443,9 @@ export function DealsTable() {
             </SelectContent>
           </Select>
           <span className="text-muted-foreground">
-            {(currentPage - 1) * pageSize + 1}-{Math.min(currentPage * pageSize, filteredDeals.length)} of {filteredDeals.length}
+            {(currentPage - 1) * pageSize + 1}-
+            {Math.min(currentPage * pageSize, filteredDeals.length)} of{" "}
+            {filteredDeals.length}
           </span>
         </div>
 
@@ -452,7 +468,7 @@ export function DealsTable() {
           >
             <ChevronLeft className="size-4" />
           </Button>
-          
+
           <div className="flex items-center gap-1 mx-1">
             {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
               let pageNum: number;
@@ -465,7 +481,7 @@ export function DealsTable() {
               } else {
                 pageNum = currentPage - 2 + i;
               }
-              
+
               return (
                 <Button
                   key={pageNum}

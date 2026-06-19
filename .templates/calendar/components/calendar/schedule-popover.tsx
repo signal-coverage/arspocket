@@ -57,7 +57,7 @@ export function SchedulePopover({ children }: SchedulePopoverProps) {
                     variant="outline"
                     className={cn(
                       "w-full justify-start text-left font-normal h-9",
-                      !date && "text-muted-foreground"
+                      !date && "text-muted-foreground",
                     )}
                   >
                     <CalendarIcon className="mr-2 size-4" />
@@ -153,4 +153,3 @@ export function SchedulePopover({ children }: SchedulePopoverProps) {
     </Popover>
   );
 }
-

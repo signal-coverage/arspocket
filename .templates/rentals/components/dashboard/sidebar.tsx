@@ -205,7 +205,7 @@ export function RentalsSidebar({
                       className={cn(
                         "h-7 text-xs px-2",
                         selectedPropertyTypes.includes(type) &&
-                          "bg-primary text-primary-foreground"
+                          "bg-primary text-primary-foreground",
                       )}
                     >
                       {propertyTypeLabels[type]}
@@ -264,7 +264,7 @@ export function RentalsSidebar({
                           setBedrooms(
                             bedrooms !== null && bedrooms > 0
                               ? bedrooms - 1
-                              : null
+                              : null,
                           )
                         }
                       >
@@ -296,7 +296,7 @@ export function RentalsSidebar({
                           setBathrooms(
                             bathrooms !== null && bathrooms > 0
                               ? bathrooms - 1
-                              : null
+                              : null,
                           )
                         }
                       >

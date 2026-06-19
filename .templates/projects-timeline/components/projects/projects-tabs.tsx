@@ -39,7 +39,7 @@ export function ProjectsTabs({ activeTab, onTabChange }: ProjectsTabsProps) {
                   "relative h-auto p-0 gap-2 font-medium",
                   isActive
                     ? "text-primary hover:text-primary"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
                 onClick={() => onTabChange(tab.id)}
               >
@@ -60,4 +60,3 @@ export function ProjectsTabs({ activeTab, onTabChange }: ProjectsTabsProps) {
     </div>
   );
 }
-

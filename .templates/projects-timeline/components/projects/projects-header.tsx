@@ -15,10 +15,7 @@ export function ProjectsHeader() {
         <div className="flex items-center gap-3">
           <div className="hidden xl:flex items-center -space-x-2">
             {[1, 2, 3, 4].map((i) => (
-              <Avatar
-                key={i}
-                className="size-7 border-2 border-background"
-              >
+              <Avatar key={i} className="size-7 border-2 border-background">
                 <AvatarImage
                   src={`https://api.dicebear.com/9.x/glass/svg?seed=user${i}`}
                 />
@@ -31,4 +28,3 @@ export function ProjectsHeader() {
     </div>
   );
 }
-

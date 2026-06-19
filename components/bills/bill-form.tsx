@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/select";
 import { EXPENSE_CATEGORIES } from "@/lib/categories";
 import { createBill } from "@/app/actions/bills";
+import { useTranslations } from "next-intl";
 
 type Props = {
   open: boolean;
@@ -28,6 +29,8 @@ type Props = {
 };
 
 export const BillForm = ({ open, onOpenChange }: Props) => {
+  const t = useTranslations("bills");
+  const tc = useTranslations("common");
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [isRecurring, setIsRecurring] = useState(true);
@@ -45,12 +48,12 @@ export const BillForm = ({ open, onOpenChange }: Props) => {
     const notes = formData.get("notes") as string;
 
     if (!name || isNaN(amount) || amount <= 0 || !dueDay || !category) {
-      setError("Please fill in all required fields.");
+      setError(t("errorRequiredFields"));
       return;
     }
 
     if (dueDay < 1 || dueDay > 31) {
-      setError("Due day must be between 1 and 31.");
+      setError(t("errorDueDay"));
       return;
     }
 
@@ -67,7 +70,7 @@ export const BillForm = ({ open, onOpenChange }: Props) => {
         });
         onOpenChange(false);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Something went wrong");
+        setError(err instanceof Error ? err.message : t("errorSomethingWrong"));
       }
     });
   };
@@ -76,20 +79,18 @@ export const BillForm = ({ open, onOpenChange }: Props) => {
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>New Bill</SheetTitle>
-          <SheetDescription>
-            Add a recurring or one-time bill to your calendar.
-          </SheetDescription>
+          <SheetTitle>{t("newBill")}</SheetTitle>
+          <SheetDescription>{t("newBillDescription")}</SheetDescription>
         </SheetHeader>
 
         <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="name">Bill Name</Label>
+            <Label htmlFor="name">{t("billName")}</Label>
             <Input id="name" name="name" placeholder="Netflix" required />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="amount">Amount</Label>
+            <Label htmlFor="amount">{tc("amount")}</Label>
             <Input
               id="amount"
               name="amount"
@@ -102,7 +103,7 @@ export const BillForm = ({ open, onOpenChange }: Props) => {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="dueDay">Due Day (1–31)</Label>
+            <Label htmlFor="dueDay">{t("dueDay")}</Label>
             <Input
               id="dueDay"
               name="dueDay"
@@ -115,10 +116,10 @@ export const BillForm = ({ open, onOpenChange }: Props) => {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label>Category</Label>
+            <Label>{tc("category")}</Label>
             <Select name="category">
               <SelectTrigger>
-                <SelectValue placeholder="Select category" />
+                <SelectValue placeholder={t("selectCategory")} />
               </SelectTrigger>
               <SelectContent>
                 {EXPENSE_CATEGORIES.map((c) => (
@@ -136,35 +137,39 @@ export const BillForm = ({ open, onOpenChange }: Props) => {
               checked={isRecurring}
               onCheckedChange={(v) => setIsRecurring(Boolean(v))}
             />
-            <Label htmlFor="isRecurring">Recurring</Label>
+            <Label htmlFor="isRecurring">{t("recurring")}</Label>
           </div>
 
           {isRecurring && (
             <div className="flex flex-col gap-1.5">
-              <Label>Frequency</Label>
+              <Label>{t("frequency")}</Label>
               <Select name="frequency" defaultValue="MONTHLY">
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="WEEKLY">Weekly</SelectItem>
-                  <SelectItem value="BIWEEKLY">Biweekly</SelectItem>
-                  <SelectItem value="MONTHLY">Monthly</SelectItem>
-                  <SelectItem value="YEARLY">Yearly</SelectItem>
+                  <SelectItem value="WEEKLY">{t("weekly")}</SelectItem>
+                  <SelectItem value="BIWEEKLY">{t("biweekly")}</SelectItem>
+                  <SelectItem value="MONTHLY">{t("monthly")}</SelectItem>
+                  <SelectItem value="YEARLY">{t("yearly")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           )}
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="notes">Notes (optional)</Label>
-            <Input id="notes" name="notes" placeholder="Optional notes" />
+            <Label htmlFor="notes">{t("notesOptional")}</Label>
+            <Input
+              id="notes"
+              name="notes"
+              placeholder={t("optionalNotesPlaceholder")}
+            />
           </div>
 
           {error && <p className="text-sm text-destructive">{error}</p>}
 
           <Button type="submit" disabled={isPending} className="mt-2">
-            {isPending ? "Creating..." : "Create Bill"}
+            {isPending ? t("creating") : t("createBill")}
           </Button>
         </form>
       </SheetContent>

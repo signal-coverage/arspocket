@@ -1,13 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Users,
-  FileText,
-  Calendar,
-  File,
-  Info,
-} from "lucide-react";
+import { Users, FileText, Calendar, File, Info } from "lucide-react";
 
 const stats = [
   {
@@ -64,4 +58,3 @@ export function StatsCards() {
     </div>
   );
 }
-

@@ -1,7 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { SerializedBookmark, SerializedCollection } from "@/app/actions/library";
+import { useTranslations } from "next-intl";
+import {
+  SerializedBookmark,
+  SerializedCollection,
+} from "@/app/actions/library";
 import { BookmarkCard } from "./bookmark-card";
 import { BookmarkForm } from "./bookmark-form";
 import { Button } from "@/components/ui/button";
@@ -18,19 +22,25 @@ type Props = {
 export const BookmarkGrid = ({
   bookmarks,
   collections,
-  emptyMessage = "No bookmarks here.",
+  emptyMessage,
   variant = "default",
   showAddButton = false,
 }: Props) => {
+  const t = useTranslations("library");
   const [addOpen, setAddOpen] = useState(false);
+  const resolvedEmptyMessage = emptyMessage ?? t("noBookmarksHere");
 
   return (
     <div className="flex flex-col gap-4">
       {showAddButton && (
         <div className="flex justify-end">
-          <Button onClick={() => setAddOpen(true)} size="sm" className="gap-1.5">
+          <Button
+            onClick={() => setAddOpen(true)}
+            size="sm"
+            className="gap-1.5"
+          >
             <Plus className="size-4" />
-            Add Bookmark
+            {t("addBookmark")}
           </Button>
         </div>
       )}
@@ -38,7 +48,9 @@ export const BookmarkGrid = ({
       {bookmarks.length === 0 ? (
         <div className="flex flex-col items-center justify-center gap-3 py-16 rounded-lg border border-dashed">
           <BookMarked className="size-10 text-muted-foreground/40" />
-          <p className="text-sm text-muted-foreground">{emptyMessage}</p>
+          <p className="text-sm text-muted-foreground">
+            {resolvedEmptyMessage}
+          </p>
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

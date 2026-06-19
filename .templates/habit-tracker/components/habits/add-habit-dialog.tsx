@@ -14,8 +14,33 @@ import { useHabitStore } from "@/store/habit-store";
 import { HABIT_COLORS, type HabitColor } from "@/mock-data/habits";
 import { cn } from "@/lib/utils";
 
-const COLOR_OPTIONS: HabitColor[] = ["violet", "emerald", "amber", "rose", "sky", "orange", "teal"];
-const ICON_OPTIONS = ["⭐", "🧘", "💪", "📚", "🌙", "🚿", "✍️", "🎯", "🏃", "💧", "🥗", "😴", "🎵", "🖥️", "🚴", "🥊"];
+const COLOR_OPTIONS: HabitColor[] = [
+  "violet",
+  "emerald",
+  "amber",
+  "rose",
+  "sky",
+  "orange",
+  "teal",
+];
+const ICON_OPTIONS = [
+  "⭐",
+  "🧘",
+  "💪",
+  "📚",
+  "🌙",
+  "🚿",
+  "✍️",
+  "🎯",
+  "🏃",
+  "💧",
+  "🥗",
+  "😴",
+  "🎵",
+  "🖥️",
+  "🚴",
+  "🥊",
+];
 
 interface AddHabitDialogProps {
   children: React.ReactNode;
@@ -56,7 +81,9 @@ export function AddHabitDialog({ children }: AddHabitDialogProps) {
           <div className="flex items-center gap-3">
             <div
               className="size-11 rounded-xl flex items-center justify-center text-2xl shrink-0"
-              style={{ backgroundColor: HABIT_COLORS[newHabitColor].light + "22" }}
+              style={{
+                backgroundColor: HABIT_COLORS[newHabitColor].light + "22",
+              }}
             >
               {newHabitIcon}
             </div>
@@ -70,7 +97,9 @@ export function AddHabitDialog({ children }: AddHabitDialogProps) {
           </div>
 
           <div>
-            <p className="text-xs text-muted-foreground mb-2 font-medium">Icon</p>
+            <p className="text-xs text-muted-foreground mb-2 font-medium">
+              Icon
+            </p>
             <div className="flex flex-wrap gap-1.5">
               {ICON_OPTIONS.map((icon) => (
                 <button
@@ -80,7 +109,7 @@ export function AddHabitDialog({ children }: AddHabitDialogProps) {
                     "size-9 rounded-lg flex items-center justify-center text-xl transition-colors",
                     newHabitIcon === icon
                       ? "bg-primary/20 ring-2 ring-primary/50"
-                      : "bg-muted hover:bg-muted/80"
+                      : "bg-muted hover:bg-muted/80",
                   )}
                 >
                   {icon}
@@ -90,7 +119,9 @@ export function AddHabitDialog({ children }: AddHabitDialogProps) {
           </div>
 
           <div>
-            <p className="text-xs text-muted-foreground mb-2 font-medium">Color</p>
+            <p className="text-xs text-muted-foreground mb-2 font-medium">
+              Color
+            </p>
             <div className="flex flex-wrap gap-2">
               {COLOR_OPTIONS.map((c) => (
                 <button
@@ -98,7 +129,8 @@ export function AddHabitDialog({ children }: AddHabitDialogProps) {
                   onClick={() => setNewHabitColor(c)}
                   className={cn(
                     "size-7 rounded-full transition-all",
-                    newHabitColor === c && "ring-2 ring-offset-2 ring-offset-background scale-110"
+                    newHabitColor === c &&
+                      "ring-2 ring-offset-2 ring-offset-background scale-110",
                   )}
                   style={{ backgroundColor: HABIT_COLORS[c].light }}
                 />
@@ -106,7 +138,11 @@ export function AddHabitDialog({ children }: AddHabitDialogProps) {
             </div>
           </div>
 
-          <Button onClick={handleAdd} disabled={!newHabitName.trim()} className="w-full">
+          <Button
+            onClick={handleAdd}
+            disabled={!newHabitName.trim()}
+            className="w-full"
+          >
             Add habit
           </Button>
         </div>

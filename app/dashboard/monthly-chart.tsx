@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import {
   Bar,
   BarChart,
@@ -17,39 +18,43 @@ interface MonthlyChartProps {
   data: { month: string; income: number; expenses: number }[];
 }
 
-export const MonthlyChart = ({ data }: MonthlyChartProps) => (
-  <Card>
-    <CardHeader>
-      <CardTitle className="text-base">Income vs Expenses</CardTitle>
-    </CardHeader>
-    <CardContent>
-      {data.length === 0 ? (
-        <div className="h-[200px] flex items-center justify-center text-sm text-muted-foreground">
-          Add transactions to see your monthly chart.
-        </div>
-      ) : (
-        <ResponsiveContainer width="100%" height={220}>
-          <BarChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
-            <XAxis dataKey="month" tick={{ fontSize: 12 }} />
-            <YAxis tick={{ fontSize: 12 }} />
-            <Tooltip formatter={(value) => `$${Number(value).toFixed(2)}`} />
-            <Legend />
-            <Bar
-              dataKey="income"
-              fill="#008080"
-              radius={[4, 4, 0, 0]}
-              name="Income"
-            />
-            <Bar
-              dataKey="expenses"
-              fill="#ef4444"
-              radius={[4, 4, 0, 0]}
-              name="Expenses"
-            />
-          </BarChart>
-        </ResponsiveContainer>
-      )}
-    </CardContent>
-  </Card>
-);
+export const MonthlyChart = ({ data }: MonthlyChartProps) => {
+  const t = useTranslations("dashboard");
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-base">{t("incomeVsExpenses")}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        {data.length === 0 ? (
+          <div className="h-[200px] flex items-center justify-center text-sm text-muted-foreground">
+            {t("addTransactionsChart")}
+          </div>
+        ) : (
+          <ResponsiveContainer width="100%" height={220}>
+            <BarChart data={data}>
+              <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+              <XAxis dataKey="month" tick={{ fontSize: 12 }} />
+              <YAxis tick={{ fontSize: 12 }} />
+              <Tooltip formatter={(value) => `$${Number(value).toFixed(2)}`} />
+              <Legend />
+              <Bar
+                dataKey="income"
+                fill="#008080"
+                radius={[4, 4, 0, 0]}
+                name={t("income")}
+              />
+              <Bar
+                dataKey="expenses"
+                fill="#ef4444"
+                radius={[4, 4, 0, 0]}
+                name={t("expenses")}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        )}
+      </CardContent>
+    </Card>
+  );
+};

@@ -8,4 +8,3 @@ export default async function FolderPage({ params }: FolderPageProps) {
   const { id } = await params;
   return <FilesContent view="folder" folderId={id} />;
 }
-

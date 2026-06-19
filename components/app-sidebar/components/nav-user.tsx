@@ -4,6 +4,7 @@ import { useClerk, useUser } from "@clerk/nextjs";
 import { ChevronsUpDown, LogOut, UserIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 import {
   Avatar,
@@ -19,6 +20,7 @@ import {
 import { getInitials } from "@/lib/helpers";
 
 export const NavUser = () => {
+  const t = useTranslations("nav");
   const { user, isLoaded } = useUser();
   const { openUserProfile, signOut } = useClerk();
   const router = useRouter();
@@ -90,7 +92,7 @@ export const NavUser = () => {
           onClick={() => openUserProfile()}
         >
           <UserIcon className="size-4" />
-          View profile
+          {t("viewProfile")}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
@@ -98,7 +100,7 @@ export const NavUser = () => {
           onClick={() => signOut({ redirectUrl: "/" })}
         >
           <LogOut className="size-4" />
-          Sign out
+          {t("signOut")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

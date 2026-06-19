@@ -66,7 +66,9 @@ export function EmailsVerticalSidebarMobile({
           </svg>
         </Button>
         <div className="flex flex-col justify-center">
-          <span className="text-sm font-semibold text-foreground">Square UI</span>
+          <span className="text-sm font-semibold text-foreground">
+            Square UI
+          </span>
           <span className="text-xs text-muted-foreground">lndev.me</span>
         </div>
       </div>
@@ -80,7 +82,7 @@ export function EmailsVerticalSidebarMobile({
             onClick={onItemClick}
             className={cn(
               "w-full justify-start gap-2 px-3",
-              item.active && "bg-muted text-foreground hover:bg-muted"
+              item.active && "bg-muted text-foreground hover:bg-muted",
             )}
           >
             <item.icon className="size-4 shrink-0" />

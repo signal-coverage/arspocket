@@ -1,7 +1,15 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Upload, Download, Share2, Edit3, Trash2, FolderInput, MessageSquare } from "lucide-react";
+import {
+  Upload,
+  Download,
+  Share2,
+  Edit3,
+  Trash2,
+  FolderInput,
+  MessageSquare,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const activities = [
@@ -110,7 +118,7 @@ export function RecentActivity() {
               <div
                 className={cn(
                   "size-6 rounded-md flex items-center justify-center",
-                  activity.iconBg
+                  activity.iconBg,
                 )}
               >
                 <activity.icon className={cn("size-3", activity.iconColor)} />
@@ -125,4 +133,3 @@ export function RecentActivity() {
     </div>
   );
 }
-

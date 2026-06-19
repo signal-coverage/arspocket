@@ -39,7 +39,7 @@ export const useTasksStore = create<TasksState>((set, get) => ({
   updateTask: (taskId, updates) =>
     set((state) => {
       const newTasks = state.tasks.map((task) =>
-        task.id === taskId ? { ...task, ...updates } : task
+        task.id === taskId ? { ...task, ...updates } : task,
       );
       return {
         tasks: newTasks,
@@ -59,7 +59,7 @@ export const useTasksStore = create<TasksState>((set, get) => ({
   updateTaskStatus: (taskId, status) =>
     set((state) => {
       const newTasks = state.tasks.map((task) =>
-        task.id === taskId ? { ...task, status } : task
+        task.id === taskId ? { ...task, status } : task,
       );
       return {
         tasks: newTasks,
@@ -75,7 +75,7 @@ export const useTasksStore = create<TasksState>((set, get) => ({
       filtered = filtered.filter(
         (task) =>
           task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          task.project.toLowerCase().includes(searchQuery.toLowerCase())
+          task.project.toLowerCase().includes(searchQuery.toLowerCase()),
       );
     }
 
@@ -90,7 +90,7 @@ export const useTasksStore = create<TasksState>((set, get) => ({
     const filteredTasks = get().getFilteredTasks();
     return statuses.reduce<Record<string, Task[]>>((acc, status) => {
       acc[status.id] = filteredTasks.filter(
-        (task) => task.status.id === status.id
+        (task) => task.status.id === status.id,
       );
       return acc;
     }, {});

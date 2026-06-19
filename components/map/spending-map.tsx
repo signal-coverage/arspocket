@@ -5,8 +5,7 @@ import { GeoTransaction } from "./spending-map-inner";
 import { Loader2 } from "lucide-react";
 
 const SpendingMapInner = dynamic(
-  () =>
-    import("./spending-map-inner").then((m) => m.SpendingMapInner),
+  () => import("./spending-map-inner").then((m) => m.SpendingMapInner),
   {
     ssr: false,
     loading: () => (
@@ -14,7 +13,7 @@ const SpendingMapInner = dynamic(
         <Loader2 className="size-8 animate-spin text-muted-foreground" />
       </div>
     ),
-  }
+  },
 );
 
 type Props = {
