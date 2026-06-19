@@ -14,8 +14,7 @@ export const BillsPage = async () => {
   // Lazy reset overdue recurring bills before rendering
   await lazyResetOverdueBills();
 
-  const now = new Date();
-  const bills = await getBillsForMonth(now.getFullYear(), now.getMonth());
+  const bills = await getBillsForMonth();
 
   return (
     <div className="flex flex-1 flex-col gap-6 p-6">

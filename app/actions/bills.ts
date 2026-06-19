@@ -110,10 +110,7 @@ export const getBills = async (): Promise<SerializedBill[]> => {
   return bills.map(serializeBill);
 };
 
-export const getBillsForMonth = async (
-  year: number,
-  month: number,
-): Promise<SerializedBill[]> => {
+export const getBillsForMonth = async (): Promise<SerializedBill[]> => {
   const { userId } = await auth();
   if (!userId) return [];
 
@@ -132,7 +129,6 @@ export const getUpcomingBills = async (
   const { userId } = await auth();
   if (!userId) return [];
 
-  const now = new Date();
   const future = new Date();
   future.setDate(future.getDate() + days);
 
