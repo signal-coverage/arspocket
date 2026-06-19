@@ -1,0 +1,330 @@
+- generic:
+    - generic:
+        - generic:
+            - generic:
+                - generic:
+                    - generic:
+                        - generic:
+                            - generic:
+                                - img
+                            - generic: ARSPocket
+                    - generic:
+                        - generic:
+                            - generic:
+                                - list:
+                                    - listitem:
+                                        - link:
+                                            - /url: /dashboard
+                                            - img
+                                            - generic: Overview
+                        - generic:
+                            - generic:
+                                - generic:
+                                    - generic:
+                                        - img
+                                        - text: MOVEMENTS
+                                - generic:
+                                    - generic:
+                                        - list:
+                                            - listitem:
+                                                - link:
+                                                    - /url: /dashboard/income
+                                                    - img
+                                                    - generic: Income
+                                            - listitem:
+                                                - link:
+                                                    - /url: /dashboard/outcome
+                                                    - img
+                                                    - generic: Expenses
+                                            - listitem:
+                                                - link:
+                                                    - /url: /dashboard/savings
+                                                    - img
+                                                    - generic: Savings
+                                            - listitem:
+                                                - link:
+                                                    - /url: /dashboard/calendar
+                                                    - img
+                                                    - generic: Calendar
+                        - generic:
+                            - generic:
+                                - generic:
+                                    - generic:
+                                        - img
+                                        - text: PLANNING
+                                - generic:
+                                    - generic:
+                                        - list:
+                                            - listitem:
+                                                - link:
+                                                    - /url: /dashboard/goals
+                                                    - img
+                                                    - generic: Goals Timeline
+                                            - listitem:
+                                                - link:
+                                                    - /url: /dashboard/budget
+                                                    - img
+                                                    - generic: Budget
+                                            - listitem:
+                                                - link:
+                                                    - /url: /dashboard/bills
+                                                    - img
+                                                    - generic: Bills
+                                            - listitem:
+                                                - link:
+                                                    - /url: /dashboard/net-worth
+                                                    - img
+                                                    - generic: Net Worth
+                        - generic:
+                            - generic:
+                                - generic:
+                                    - generic:
+                                        - img
+                                        - text: HABITS & TASKS
+                                - generic:
+                                    - generic:
+                                        - list:
+                                            - listitem:
+                                                - link:
+                                                    - /url: /dashboard/habits
+                                                    - img
+                                                    - generic: Habits
+                                            - listitem:
+                                                - link:
+                                                    - /url: /dashboard/tasks
+                                                    - img
+                                                    - generic: To-Dos
+                        - generic:
+                            - generic:
+                                - generic:
+                                    - generic:
+                                        - img
+                                        - text: VAULT
+                                - generic:
+                                    - generic:
+                                        - list:
+                                            - listitem:
+                                                - link:
+                                                    - /url: /dashboard/receipts
+                                                    - img
+                                                    - generic: Receipts
+                                            - listitem:
+                                                - link:
+                                                    - /url: /dashboard/library
+                                                    - img
+                                                    - generic: Resource Library
+                        - generic:
+                            - generic:
+                                - generic:
+                                    - generic:
+                                        - img
+                                        - text: EXPLORE
+                                - generic:
+                                    - generic:
+                                        - list:
+                                            - listitem:
+                                                - link:
+                                                    - /url: /dashboard/map
+                                                    - img
+                                                    - generic: Spending Map
+                        - generic:
+                            - generic:
+                                - generic:
+                                    - generic:
+                                        - img
+                                        - text: INSIGHTS
+                                - generic:
+                                    - generic:
+                                        - list:
+                                            - listitem:
+                                                - link:
+                                                    - /url: /dashboard/reports
+                                                    - img
+                                                    - generic: Reports
+                    - generic:
+                        - list:
+                            - listitem:
+                                - link:
+                                    - /url: "#"
+                                    - img
+                                    - generic: Help
+                            - listitem:
+                                - button:
+                                    - img
+                                    - generic: Settings
+                        - button:
+                            - generic:
+                                - generic: NS
+                            - generic:
+                                - generic: Nicolas
+                                - generic: nicosanchez673@gmail.com
+                            - img
+        - generic:
+            - generic:
+                - banner:
+                    - button:
+                        - img
+                        - generic: Toggle Sidebar
+                    - navigation:
+                        - list:
+                            - listitem:
+                                - link [disabled]: Dashboard
+                    - generic:
+                        - button:
+                            - img
+                - main:
+                    - generic:
+                        - generic:
+                            - heading [level=2]: Good evening
+                            - paragraph: Here's an overview of your finances.
+                        - generic:
+                            - button: + Add Income
+                            - button: + Add Expense
+                            - button: + New Goal
+                    - generic:
+                        - generic:
+                            - generic:
+                                - generic:
+                                    - img
+                                    - generic: Balance
+                                - paragraph: $ 0,00
+                                - generic:
+                                    - generic: Positive
+                        - generic:
+                            - generic:
+                                - generic:
+                                    - img
+                                    - generic: Monthly Income
+                                - paragraph: $ 0,00
+                                - generic:
+                                    - generic: This month
+                        - generic:
+                            - generic:
+                                - generic:
+                                    - img
+                                    - generic: Monthly Expenses
+                                - paragraph: $ 0,00
+                                - generic:
+                                    - generic: This month
+                        - generic:
+                            - generic:
+                                - generic:
+                                    - img
+                                    - generic: Savings Goals
+                                - paragraph: 0 active
+                                - generic:
+                                    - generic: Active goals
+                    - generic:
+                        - generic:
+                            - generic:
+                                - generic: Recent Transactions
+                            - generic:
+                                - generic:
+                                    - img
+                                    - generic:
+                                        - paragraph: No transactions yet
+                                        - paragraph: Add your first income or expense to get started.
+                                    - link:
+                                        - /url: /dashboard/income
+                                        - text: Add transaction
+                        - generic:
+                            - generic:
+                                - generic:
+                                    - generic: Savings Goals
+                                    - link:
+                                        - /url: /dashboard/savings
+                                        - text: View all
+                            - generic:
+                                - generic:
+                                    - img
+                                    - paragraph: No goals yet
+                                    - link:
+                                        - /url: /dashboard/savings
+                                        - text: Create goal
+                        - generic:
+                            - generic:
+                                - generic: Income vs Expenses
+                            - generic:
+                                - generic:
+                                    - generic:
+                                        - generic:
+                                            - generic:
+                                                - list:
+                                                    - listitem:
+                                                        - img
+                                                        - text: Expenses
+                                                    - listitem:
+                                                        - img
+                                                        - text: Income
+                                            - application:
+                                                - generic:
+                                                    - generic:
+                                                        - generic:
+                                                            - generic: ene 26
+                                                        - generic:
+                                                            - generic: feb 26
+                                                        - generic:
+                                                            - generic: mar 26
+                                                        - generic:
+                                                            - generic: abr 26
+                                                        - generic:
+                                                            - generic: may 26
+                                                        - generic:
+                                                            - generic: jun 26
+                                                    - generic:
+                                                        - generic:
+                                                            - generic: "0"
+                                                        - generic:
+                                                            - generic: "1"
+                                                        - generic:
+                                                            - generic: "2"
+                                                        - generic:
+                                                            - generic: "3"
+                                                        - generic:
+                                                            - generic: "4"
+                    - generic:
+                        - generic:
+                            - generic:
+                                - generic: Cash Flow Projection (Estimate)
+                                - generic:
+                                    - button: 30d
+                                    - button: 60d
+                                    - button: 90d
+                        - generic:
+                            - generic: Not enough data for an accurate projection
+    - region "Notifications alt+T"
+    - button "Open Next.js Dev Tools" [ref=e334] [cursor=pointer]:
+        - img [ref=e335]
+    - alert
+    - generic: "0"
+    - generic [ref=e340]:
+        - generic [ref=e341]:
+            - link [ref=e366] [cursor=pointer]:
+                - /url: https://www.locatorjs.com
+                - img [ref=e343]
+            - button [ref=e367] [cursor=pointer]: Settings
+        - generic [ref=e351]:
+            - text: Go to component code with
+            - generic [ref=e352]: Alt
+            - text: +
+            - generic [ref=e353]: click
+        - generic [ref=e354]:
+            - link [ref=e368] [cursor=pointer]:
+                - /url: https://www.locatorjs.com
+                - text: What is Locator?
+            - generic [ref=e356] [cursor=pointer]: Stop showing this popup
+    - dialog "Settings" [ref=e370]:
+        - heading "Settings" [level=2] [ref=e372]
+        - generic [ref=e374]:
+            - generic [ref=e375]:
+                - img [ref=e376]
+                - paragraph [ref=e379]: Language
+            - paragraph [ref=e380]: Choose your preferred language for the interface.
+            - generic [ref=e381]:
+                - button "English" [active] [ref=e382] [cursor=pointer]:
+                    - img
+                    - text: English
+                - button "Spanish" [ref=e383] [cursor=pointer]
+        - button "Close" [ref=e384] [cursor=pointer]:
+            - img
+            - generic [ref=e385]: Close

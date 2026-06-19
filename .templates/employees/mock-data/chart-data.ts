@@ -12,4 +12,3 @@ export const hiresVsExitsData = [
   { month: "Nov", newHires: 22, exports: 18 },
   { month: "Dec", newHires: 31, exits: 15 },
 ];
-

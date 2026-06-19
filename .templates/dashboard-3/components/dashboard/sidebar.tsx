@@ -187,7 +187,7 @@ export function DashboardSidebar({
               <ChevronDown
                 className={cn(
                   "size-3.5 transition-transform",
-                  !favoritesOpen && "-rotate-90"
+                  !favoritesOpen && "-rotate-90",
                 )}
               />
               FAVORITES
@@ -268,4 +268,3 @@ export function DashboardSidebar({
     </Sidebar>
   );
 }
-

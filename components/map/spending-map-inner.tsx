@@ -158,9 +158,7 @@ export const SpendingMapInner = ({ transactions }: Props) => {
         <div ref={containerRef} className="absolute inset-0 w-full h-full" />
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="bg-background/90 backdrop-blur-sm rounded-lg border p-6 text-center max-w-xs">
-            <p className="text-sm font-medium">
-              {t("noGeoTagged")}
-            </p>
+            <p className="text-sm font-medium">{t("noGeoTagged")}</p>
             <p className="text-xs text-muted-foreground mt-1">
               {t("noLocationsDescription")}
             </p>

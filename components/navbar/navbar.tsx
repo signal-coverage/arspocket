@@ -40,7 +40,9 @@ export const Navbar = () => {
         <BreadcrumbList>
           <BreadcrumbItem className={secondLabel ? "hidden md:block" : ""}>
             {secondLabel ? (
-              <BreadcrumbLink href="/dashboard">{t("dashboard")}</BreadcrumbLink>
+              <BreadcrumbLink href="/dashboard">
+                {t("dashboard")}
+              </BreadcrumbLink>
             ) : (
               <BreadcrumbPage>{t("dashboard")}</BreadcrumbPage>
             )}

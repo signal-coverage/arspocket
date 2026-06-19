@@ -107,20 +107,22 @@ function CustomTooltip({
   const thisYear = payload.find((p) => p.dataKey === "thisYear")?.value || 0;
   const prevYear = payload.find((p) => p.dataKey === "prevYear")?.value || 0;
   const diff = Number(thisYear) - Number(prevYear);
-  const percentage = prevYear
-    ? Math.round((diff / Number(prevYear)) * 100)
-    : 0;
+  const percentage = prevYear ? Math.round((diff / Number(prevYear)) * 100) : 0;
 
   return (
     <div className="bg-popover border border-border rounded-lg p-2 sm:p-3 shadow-lg">
-      <p className="text-xs sm:text-sm font-medium text-foreground mb-1.5 sm:mb-2">{label}, 2024</p>
+      <p className="text-xs sm:text-sm font-medium text-foreground mb-1.5 sm:mb-2">
+        {label}, 2024
+      </p>
       <div className="space-y-1 sm:space-y-1.5">
         <div className="flex items-center gap-1.5 sm:gap-2">
           <div
             className="size-2 sm:size-2.5 rounded-full"
             style={{ background: "#6e3ff3" }}
           />
-          <span className="text-[10px] sm:text-sm text-muted-foreground">This Year:</span>
+          <span className="text-[10px] sm:text-sm text-muted-foreground">
+            This Year:
+          </span>
           <span className="text-[10px] sm:text-sm font-medium text-foreground">
             ${Number(thisYear).toLocaleString()}
           </span>
@@ -130,7 +132,9 @@ function CustomTooltip({
             className="size-2 sm:size-2.5 rounded-full"
             style={{ background: "#e255f2" }}
           />
-          <span className="text-[10px] sm:text-sm text-muted-foreground">Prev Year:</span>
+          <span className="text-[10px] sm:text-sm text-muted-foreground">
+            Prev Year:
+          </span>
           <span className="text-[10px] sm:text-sm font-medium text-foreground">
             ${Number(prevYear).toLocaleString()}
           </span>
@@ -179,11 +183,15 @@ export function RevenueFlowChart() {
         <div className="hidden sm:flex items-center gap-3 sm:gap-5">
           <div className="flex items-center gap-1.5">
             <div className="size-2.5 sm:size-3 rounded-full bg-[#6e3ff3]" />
-            <span className="text-[10px] sm:text-xs text-muted-foreground">This Year</span>
+            <span className="text-[10px] sm:text-xs text-muted-foreground">
+              This Year
+            </span>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="size-2.5 sm:size-3 rounded-full bg-[#e255f2]" />
-            <span className="text-[10px] sm:text-xs text-muted-foreground">Prev Year</span>
+            <span className="text-[10px] sm:text-xs text-muted-foreground">
+              Prev Year
+            </span>
           </div>
         </div>
         <DropdownMenu>
@@ -256,7 +264,9 @@ export function RevenueFlowChart() {
             )}
 
             <DropdownMenuSeparator />
-            <DropdownMenuLabel className="text-xs">Data Series</DropdownMenuLabel>
+            <DropdownMenuLabel className="text-xs">
+              Data Series
+            </DropdownMenuLabel>
 
             <DropdownMenuCheckboxItem
               checked={showThisYear}
@@ -311,7 +321,9 @@ export function RevenueFlowChart() {
           </div>
 
           <div className="bg-muted/50 rounded-lg p-3 sm:p-4 space-y-3 sm:space-y-4">
-            <p className="text-xs sm:text-sm font-semibold">🏆 Best Performing Month</p>
+            <p className="text-xs sm:text-sm font-semibold">
+              🏆 Best Performing Month
+            </p>
             <p className="text-[10px] sm:text-xs text-muted-foreground leading-relaxed">
               {insights[currentInsight]}
             </p>
@@ -320,7 +332,7 @@ export function RevenueFlowChart() {
                 className="size-3 sm:size-3.5 text-muted-foreground cursor-pointer hover:text-foreground transition-colors"
                 onClick={() =>
                   setCurrentInsight((prev) =>
-                    prev === 0 ? insights.length - 1 : prev - 1
+                    prev === 0 ? insights.length - 1 : prev - 1,
                   )
                 }
               />
@@ -340,7 +352,7 @@ export function RevenueFlowChart() {
                 className="size-3 sm:size-3.5 text-muted-foreground cursor-pointer hover:text-foreground transition-colors"
                 onClick={() =>
                   setCurrentInsight((prev) =>
-                    prev === insights.length - 1 ? 0 : prev + 1
+                    prev === insights.length - 1 ? 0 : prev + 1,
                   )
                 }
               />
@@ -477,7 +489,11 @@ export function RevenueFlowChart() {
                     y2="1"
                   >
                     <stop offset="0%" stopColor="#6e3ff3" stopOpacity={0.3} />
-                    <stop offset="100%" stopColor="#6e3ff3" stopOpacity={0.05} />
+                    <stop
+                      offset="100%"
+                      stopColor="#6e3ff3"
+                      stopOpacity={0.05}
+                    />
                   </linearGradient>
                   <linearGradient
                     id="prevYearAreaGradient"
@@ -487,7 +503,11 @@ export function RevenueFlowChart() {
                     y2="1"
                   >
                     <stop offset="0%" stopColor="#e255f2" stopOpacity={0.3} />
-                    <stop offset="100%" stopColor="#e255f2" stopOpacity={0.05} />
+                    <stop
+                      offset="100%"
+                      stopColor="#e255f2"
+                      stopOpacity={0.05}
+                    />
                   </linearGradient>
                 </defs>
                 {showGrid && (

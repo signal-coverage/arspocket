@@ -210,7 +210,7 @@ export function DashboardSidebar({
                 <ChevronDown
                   className={cn(
                     "size-3 transition-transform ml-auto",
-                    favoritesOpen && "rotate-180"
+                    favoritesOpen && "rotate-180",
                   )}
                 />
               </SidebarGroupLabel>

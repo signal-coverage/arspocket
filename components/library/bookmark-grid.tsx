@@ -48,7 +48,9 @@ export const BookmarkGrid = ({
       {bookmarks.length === 0 ? (
         <div className="flex flex-col items-center justify-center gap-3 py-16 rounded-lg border border-dashed">
           <BookMarked className="size-10 text-muted-foreground/40" />
-          <p className="text-sm text-muted-foreground">{resolvedEmptyMessage}</p>
+          <p className="text-sm text-muted-foreground">
+            {resolvedEmptyMessage}
+          </p>
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -36,7 +36,7 @@ export const useFilesStore = create<FilesStore>((set, get) => ({
   toggleStarred: (fileId) =>
     set((state) => ({
       files: state.files.map((file) =>
-        file.id === fileId ? { ...file, starred: !file.starred } : file
+        file.id === fileId ? { ...file, starred: !file.starred } : file,
       ),
     })),
 
@@ -47,7 +47,7 @@ export const useFilesStore = create<FilesStore>((set, get) => ({
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter((file) =>
-        file.name.toLowerCase().includes(query)
+        file.name.toLowerCase().includes(query),
       );
     }
 

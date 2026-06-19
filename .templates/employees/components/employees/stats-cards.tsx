@@ -13,10 +13,12 @@ interface StatCardProps {
 
 function StatCard({ title, value, icon: Icon, className }: StatCardProps) {
   return (
-    <div className={cn(
-      "flex items-center justify-between p-5 rounded-xl border border-border bg-card",
-      className
-    )}>
+    <div
+      className={cn(
+        "flex items-center justify-between p-5 rounded-xl border border-border bg-card",
+        className,
+      )}
+    >
       <div className="space-y-2">
         <p className="text-sm text-muted-foreground">{title}</p>
         <p className="text-2xl font-semibold text-foreground">{value}</p>
@@ -33,16 +35,14 @@ export function StatsCards() {
 
   const totalEmployees = employees.length;
   const activeEmployees = employees.filter((e) => e.status === "active").length;
-  const inactiveEmployees = employees.filter((e) => e.status === "inactive").length;
+  const inactiveEmployees = employees.filter(
+    (e) => e.status === "inactive",
+  ).length;
   const departments = [...new Set(employees.map((e) => e.department))].length;
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-      <StatCard
-        title="Total Employees"
-        value={totalEmployees}
-        icon={Users}
-      />
+      <StatCard title="Total Employees" value={totalEmployees} icon={Users} />
       <StatCard
         title="Active Employees"
         value={activeEmployees}
@@ -53,12 +53,7 @@ export function StatsCards() {
         value={inactiveEmployees}
         icon={UserX}
       />
-      <StatCard
-        title="Departments"
-        value={departments}
-        icon={GitFork}
-      />
+      <StatCard title="Departments" value={departments} icon={GitFork} />
     </div>
   );
 }
-

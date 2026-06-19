@@ -11,7 +11,12 @@ export interface Deal {
   expectedClose: string;
 }
 
-const stages: Deal["stage"][] = ["Negotiation", "Proposal Sent", "Qualified", "Discovery"];
+const stages: Deal["stage"][] = [
+  "Negotiation",
+  "Proposal Sent",
+  "Qualified",
+  "Discovery",
+];
 const owners = [
   { name: "Alex Ray", initials: "AR" },
   { name: "Mina Swan", initials: "MS" },
@@ -88,7 +93,20 @@ const dealTemplates = [
 ];
 
 function getDateForIndex(index: number): string {
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   const month = 3 + (index % 6);
   const day = ((index * 7) % 28) + 1;
   return `${months[month]} ${day.toString().padStart(2, "0")}, 2025`;
@@ -99,7 +117,11 @@ export const deals: Deal[] = dealTemplates.map((template, index) => {
   const stage = stages[index % stages.length];
   const color = colors[index % colors.length];
   const value = 5000 + ((index * 8123 + 4567) % 40000);
-  const initial = template.name.split(" ").map(w => w[0]).join("").slice(0, 2);
+  const initial = template.name
+    .split(" ")
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2);
 
   return {
     id: (index + 1).toString(),

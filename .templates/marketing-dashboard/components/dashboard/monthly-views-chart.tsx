@@ -1,13 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { MoreVertical } from "lucide-react";
 import {
   lastMonthData,
@@ -35,7 +29,10 @@ import {
 
 type Period = "1m" | "3m" | "6m" | "1y";
 
-const periodConfig: Record<Period, { label: string; data: typeof lastMonthData }> = {
+const periodConfig: Record<
+  Period,
+  { label: string; data: typeof lastMonthData }
+> = {
   "1m": { label: "Last month", data: lastMonthData },
   "3m": { label: "Last 3 months", data: last3MonthsData },
   "6m": { label: "Last 6 months", data: last6MonthsData },
@@ -101,13 +98,13 @@ export function MonthlyViewsChart() {
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>Time Period</DropdownMenuSubTrigger>
               <DropdownMenuSubContent>
-                {(Object.entries(periodConfig) as [Period, { label: string }][]).map(
-                  ([key, { label: lbl }]) => (
-                    <DropdownMenuItem key={key} onClick={() => setPeriod(key)}>
-                      {lbl} {period === key && "✓"}
-                    </DropdownMenuItem>
-                  )
-                )}
+                {(
+                  Object.entries(periodConfig) as [Period, { label: string }][]
+                ).map(([key, { label: lbl }]) => (
+                  <DropdownMenuItem key={key} onClick={() => setPeriod(key)}>
+                    {lbl} {period === key && "✓"}
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuSubContent>
             </DropdownMenuSub>
             <DropdownMenuSeparator />
@@ -139,8 +136,16 @@ export function MonthlyViewsChart() {
           >
             <defs>
               <linearGradient id="viewsGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="var(--color-views)" stopOpacity={0.2} />
-                <stop offset="95%" stopColor="var(--color-views)" stopOpacity={0} />
+                <stop
+                  offset="5%"
+                  stopColor="var(--color-views)"
+                  stopOpacity={0.2}
+                />
+                <stop
+                  offset="95%"
+                  stopColor="var(--color-views)"
+                  stopOpacity={0}
+                />
               </linearGradient>
             </defs>
             {showGrid && (

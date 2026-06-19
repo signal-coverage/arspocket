@@ -5,12 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
-import {
-  LayoutDashboard,
-  PanelLeft,
-  Check,
-  RefreshCw,
-} from "lucide-react";
+import { LayoutDashboard, PanelLeft, Check, RefreshCw } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,8 +29,12 @@ export function DashboardHeader() {
   const showChart = useDashboardStore((state) => state.showChart);
   const showTable = useDashboardStore((state) => state.showTable);
   const layoutDensity = useDashboardStore((state) => state.layoutDensity);
-  const setShowAlertBanner = useDashboardStore((state) => state.setShowAlertBanner);
-  const setShowStatsCards = useDashboardStore((state) => state.setShowStatsCards);
+  const setShowAlertBanner = useDashboardStore(
+    (state) => state.setShowAlertBanner,
+  );
+  const setShowStatsCards = useDashboardStore(
+    (state) => state.setShowStatsCards,
+  );
   const setShowChart = useDashboardStore((state) => state.setShowChart);
   const setShowTable = useDashboardStore((state) => state.setShowTable);
   const setLayoutDensity = useDashboardStore((state) => state.setLayoutDensity);
@@ -103,9 +102,7 @@ export function DashboardHeader() {
           {(Object.keys(densityLabels) as LayoutDensity[]).map((key) => (
             <DropdownMenuItem key={key} onClick={() => setLayoutDensity(key)}>
               {densityLabels[key]}
-              {layoutDensity === key && (
-                <Check className="size-4 ml-auto" />
-              )}
+              {layoutDensity === key && <Check className="size-4 ml-auto" />}
             </DropdownMenuItem>
           ))}
 
@@ -150,4 +147,3 @@ export function DashboardHeader() {
     </header>
   );
 }
-

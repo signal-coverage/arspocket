@@ -173,7 +173,7 @@ export function CalendarSidebar({
                 <ChevronDown
                   className={cn(
                     "size-4 transition-transform ml-auto",
-                    featuredOpen && "rotate-180"
+                    featuredOpen && "rotate-180",
                   )}
                 />
               </SidebarGroupLabel>

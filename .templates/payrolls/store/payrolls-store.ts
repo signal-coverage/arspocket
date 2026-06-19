@@ -1,7 +1,17 @@
 import { create } from "zustand";
-import { payrolls as initialPayrolls, Payroll, PayrollStatus, PaymentMethod } from "@/mock-data/payrolls";
+import {
+  payrolls as initialPayrolls,
+  Payroll,
+  PayrollStatus,
+  PaymentMethod,
+} from "@/mock-data/payrolls";
 
-export type DateFilter = "all" | "today" | "yesterday" | "last7days" | "last30days";
+export type DateFilter =
+  | "all"
+  | "today"
+  | "yesterday"
+  | "last7days"
+  | "last30days";
 
 interface PayrollsState {
   payrolls: Payroll[];
@@ -31,11 +41,11 @@ export const usePayrollsStore = create<PayrollsState>((set) => ({
   setDateFilter: (date) => set({ dateFilter: date }),
   setPaymentMethodFilter: (method) => set({ paymentMethodFilter: method }),
   setPeriodFilter: (period) => set({ periodFilter: period }),
-  clearAllFilters: () => set({ 
-    searchQuery: "", 
-    statusFilter: "all", 
-    dateFilter: "all",
-    paymentMethodFilter: "all"
-  }),
+  clearAllFilters: () =>
+    set({
+      searchQuery: "",
+      statusFilter: "all",
+      dateFilter: "all",
+      paymentMethodFilter: "all",
+    }),
 }));
-

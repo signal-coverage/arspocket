@@ -1,7 +1,14 @@
 "use client";
 
 import { useMemo, useEffect, useRef } from "react";
-import { Check, Flame, TrendingUp, Plus, PartyPopper, Sprout } from "lucide-react";
+import {
+  Check,
+  Flame,
+  TrendingUp,
+  Plus,
+  PartyPopper,
+  Sprout,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AddHabitDialog } from "@/components/habits/add-habit-dialog";
 
@@ -18,11 +25,35 @@ import { cn } from "@/lib/utils";
 function getMotivationalMessage(completed: number, total: number) {
   if (total === 0) return null;
   const pct = completed / total;
-  if (pct === 1) return { text: "Perfect day! All done!", emoji: "🎉", color: "text-primary" };
-  if (pct >= 0.75) return { text: "Almost there, keep going!", emoji: "🔥", color: "text-orange-500" };
-  if (pct >= 0.5) return { text: "Halfway through, great work!", emoji: "💪", color: "text-amber-500" };
-  if (pct > 0) return { text: "Good start! Stay consistent.", emoji: "🌱", color: "text-emerald-500" };
-  return { text: "Let's make today count!", emoji: "✨", color: "text-muted-foreground" };
+  if (pct === 1)
+    return {
+      text: "Perfect day! All done!",
+      emoji: "🎉",
+      color: "text-primary",
+    };
+  if (pct >= 0.75)
+    return {
+      text: "Almost there, keep going!",
+      emoji: "🔥",
+      color: "text-orange-500",
+    };
+  if (pct >= 0.5)
+    return {
+      text: "Halfway through, great work!",
+      emoji: "💪",
+      color: "text-amber-500",
+    };
+  if (pct > 0)
+    return {
+      text: "Good start! Stay consistent.",
+      emoji: "🌱",
+      color: "text-emerald-500",
+    };
+  return {
+    text: "Let's make today count!",
+    emoji: "✨",
+    color: "text-muted-foreground",
+  };
 }
 
 function DayHeader() {
@@ -46,9 +77,16 @@ function DayHeader() {
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1">
             {date}
           </p>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">{dayName}</h1>
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
+            {dayName}
+          </h1>
           {msg && (
-            <p className={cn("text-sm mt-1 flex items-center gap-1.5", msg.color)}>
+            <p
+              className={cn(
+                "text-sm mt-1 flex items-center gap-1.5",
+                msg.color,
+              )}
+            >
               <span>{msg.emoji}</span>
               {msg.text}
             </p>
@@ -58,7 +96,9 @@ function DayHeader() {
         <div className="text-right shrink-0">
           <p className="text-2xl sm:text-3xl font-black tabular-nums">
             <span className={allDone ? "text-primary" : ""}>{completed}</span>
-            <span className="text-muted-foreground text-lg sm:text-xl">/{total}</span>
+            <span className="text-muted-foreground text-lg sm:text-xl">
+              /{total}
+            </span>
           </p>
           <p className="text-xs text-muted-foreground">habits done</p>
         </div>
@@ -70,7 +110,6 @@ function DayHeader() {
           style={{ width: total > 0 ? `${(completed / total) * 100}%` : "0%" }}
         />
       </div>
-
     </div>
   );
 }
@@ -108,7 +147,9 @@ function StreakLeaders() {
             </p>
             <div className="flex items-center gap-1">
               <Flame className="size-3 text-orange-500" />
-              <span className="text-xs font-bold text-orange-500">{habit.streak}</span>
+              <span className="text-xs font-bold text-orange-500">
+                {habit.streak}
+              </span>
             </div>
           </div>
         ))}
@@ -118,7 +159,13 @@ function StreakLeaders() {
 }
 
 function HabitRow({ habitId }: { habitId: string }) {
-  const { habits, completions, toggleCompletion, isCompletedToday, selectedHabitId } = useHabitStore();
+  const {
+    habits,
+    completions,
+    toggleCompletion,
+    isCompletedToday,
+    selectedHabitId,
+  } = useHabitStore();
   const habit = habits.find((h) => h.id === habitId);
   const rowRef = useRef<HTMLDivElement>(null);
   const isSelected = selectedHabitId === habitId;
@@ -153,7 +200,7 @@ function HabitRow({ habitId }: { habitId: string }) {
       className={cn(
         "rounded-2xl border p-4 sm:p-5 transition-all duration-200 overflow-hidden",
         isCompleted ? "bg-card opacity-70" : "bg-card",
-        isSelected && "ring-2 ring-primary/40"
+        isSelected && "ring-2 ring-primary/40",
       )}
     >
       <div className="flex items-start gap-3 sm:gap-4">
@@ -163,7 +210,7 @@ function HabitRow({ habitId }: { habitId: string }) {
             "size-10 sm:size-11 rounded-xl flex items-center justify-center text-xl shrink-0 transition-all duration-200 border-2",
             isCompleted
               ? "border-transparent"
-              : "border-dashed border-muted-foreground/30 hover:border-muted-foreground/60"
+              : "border-dashed border-muted-foreground/30 hover:border-muted-foreground/60",
           )}
           style={isCompleted ? { backgroundColor: colors.light } : {}}
         >
@@ -179,7 +226,7 @@ function HabitRow({ habitId }: { habitId: string }) {
             <h3
               className={cn(
                 "text-sm font-semibold",
-                isCompleted && "line-through text-muted-foreground"
+                isCompleted && "line-through text-muted-foreground",
               )}
             >
               {habit.name}
@@ -187,7 +234,9 @@ function HabitRow({ habitId }: { habitId: string }) {
             {streak > 0 && (
               <div className="flex items-center gap-1">
                 <Flame className="size-3.5 text-orange-500" />
-                <span className="text-xs font-semibold text-orange-500">{streak}</span>
+                <span className="text-xs font-semibold text-orange-500">
+                  {streak}
+                </span>
               </div>
             )}
           </div>

@@ -160,13 +160,13 @@ export function EmployeesSidebar({
                     isActive={item.active}
                     className={cn(
                       "h-8 text-sm text-muted-foreground",
-                      item.active && "bg-muted dark:bg-muted/50"
+                      item.active && "bg-muted dark:bg-muted/50",
                     )}
                   >
                     <item.icon className="size-4" />
                     <span
                       className={cn(
-                        item.active && "font-medium text-foreground"
+                        item.active && "font-medium text-foreground",
                       )}
                     >
                       {item.label}
@@ -188,7 +188,7 @@ export function EmployeesSidebar({
                 <ChevronDown
                   className={cn(
                     "size-3 transition-transform mr-1",
-                    !favoritesOpen && "-rotate-90"
+                    !favoritesOpen && "-rotate-90",
                   )}
                 />
                 <span>Favorites</span>
@@ -254,4 +254,3 @@ export function EmployeesSidebar({
     </Sidebar>
   );
 }
-

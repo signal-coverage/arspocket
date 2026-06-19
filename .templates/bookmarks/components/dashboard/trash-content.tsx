@@ -9,7 +9,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Trash2, MoreHorizontal, RotateCcw, XCircle, ExternalLink } from "lucide-react";
+import {
+  Trash2,
+  MoreHorizontal,
+  RotateCcw,
+  XCircle,
+  ExternalLink,
+} from "lucide-react";
 import Image from "next/image";
 import { type Bookmark } from "@/mock-data/bookmarks";
 import { cn } from "@/lib/utils";
@@ -25,7 +31,10 @@ function TrashedBookmarkCard({ bookmark }: { bookmark: Bookmark }) {
           alt={bookmark.title}
           width={24}
           height={24}
-          className={cn("size-6 grayscale", bookmark.hasDarkIcon && "dark:invert")}
+          className={cn(
+            "size-6 grayscale",
+            bookmark.hasDarkIcon && "dark:invert",
+          )}
         />
       </div>
 
@@ -120,4 +129,3 @@ export function TrashContent() {
     </div>
   );
 }
-

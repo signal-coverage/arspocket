@@ -3,7 +3,8 @@
  * and heatmap generation. All functions are pure with no side effects.
  */
 
-import { format } from "date-fns";
+import { format, addDays, addWeeks, addMonths, addYears } from "date-fns";
+import type { RecurringFrequency } from "@prisma/client";
 
 /** Returns a new Date at the first moment of the given date's month. */
 export const startOfMonthDate = (date: Date = new Date()): Date => {
@@ -116,6 +117,25 @@ export const getLastNDays = (n: number): Date[] => {
     days.push(d);
   }
   return days;
+};
+
+/** Returns the next due date for a recurring transaction given its frequency. */
+export const computeNextDueDate = (
+  current: Date,
+  frequency: RecurringFrequency,
+): Date => {
+  switch (frequency) {
+    case "DAILY":
+      return addDays(current, 1);
+    case "WEEKLY":
+      return addWeeks(current, 1);
+    case "BIWEEKLY":
+      return addWeeks(current, 2);
+    case "MONTHLY":
+      return addMonths(current, 1);
+    case "YEARLY":
+      return addYears(current, 1);
+  }
 };
 
 /**

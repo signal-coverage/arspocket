@@ -1,4 +1,11 @@
-export type FileType = "image" | "video" | "document" | "archive" | "audio" | "code" | "other";
+export type FileType =
+  | "image"
+  | "video"
+  | "document"
+  | "archive"
+  | "audio"
+  | "code"
+  | "other";
 
 export interface FileItem {
   id: string;
@@ -319,4 +326,3 @@ export const storageData = {
     { type: "Other", size: 0.6, color: "#6B7280" },
   ],
 };
-

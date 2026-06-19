@@ -66,7 +66,13 @@ const dateFilterLabels: Record<DateFilter, string> = {
   last30days: "Last 30 days",
 };
 
-const departments: Department[] = ["IT", "HR", "Engineering", "Marketing", "Sales"];
+const departments: Department[] = [
+  "IT",
+  "HR",
+  "Engineering",
+  "Marketing",
+  "Sales",
+];
 
 const statusConfig: Record<
   EmployeeStatus,
@@ -104,20 +110,30 @@ const statusConfig: Record<
 const departmentColors: Record<Department, string> = {
   IT: "bg-purple-100 dark:bg-purple-950/30 text-purple-700 dark:text-purple-300",
   HR: "bg-pink-100 dark:bg-pink-950/30 text-pink-700 dark:text-pink-300",
-  Engineering: "bg-blue-100 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300",
-  Marketing: "bg-orange-100 dark:bg-orange-950/30 text-orange-700 dark:text-orange-300",
+  Engineering:
+    "bg-blue-100 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300",
+  Marketing:
+    "bg-orange-100 dark:bg-orange-950/30 text-orange-700 dark:text-orange-300",
   Sales: "bg-green-100 dark:bg-green-950/30 text-green-700 dark:text-green-300",
 };
 
 const jobTitleColors: Record<string, string> = {
-  "Software Engineer": "bg-indigo-100 dark:bg-indigo-950/30 text-indigo-700 dark:text-indigo-300",
-  "HR Manager": "bg-rose-100 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300",
-  "UX Designer": "bg-violet-100 dark:bg-violet-950/30 text-violet-700 dark:text-violet-300",
-  "Marketing Lead": "bg-amber-100 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300",
-  "Sales Executive": "bg-emerald-100 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300",
-  "Product Manager": "bg-cyan-100 dark:bg-cyan-950/30 text-cyan-700 dark:text-cyan-300",
-  "Data Analyst": "bg-teal-100 dark:bg-teal-950/30 text-teal-700 dark:text-teal-300",
-  "DevOps Engineer": "bg-sky-100 dark:bg-sky-950/30 text-sky-700 dark:text-sky-300",
+  "Software Engineer":
+    "bg-indigo-100 dark:bg-indigo-950/30 text-indigo-700 dark:text-indigo-300",
+  "HR Manager":
+    "bg-rose-100 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300",
+  "UX Designer":
+    "bg-violet-100 dark:bg-violet-950/30 text-violet-700 dark:text-violet-300",
+  "Marketing Lead":
+    "bg-amber-100 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300",
+  "Sales Executive":
+    "bg-emerald-100 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300",
+  "Product Manager":
+    "bg-cyan-100 dark:bg-cyan-950/30 text-cyan-700 dark:text-cyan-300",
+  "Data Analyst":
+    "bg-teal-100 dark:bg-teal-950/30 text-teal-700 dark:text-teal-300",
+  "DevOps Engineer":
+    "bg-sky-100 dark:bg-sky-950/30 text-sky-700 dark:text-sky-300",
 };
 
 export const columns: ColumnDef<Employee>[] = [
@@ -189,10 +205,12 @@ export const columns: ColumnDef<Employee>[] = [
     cell: ({ row }) => {
       const department = row.getValue("department") as Department;
       return (
-        <span className={cn(
-          "inline-flex px-2 py-0.5 text-xs font-medium rounded",
-          departmentColors[department]
-        )}>
+        <span
+          className={cn(
+            "inline-flex px-2 py-0.5 text-xs font-medium rounded",
+            departmentColors[department],
+          )}
+        >
           {department}
         </span>
       );
@@ -204,10 +222,12 @@ export const columns: ColumnDef<Employee>[] = [
     cell: ({ row }) => {
       const jobTitle = row.getValue("jobTitle") as string;
       return (
-        <span className={cn(
-          "inline-flex px-2 py-0.5 text-xs font-medium rounded",
-          jobTitleColors[jobTitle] || "bg-muted text-muted-foreground"
-        )}>
+        <span
+          className={cn(
+            "inline-flex px-2 py-0.5 text-xs font-medium rounded",
+            jobTitleColors[jobTitle] || "bg-muted text-muted-foreground",
+          )}
+        >
           {jobTitle}
         </span>
       );
@@ -237,7 +257,7 @@ export const columns: ColumnDef<Employee>[] = [
         <div
           className={cn(
             "inline-flex items-center gap-1 px-1.5 py-0.5 rounded border text-xs font-medium",
-            config.bgClass
+            config.bgClass,
           )}
         >
           <Icon className={cn("size-3.5", config.className)} />
@@ -288,11 +308,9 @@ export function EmployeesTable({ showFilters = true }: EmployeesTableProps) {
   const setStatusFilter = useEmployeesStore((state) => state.setStatusFilter);
   const dateFilter = useEmployeesStore((state) => state.dateFilter);
   const setDateFilter = useEmployeesStore((state) => state.setDateFilter);
-  const departmentFilter = useEmployeesStore(
-    (state) => state.departmentFilter
-  );
+  const departmentFilter = useEmployeesStore((state) => state.departmentFilter);
   const setDepartmentFilter = useEmployeesStore(
-    (state) => state.setDepartmentFilter
+    (state) => state.setDepartmentFilter,
   );
   const clearAllFilters = useEmployeesStore((state) => state.clearAllFilters);
   const allEmployees = useEmployeesStore((state) => state.employees);
@@ -337,15 +355,13 @@ export function EmployeesTable({ showFilters = true }: EmployeesTableProps) {
         }
       }
 
-      return (
-        matchesSearch && matchesStatus && matchesDepartment && matchesDate
-      );
+      return matchesSearch && matchesStatus && matchesDepartment && matchesDate;
     });
   }, [allEmployees, searchQuery, statusFilter, departmentFilter, dateFilter]);
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
@@ -504,7 +520,7 @@ export function EmployeesTable({ showFilters = true }: EmployeesTableProps) {
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                   </TableHead>
                 ))}
@@ -522,7 +538,7 @@ export function EmployeesTable({ showFilters = true }: EmployeesTableProps) {
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -578,13 +594,13 @@ export function EmployeesTable({ showFilters = true }: EmployeesTableProps) {
                       "size-8 rounded-lg text-sm font-semibold",
                       isActive
                         ? "bg-muted text-foreground"
-                        : "text-foreground hover:bg-muted"
+                        : "text-foreground hover:bg-muted",
                     )}
                   >
                     {pageIndex + 1}
                   </button>
                 );
-              }
+              },
             )}
             {table.getPageCount() > 5 && (
               <>
@@ -629,7 +645,7 @@ export function EmployeesTable({ showFilters = true }: EmployeesTableProps) {
             {Math.min(
               (table.getState().pagination.pageIndex + 1) *
                 table.getState().pagination.pageSize,
-              table.getFilteredRowModel().rows.length
+              table.getFilteredRowModel().rows.length,
             )}{" "}
             of {table.getFilteredRowModel().rows.length} entries
           </span>
@@ -657,4 +673,3 @@ export function EmployeesTable({ showFilters = true }: EmployeesTableProps) {
     </div>
   );
 }
-

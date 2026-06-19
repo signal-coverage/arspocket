@@ -170,10 +170,10 @@ export function ChartCard() {
               content={({ active, payload, label }) => {
                 if (!active || !payload || !payload.length) return null;
                 const newLeadsEntry = payload.find(
-                  (p) => p.dataKey === "newLeads"
+                  (p) => p.dataKey === "newLeads",
                 );
                 const repliedEntry = payload.find(
-                  (p) => p.dataKey === "replied"
+                  (p) => p.dataKey === "replied",
                 );
                 return (
                   <div className="rounded-lg border border-border bg-card p-2 shadow-lg">

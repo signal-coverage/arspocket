@@ -91,7 +91,7 @@ export function MapView() {
         () => {
           getLocationFromIP();
         },
-        { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 }
+        { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 },
       );
     } else {
       getLocationFromIP();
@@ -125,7 +125,7 @@ export function MapView() {
 
     map.addControl(
       new maplibregl.AttributionControl({ compact: true }),
-      "bottom-right"
+      "bottom-right",
     );
 
     map.on("moveend", () => {
@@ -336,7 +336,13 @@ export function MapView() {
 
       markersRef.current.set(location.id, marker);
     });
-  }, [locations, selectedLocationId, selectLocation, closePopup, routeDestinationId]);
+  }, [
+    locations,
+    selectedLocationId,
+    selectLocation,
+    closePopup,
+    routeDestinationId,
+  ]);
 
   const routeDataRef = React.useRef<{
     coordinates: [number, number][];
@@ -361,15 +367,21 @@ export function MapView() {
 
       try {
         const response = await fetch(
-          `https://router.project-osrm.org/route/v1/driving/${start};${end}?overview=full&geometries=geojson`
+          `https://router.project-osrm.org/route/v1/driving/${start};${end}?overview=full&geometries=geojson`,
         );
         const data = await response.json();
 
         if (data.routes && data.routes[0]) {
-          const coordinates = data.routes[0].geometry.coordinates as [number, number][];
+          const coordinates = data.routes[0].geometry.coordinates as [
+            number,
+            number,
+          ][];
           const bounds = new maplibregl.LngLatBounds();
           bounds.extend([userLocation.lng, userLocation.lat]);
-          bounds.extend([destination.coordinates.lng, destination.coordinates.lat]);
+          bounds.extend([
+            destination.coordinates.lng,
+            destination.coordinates.lat,
+          ]);
           coordinates.forEach((coord) => bounds.extend(coord));
 
           routeDataRef.current = { coordinates, bounds };
@@ -389,53 +401,57 @@ export function MapView() {
     fetchRoute();
   }, [routeDestinationId, userLocation, allLocations]);
 
-  const drawRoute = React.useCallback((map: maplibregl.Map, coordinates: [number, number][]) => {
-    if (map.getLayer("route-line")) map.removeLayer("route-line");
-    if (map.getLayer("route-line-outline")) map.removeLayer("route-line-outline");
-    if (map.getSource("route")) map.removeSource("route");
+  const drawRoute = React.useCallback(
+    (map: maplibregl.Map, coordinates: [number, number][]) => {
+      if (map.getLayer("route-line")) map.removeLayer("route-line");
+      if (map.getLayer("route-line-outline"))
+        map.removeLayer("route-line-outline");
+      if (map.getSource("route")) map.removeSource("route");
 
-    map.addSource("route", {
-      type: "geojson",
-      data: {
-        type: "Feature",
-        properties: {},
-        geometry: {
-          type: "LineString",
-          coordinates,
+      map.addSource("route", {
+        type: "geojson",
+        data: {
+          type: "Feature",
+          properties: {},
+          geometry: {
+            type: "LineString",
+            coordinates,
+          },
         },
-      },
-    });
+      });
 
-    map.addLayer({
-      id: "route-line-outline",
-      type: "line",
-      source: "route",
-      layout: {
-        "line-join": "round",
-        "line-cap": "round",
-      },
-      paint: {
-        "line-color": "#1d4ed8",
-        "line-width": 8,
-        "line-opacity": 0.4,
-      },
-    });
+      map.addLayer({
+        id: "route-line-outline",
+        type: "line",
+        source: "route",
+        layout: {
+          "line-join": "round",
+          "line-cap": "round",
+        },
+        paint: {
+          "line-color": "#1d4ed8",
+          "line-width": 8,
+          "line-opacity": 0.4,
+        },
+      });
 
-    map.addLayer({
-      id: "route-line",
-      type: "line",
-      source: "route",
-      layout: {
-        "line-join": "round",
-        "line-cap": "round",
-      },
-      paint: {
-        "line-color": "#3b82f6",
-        "line-width": 4,
-        "line-opacity": 1,
-      },
-    });
-  }, []);
+      map.addLayer({
+        id: "route-line",
+        type: "line",
+        source: "route",
+        layout: {
+          "line-join": "round",
+          "line-cap": "round",
+        },
+        paint: {
+          "line-color": "#3b82f6",
+          "line-width": 4,
+          "line-opacity": 1,
+        },
+      });
+    },
+    [],
+  );
 
   React.useEffect(() => {
     const map = mapRef.current;
@@ -443,7 +459,8 @@ export function MapView() {
 
     const clearRoute = () => {
       if (map.getLayer("route-line")) map.removeLayer("route-line");
-      if (map.getLayer("route-line-outline")) map.removeLayer("route-line-outline");
+      if (map.getLayer("route-line-outline"))
+        map.removeLayer("route-line-outline");
       if (map.getSource("route")) map.removeSource("route");
     };
 

@@ -261,7 +261,7 @@ export function LeadsChart() {
                         fill={`url(#gradient-${key})`}
                         dot={false}
                       />
-                    )
+                    ),
                 )}
               </AreaChart>
             ) : (
@@ -301,7 +301,7 @@ export function LeadsChart() {
                         dot={false}
                         activeDot={{ r: 4, strokeWidth: 0 }}
                       />
-                    )
+                    ),
                 )}
               </RechartsLineChart>
             )}

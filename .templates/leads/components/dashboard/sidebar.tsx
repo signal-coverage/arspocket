@@ -243,7 +243,7 @@ export function DashboardSidebar({
               <div className="flex-1 min-w-0">
                 <p className="font-semibold text-xs sm:text-sm">LN</p>
                 <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
-                    leonelngoya@gmail.com
+                  leonelngoya@gmail.com
                 </p>
               </div>
               <ChevronsUpDown className="size-4 text-muted-foreground shrink-0" />

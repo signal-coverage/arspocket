@@ -18,7 +18,7 @@ export function TasksBoard() {
       filtered = filtered.filter(
         (task) =>
           task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          task.project.toLowerCase().includes(searchQuery.toLowerCase())
+          task.project.toLowerCase().includes(searchQuery.toLowerCase()),
       );
     }
 

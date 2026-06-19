@@ -13,7 +13,8 @@ export const labels: Label[] = [
   {
     id: "personal",
     name: "Personal",
-    color: "bg-green-100 text-green-700 dark:bg-green-950/50 dark:text-green-400",
+    color:
+      "bg-green-100 text-green-700 dark:bg-green-950/50 dark:text-green-400",
   },
   {
     id: "important",
@@ -21,4 +22,3 @@ export const labels: Label[] = [
     color: "bg-red-100 text-red-700 dark:bg-red-950/50 dark:text-red-400",
   },
 ];
-

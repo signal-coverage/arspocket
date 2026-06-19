@@ -4,7 +4,11 @@ export const importRowSchema = z.object({
   type: z
     .string()
     .transform((v) => v.toUpperCase())
-    .pipe(z.enum(["INCOME", "OUTCOME"], { error: "Type must be INCOME or OUTCOME" })),
+    .pipe(
+      z.enum(["INCOME", "OUTCOME"], {
+        error: "Type must be INCOME or OUTCOME",
+      }),
+    ),
   amount: z
     .string()
     .transform((v) => parseFloat(v.replace(/,/g, ".")))

@@ -33,7 +33,7 @@ export function FolderGrid() {
             key={folder.id}
             href={`/folder/${folder.id}`}
             className={cn(
-              "p-4 rounded-xl border bg-card hover:bg-accent/50 transition-all cursor-pointer group block"
+              "p-4 rounded-xl border bg-card hover:bg-accent/50 transition-all cursor-pointer group block",
             )}
           >
             <div className="flex items-start justify-between mb-3">

@@ -142,4 +142,3 @@ export function EmployeesHeader() {
     </header>
   );
 }
-

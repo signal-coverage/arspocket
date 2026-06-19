@@ -25,7 +25,7 @@ function nextOccurrence(from: Date, freq: RecurringFrequency): Date {
 
 export const getCashFlowProjection = async (
   userId: string,
-  days: 30 | 60 | 90
+  days: 30 | 60 | 90,
 ): Promise<ProjectionPoint[]> => {
   const now = new Date();
   const horizon = addDays(now, days);

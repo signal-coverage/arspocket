@@ -70,13 +70,13 @@ export const useProjectsStore = create<ProjectsState>((set, get) => ({
 
     if (searchQuery) {
       filtered = filtered.filter((project) =>
-        project.title.toLowerCase().includes(searchQuery.toLowerCase())
+        project.title.toLowerCase().includes(searchQuery.toLowerCase()),
       );
     }
 
     if (priorityFilter) {
       filtered = filtered.filter(
-        (project) => project.priority === priorityFilter
+        (project) => project.priority === priorityFilter,
       );
     }
 
@@ -91,7 +91,7 @@ export const useProjectsStore = create<ProjectsState>((set, get) => ({
   updateProject: (projectId, updates) =>
     set((state) => ({
       projects: state.projects.map((project) =>
-        project.id === projectId ? { ...project, ...updates } : project
+        project.id === projectId ? { ...project, ...updates } : project,
       ),
     })),
 

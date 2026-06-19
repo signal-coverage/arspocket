@@ -16,7 +16,10 @@ export interface Habit {
   createdAt: string;
 }
 
-export const HABIT_COLORS: Record<HabitColor, { light: string; bg: string; text: string; ring: string }> = {
+export const HABIT_COLORS: Record<
+  HabitColor,
+  { light: string; bg: string; text: string; ring: string }
+> = {
   emerald: {
     light: "oklch(0.65 0.17 160)",
     bg: "bg-emerald-500/15 dark:bg-emerald-500/20",
@@ -117,7 +120,10 @@ function seededRandom(seed: number): number {
   return x - Math.floor(x);
 }
 
-export function generateHistory(habitId: string, daysBack = 365): Record<string, boolean> {
+export function generateHistory(
+  habitId: string,
+  daysBack = 365,
+): Record<string, boolean> {
   const result: Record<string, boolean> = {};
   const today = new Date();
   const habitIndex = parseInt(habitId.replace("h", ""));
@@ -166,7 +172,10 @@ export function getStreak(history: Record<string, boolean>): number {
   return streak;
 }
 
-export function getCompletionRate(history: Record<string, boolean>, days = 30): number {
+export function getCompletionRate(
+  history: Record<string, boolean>,
+  days = 30,
+): number {
   const today = new Date();
   let completed = 0;
   for (let i = 1; i <= days; i++) {

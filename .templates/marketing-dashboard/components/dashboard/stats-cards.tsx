@@ -1,4 +1,11 @@
-import { Eye, TrendingDown, TrendingUp, Users, WalletMinimal, Coins } from "lucide-react";
+import {
+  Eye,
+  TrendingDown,
+  TrendingUp,
+  Users,
+  WalletMinimal,
+  Coins,
+} from "lucide-react";
 import { dashboardStats } from "@/mock-data/creator-dashboard";
 import { cn } from "@/lib/utils";
 
@@ -72,7 +79,7 @@ export function StatsCards() {
                     "text-sm font-medium",
                     isUp
                       ? "text-emerald-600 dark:text-emerald-400"
-                      : "text-destructive"
+                      : "text-destructive",
                   )}
                 >
                   {stat.change}%

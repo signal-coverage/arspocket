@@ -75,9 +75,7 @@ export const BookmarkForm = ({ open, onOpenChange, collections }: Props) => {
         onOpenChange(false);
         (e.target as HTMLFormElement).reset();
       } catch (err) {
-        setError(
-          err instanceof Error ? err.message : t("failedCreate"),
-        );
+        setError(err instanceof Error ? err.message : t("failedCreate"));
       }
     });
   };

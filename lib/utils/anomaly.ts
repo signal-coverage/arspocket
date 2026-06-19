@@ -22,7 +22,7 @@ export type AnomalyResult = {
  */
 export const detectAnomalies = (
   transactions: TransactionLike[],
-  historical: TransactionLike[]
+  historical: TransactionLike[],
 ): AnomalyResult[] => {
   // Group historical by category
   const byCategory: Record<string, number[]> = {};

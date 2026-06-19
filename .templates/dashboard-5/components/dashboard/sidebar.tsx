@@ -42,11 +42,21 @@ import {
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { title: "Search", icon: Search, shortcut: "/", iconColor: "text-muted-foreground" },
+  {
+    title: "Search",
+    icon: Search,
+    shortcut: "/",
+    iconColor: "text-muted-foreground",
+  },
   { title: "Taskplus AI", icon: Sparkles, iconColor: "text-violet-500" },
   { title: "Templates", icon: LayoutGrid, iconColor: "text-blue-500" },
   { title: "Notification", icon: Bell, iconColor: "text-amber-500" },
-  { title: "Dashboard", icon: LayoutDashboard, isActive: true, iconColor: "text-primary" },
+  {
+    title: "Dashboard",
+    icon: LayoutDashboard,
+    isActive: true,
+    iconColor: "text-primary",
+  },
   { title: "Inbox", icon: Inbox, iconColor: "text-cyan-500" },
   { title: "Project", icon: FolderKanban, iconColor: "text-emerald-500" },
   { title: "Calendar", icon: Calendar, iconColor: "text-orange-500" },
@@ -55,9 +65,7 @@ const navItems = [
   { title: "Settings", icon: Settings, iconColor: "text-muted-foreground" },
 ];
 
-export function DashboardSidebar(
-  props: React.ComponentProps<typeof Sidebar>
-) {
+export function DashboardSidebar(props: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="offcanvas" className="!border-r-0" {...props}>
       <SidebarHeader className="px-3 py-4">
@@ -126,7 +134,9 @@ export function DashboardSidebar(
                     className="h-9"
                   >
                     <Link href="#">
-                      <item.icon className={cn("size-4 shrink-0", item.iconColor)} />
+                      <item.icon
+                        className={cn("size-4 shrink-0", item.iconColor)}
+                      />
                       <span className="text-sm">{item.title}</span>
                       {item.shortcut && (
                         <span className="ml-auto flex size-5 items-center justify-center rounded bg-muted text-[10px] font-medium text-muted-foreground">

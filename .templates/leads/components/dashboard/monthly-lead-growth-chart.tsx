@@ -83,7 +83,20 @@ interface CustomTooltipProps {
   }>;
 }
 
-const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const monthNames = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
 function CustomTooltip({ active, payload }: CustomTooltipProps) {
   if (active && payload && payload.length) {
@@ -91,11 +104,16 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
     const weekIndex = data.payload.week - 1;
     const monthIndex = Math.floor(weekIndex / 4);
     const monthName = monthNames[monthIndex] || "Apr";
-    
-    const prevIndex = fullYearData.findIndex(d => d.week === data.payload.week) - 1;
-    const prevValue = prevIndex >= 0 ? fullYearData[prevIndex].leads : data.value;
-    const change = prevValue > 0 ? ((data.value - prevValue) / prevValue * 100).toFixed(1) : 0;
-    
+
+    const prevIndex =
+      fullYearData.findIndex((d) => d.week === data.payload.week) - 1;
+    const prevValue =
+      prevIndex >= 0 ? fullYearData[prevIndex].leads : data.value;
+    const change =
+      prevValue > 0
+        ? (((data.value - prevValue) / prevValue) * 100).toFixed(1)
+        : 0;
+
     return (
       <div className="bg-card border rounded-md p-2">
         <p className="text-xs text-muted-foreground">{monthName}, 2025</p>
@@ -151,7 +169,9 @@ export function MonthlyLeadGrowthChart() {
           <Button variant="outline" size="icon" className="size-8">
             <TrendingUp className="size-4 text-muted-foreground" />
           </Button>
-          <h3 className="font-medium text-sm sm:text-base">Monthly Lead Growth</h3>
+          <h3 className="font-medium text-sm sm:text-base">
+            Monthly Lead Growth
+          </h3>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -213,8 +233,17 @@ export function MonthlyLeadGrowthChart() {
         <div className="h-[200px] sm:h-[250px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             {chartType === "bar" ? (
-              <BarChart data={data} margin={{ top: 20, right: 10, left: -20, bottom: 0 }}>
-                {showGrid && <CartesianGrid strokeDasharray="3 3" stroke={gridColor} vertical={false} />}
+              <BarChart
+                data={data}
+                margin={{ top: 20, right: 10, left: -20, bottom: 0 }}
+              >
+                {showGrid && (
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke={gridColor}
+                    vertical={false}
+                  />
+                )}
                 <XAxis
                   dataKey="month"
                   axisLine={false}
@@ -231,16 +260,35 @@ export function MonthlyLeadGrowthChart() {
                 />
                 <Tooltip content={<CustomTooltip />} />
                 <defs>
-                  <linearGradient id="leadBarGradient" x1="0" y1="0" x2="0" y2="1">
+                  <linearGradient
+                    id="leadBarGradient"
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                  >
                     <stop offset="0%" stopColor="#6e3ff3" />
                     <stop offset="100%" stopColor="#aa8ef9" />
                   </linearGradient>
                 </defs>
-                <Bar dataKey="leads" fill="url(#leadBarGradient)" radius={[4, 4, 0, 0]} />
+                <Bar
+                  dataKey="leads"
+                  fill="url(#leadBarGradient)"
+                  radius={[4, 4, 0, 0]}
+                />
               </BarChart>
             ) : chartType === "area" ? (
-              <AreaChart data={data} margin={{ top: 20, right: 10, left: -20, bottom: 0 }}>
-                {showGrid && <CartesianGrid strokeDasharray="3 3" stroke={gridColor} vertical={false} />}
+              <AreaChart
+                data={data}
+                margin={{ top: 20, right: 10, left: -20, bottom: 0 }}
+              >
+                {showGrid && (
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke={gridColor}
+                    vertical={false}
+                  />
+                )}
                 <XAxis
                   dataKey="month"
                   axisLine={false}
@@ -257,7 +305,13 @@ export function MonthlyLeadGrowthChart() {
                 />
                 <Tooltip content={<CustomTooltip />} />
                 <defs>
-                  <linearGradient id="leadAreaGradient" x1="0" y1="0" x2="0" y2="1">
+                  <linearGradient
+                    id="leadAreaGradient"
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                  >
                     <stop offset="0%" stopColor="#6e3ff3" stopOpacity={0.15} />
                     <stop offset="100%" stopColor="#6e3ff3" stopOpacity={0} />
                   </linearGradient>
@@ -269,12 +323,26 @@ export function MonthlyLeadGrowthChart() {
                   strokeWidth={2}
                   fill="url(#leadAreaGradient)"
                   dot={false}
-                  activeDot={{ r: 6, fill: lineColor, stroke: "#fff", strokeWidth: 2 }}
+                  activeDot={{
+                    r: 6,
+                    fill: lineColor,
+                    stroke: "#fff",
+                    strokeWidth: 2,
+                  }}
                 />
               </AreaChart>
             ) : (
-              <LineChart data={data} margin={{ top: 20, right: 10, left: -20, bottom: 0 }}>
-                {showGrid && <CartesianGrid strokeDasharray="3 3" stroke={gridColor} vertical={false} />}
+              <LineChart
+                data={data}
+                margin={{ top: 20, right: 10, left: -20, bottom: 0 }}
+              >
+                {showGrid && (
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke={gridColor}
+                    vertical={false}
+                  />
+                )}
                 <XAxis
                   dataKey="month"
                   axisLine={false}
@@ -296,7 +364,12 @@ export function MonthlyLeadGrowthChart() {
                   stroke={lineColor}
                   strokeWidth={2}
                   dot={false}
-                  activeDot={{ r: 6, fill: lineColor, stroke: "#fff", strokeWidth: 2 }}
+                  activeDot={{
+                    r: 6,
+                    fill: lineColor,
+                    stroke: "#fff",
+                    strokeWidth: 2,
+                  }}
                 />
               </LineChart>
             )}

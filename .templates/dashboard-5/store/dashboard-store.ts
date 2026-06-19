@@ -20,7 +20,8 @@ export const useDashboardStore = create<DashboardStore>((set) => ({
   projectsSearchQuery: "",
   projectStatusFilter: "all",
   setTasksSearchQuery: (query) => set({ tasksSearchQuery: query }),
-  setTasksProjectFilter: (projectIds) => set({ tasksProjectFilter: projectIds }),
+  setTasksProjectFilter: (projectIds) =>
+    set({ tasksProjectFilter: projectIds }),
   toggleTasksProjectFilter: (projectId) =>
     set((state) => ({
       tasksProjectFilter: state.tasksProjectFilter.includes(projectId)

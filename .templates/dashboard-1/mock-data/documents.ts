@@ -118,4 +118,3 @@ export const mockDocuments: Document[] = [
     icon: "files",
   },
 ];
-

@@ -17,7 +17,10 @@ export function RecentUploads() {
       </div>
       <div className="w-full flex gap-2 h-full">
         {recentUploads.map((upload) => (
-          <div key={upload.id} className="relative rounded-lg overflow-hidden aspect-4/5 group cursor-pointer border border-white/20 h-full">
+          <div
+            key={upload.id}
+            className="relative rounded-lg overflow-hidden aspect-4/5 group cursor-pointer border border-white/20 h-full"
+          >
             <img
               src={upload.imageUrl}
               alt="Upload thumbnail"

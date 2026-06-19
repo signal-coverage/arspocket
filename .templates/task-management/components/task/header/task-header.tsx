@@ -26,7 +26,7 @@ import { TaskImportExport } from "./task-import-export";
 export function TaskHeader() {
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState<Date | undefined>(
-    new Date("2024-09-07")
+    new Date("2024-09-07"),
   );
   return (
     <div className="border-b border-border bg-background">
@@ -129,4 +129,3 @@ export function TaskHeader() {
     </div>
   );
 }
-

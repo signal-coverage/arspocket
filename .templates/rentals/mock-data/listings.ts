@@ -200,7 +200,7 @@ function getRandomPrice(): number {
 function createListing(
   id: string,
   cityIndex: number,
-  titleIndex: number
+  titleIndex: number,
 ): Listing {
   const city = cities[cityIndex % cities.length];
   const propertyType = getRandomElement(propertyTypes);
@@ -214,7 +214,7 @@ function createListing(
   const reviewCount = Math.floor(Math.random() * 200) + 10;
   const isSuperhost = Math.random() > 0.7;
   const hostName = `Host ${String.fromCharCode(
-    65 + (id.charCodeAt(id.length - 1) % 26)
+    65 + (id.charCodeAt(id.length - 1) % 26),
   )}`;
 
   const latOffset = (Math.random() - 0.5) * 0.1;
@@ -242,11 +242,11 @@ function createListing(
     images: Array.from(
       { length: 5 },
       () =>
-        "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&h=600&fit=crop"
+        "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&h=600&fit=crop",
     ),
     amenities: getRandomElements(
       amenitiesList,
-      Math.floor(Math.random() * 8) + 4
+      Math.floor(Math.random() * 8) + 4,
     ),
     host: {
       name: hostName,

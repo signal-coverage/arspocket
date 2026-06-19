@@ -9,7 +9,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Archive, MoreHorizontal, RotateCcw, Trash2, ExternalLink } from "lucide-react";
+import {
+  Archive,
+  MoreHorizontal,
+  RotateCcw,
+  Trash2,
+  ExternalLink,
+} from "lucide-react";
 import Image from "next/image";
 import { tags as allTags, type Bookmark } from "@/mock-data/bookmarks";
 import { cn } from "@/lib/utils";
@@ -40,7 +46,7 @@ function ArchivedBookmarkCard({ bookmark }: { bookmark: Bookmark }) {
                   key={tag.id}
                   className={cn(
                     "inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium",
-                    tag.color
+                    tag.color,
                   )}
                 >
                   {tag.name}
@@ -134,4 +140,3 @@ export function ArchiveContent() {
     </div>
   );
 }
-

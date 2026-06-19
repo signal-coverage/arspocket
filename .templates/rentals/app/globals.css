@@ -149,7 +149,8 @@
   padding: 0 !important;
   border-radius: 24px !important;
   overflow: hidden;
-  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.2),
+  box-shadow:
+    0 10px 40px -10px rgba(0, 0, 0, 0.2),
     0 4px 12px rgba(0, 0, 0, 0.1) !important;
   min-width: 320px;
   max-width: 400px;
@@ -162,7 +163,8 @@
 }
 
 .dark .listing-popup .maplibregl-popup-content {
-  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5),
+  box-shadow:
+    0 10px 40px -10px rgba(0, 0, 0, 0.5),
     0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }
 

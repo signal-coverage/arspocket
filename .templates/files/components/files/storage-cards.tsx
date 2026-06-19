@@ -17,7 +17,7 @@ export function StorageCards() {
       {storageData.breakdown.map((item) => {
         const Icon = iconMap[item.type as keyof typeof iconMap] || File;
         const percentage = ((item.size / storageData.total) * 100).toFixed(0);
-        
+
         return (
           <div
             key={item.type}
@@ -27,10 +27,7 @@ export function StorageCards() {
               className="size-10 rounded-lg flex items-center justify-center mb-3"
               style={{ backgroundColor: `${item.color}15` }}
             >
-              <Icon
-                className="size-5"
-                style={{ color: item.color }}
-              />
+              <Icon className="size-5" style={{ color: item.color }} />
             </div>
             <p className="font-medium text-sm mb-0.5">{item.type}</p>
             <div className="flex items-center justify-between">
@@ -47,4 +44,3 @@ export function StorageCards() {
     </div>
   );
 }
-

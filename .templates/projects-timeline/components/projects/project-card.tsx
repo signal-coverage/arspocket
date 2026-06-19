@@ -119,7 +119,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               className={cn(
                 "inline-flex items-center gap-1 rounded-xl px-1 pr-2 py-0.5 relative",
                 priorityColor.bg,
-                priorityColor.border
+                priorityColor.border,
               )}
               style={{
                 boxShadow:
@@ -135,7 +135,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               <span
                 className={cn(
                   "text-sm font-medium capitalize leading-[18px]",
-                  priorityColor.text
+                  priorityColor.text,
                 )}
               >
                 {project.priority}

@@ -2,13 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  CheckSquare,
-  BarChart3,
-  Trash2,
-  Flame,
-  Plus,
-} from "lucide-react";
+import { CheckSquare, BarChart3, Trash2, Flame, Plus } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -86,7 +80,7 @@ function HabitSidebarInner() {
                               "ml-auto text-xs px-1.5 py-0.5 rounded-full font-semibold",
                               isActive
                                 ? "bg-primary/20 text-primary"
-                                : "bg-muted text-muted-foreground"
+                                : "bg-muted text-muted-foreground",
                             )}
                           >
                             {completedToday}/{habits.length}
@@ -131,7 +125,9 @@ function HabitSidebarInner() {
                 onClick={() => handleHabitClick(habit.id)}
                 className={cn(
                   "group flex items-center gap-2.5 px-3 py-2.5 rounded-lg cursor-pointer transition-colors",
-                  isSelected ? "bg-sidebar-accent" : "hover:bg-sidebar-accent/60"
+                  isSelected
+                    ? "bg-sidebar-accent"
+                    : "hover:bg-sidebar-accent/60",
                 )}
               >
                 <div
@@ -146,7 +142,7 @@ function HabitSidebarInner() {
                   <p
                     className={cn(
                       "text-sm font-medium truncate leading-tight",
-                      isCompleted && "line-through opacity-60"
+                      isCompleted && "line-through opacity-60",
                     )}
                   >
                     {habit.name}
@@ -177,7 +173,9 @@ function HabitSidebarInner() {
 
           {habits.length === 0 && (
             <div className="px-3 py-4 text-center">
-              <p className="text-xs text-muted-foreground mb-2">No habits yet</p>
+              <p className="text-xs text-muted-foreground mb-2">
+                No habits yet
+              </p>
               <AddHabitDialog>
                 <Button variant="outline" size="sm" className="w-full text-xs">
                   <Plus className="size-3 mr-1" />
@@ -195,7 +193,8 @@ function HabitSidebarInner() {
             Open-source layouts by lndev-ui
           </div>
           <div className="text-xs text-muted-foreground">
-            Collection of beautifully crafted open-source layouts built with shadcn/ui.
+            Collection of beautifully crafted open-source layouts built with
+            shadcn/ui.
           </div>
           <Link
             target="_blank"
@@ -206,7 +205,11 @@ function HabitSidebarInner() {
             <span className="sr-only">Square by lndev-ui</span>
           </Link>
           <Button size="sm" className="w-full" asChild>
-            <Link href="https://square.lndevui.com" target="_blank" rel="noopener noreferrer">
+            <Link
+              href="https://square.lndevui.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               square.lndevui.com
             </Link>
           </Button>

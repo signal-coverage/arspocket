@@ -56,7 +56,10 @@ export function Greeting({ name = "LN" }: GreetingProps) {
   return (
     <div className="flex items-center gap-2">
       <div
-        className={cn("size-6 rounded-full flex items-center justify-center text-white", greeting.bgColor)}
+        className={cn(
+          "size-6 rounded-full flex items-center justify-center text-white",
+          greeting.bgColor,
+        )}
       >
         <Icon className="size-4" />
       </div>

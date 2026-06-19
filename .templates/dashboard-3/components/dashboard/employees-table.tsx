@@ -69,7 +69,7 @@ export function EmployeesTable() {
   const statusFilter = useDashboardStore((state) => state.statusFilter);
   const setSearchQuery = useDashboardStore((state) => state.setSearchQuery);
   const setDepartmentFilter = useDashboardStore(
-    (state) => state.setDepartmentFilter
+    (state) => state.setDepartmentFilter,
   );
   const setStatusFilter = useDashboardStore((state) => state.setStatusFilter);
   const clearFilters = useDashboardStore((state) => state.clearFilters);
@@ -77,7 +77,7 @@ export function EmployeesTable() {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageSize, setPageSize] = React.useState(8);
   const [selectedRows, setSelectedRows] = React.useState<Set<string>>(
-    new Set()
+    new Set(),
   );
 
   const hasActiveFilters = departmentFilter !== "all" || statusFilter !== "all";
@@ -175,7 +175,7 @@ export function EmployeesTable() {
                   >
                     {dept === "all" ? "All Departments" : dept}
                   </DropdownMenuCheckboxItem>
-                )
+                ),
               )}
               <DropdownMenuSeparator />
               <DropdownMenuLabel className="text-muted-foreground text-xs font-medium">
@@ -190,7 +190,7 @@ export function EmployeesTable() {
                   >
                     {status === "all" ? "All Statuses" : status}
                   </DropdownMenuCheckboxItem>
-                )
+                ),
               )}
               {hasActiveFilters && (
                 <>
@@ -311,7 +311,7 @@ export function EmployeesTable() {
                         "inline-flex items-center gap-1 px-2 py-0.5 rounded-md border text-xs font-medium",
                         statusColors[employee.status].bg,
                         statusColors[employee.status].text,
-                        statusColors[employee.status].border
+                        statusColors[employee.status].border,
                       )}
                     >
                       {employee.status}
@@ -413,4 +413,3 @@ export function EmployeesTable() {
     </div>
   );
 }
-

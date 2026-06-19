@@ -23,7 +23,7 @@ export function PeriodTabs() {
             "px-4 py-1.5 text-sm font-medium rounded-md transition-all border",
             periodFilter === period.value
               ? "bg-card text-foreground border-border"
-              : "text-muted-foreground hover:text-foreground border-transparent"
+              : "text-muted-foreground hover:text-foreground border-transparent",
           )}
         >
           {period.label}
@@ -32,4 +32,3 @@ export function PeriodTabs() {
     </div>
   );
 }
-

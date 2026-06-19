@@ -4,7 +4,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   title: "Square UI - Employees",
-  description: "A modern employee management interface built with Next.js and shadcn/ui",
+  description:
+    "A modern employee management interface built with Next.js and shadcn/ui",
 };
 
 export default function RootLayout({
@@ -15,7 +16,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+        >
           {children}
         </ThemeProvider>
       </body>

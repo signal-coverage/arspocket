@@ -21,7 +21,7 @@ export function BookmarksContent() {
   const filteredBookmarks = getFilteredBookmarks();
 
   const currentCollection = collections.find(
-    (c) => c.id === selectedCollection
+    (c) => c.id === selectedCollection,
   );
 
   const activeTagsData = tags.filter((t) => selectedTags.includes(t.id));

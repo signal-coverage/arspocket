@@ -1,0 +1,244 @@
+- generic [active] [ref=e1]:
+    - generic [ref=e2]:
+        - generic [ref=e5]:
+            - generic [ref=e7]:
+                - img [ref=e9]
+                - generic [ref=e12]: ARSPocket
+            - generic [ref=e13]:
+                - list [ref=e16]:
+                    - listitem [ref=e17]:
+                        - link "Overview" [ref=e18] [cursor=pointer]:
+                            - /url: /dashboard
+                            - img [ref=e19]
+                            - generic [ref=e24]: Overview
+                - generic [ref=e26]:
+                    - generic [ref=e28] [cursor=pointer]:
+                        - img [ref=e29]
+                        - text: MOVEMENTS
+                    - list [ref=e33]:
+                        - listitem [ref=e34]:
+                            - link "Income" [ref=e35] [cursor=pointer]:
+                                - /url: /dashboard/income
+                                - img [ref=e36]
+                                - generic [ref=e39]: Income
+                        - listitem [ref=e40]:
+                            - link "Expenses" [ref=e41] [cursor=pointer]:
+                                - /url: /dashboard/outcome
+                                - img [ref=e42]
+                                - generic [ref=e45]: Expenses
+                        - listitem [ref=e46]:
+                            - link "Savings" [ref=e47] [cursor=pointer]:
+                                - /url: /dashboard/savings
+                                - img [ref=e48]
+                                - generic [ref=e51]: Savings
+                        - listitem [ref=e52]:
+                            - link "Calendar" [ref=e53] [cursor=pointer]:
+                                - /url: /dashboard/calendar
+                                - img [ref=e54]
+                                - generic [ref=e56]: Calendar
+                - generic [ref=e58]:
+                    - generic [ref=e60] [cursor=pointer]:
+                        - img [ref=e61]
+                        - text: PLANNING
+                    - list [ref=e65]:
+                        - listitem [ref=e66]:
+                            - link "Goals Timeline" [ref=e67] [cursor=pointer]:
+                                - /url: /dashboard/goals
+                                - img [ref=e68]
+                                - generic [ref=e70]: Goals Timeline
+                        - listitem [ref=e71]:
+                            - link "Budget" [ref=e72] [cursor=pointer]:
+                                - /url: /dashboard/budget
+                                - img [ref=e73]
+                                - generic [ref=e76]: Budget
+                        - listitem [ref=e77]:
+                            - link "Bills" [ref=e78] [cursor=pointer]:
+                                - /url: /dashboard/bills
+                                - img [ref=e79]
+                                - generic [ref=e83]: Bills
+                        - listitem [ref=e84]:
+                            - link "Net Worth" [ref=e85] [cursor=pointer]:
+                                - /url: /dashboard/net-worth
+                                - img [ref=e86]
+                                - generic [ref=e89]: Net Worth
+                - generic [ref=e91]:
+                    - generic [ref=e93] [cursor=pointer]:
+                        - img [ref=e94]
+                        - text: HABITS & TASKS
+                    - list [ref=e98]:
+                        - listitem [ref=e99]:
+                            - link "Habits" [ref=e100] [cursor=pointer]:
+                                - /url: /dashboard/habits
+                                - img [ref=e101]
+                                - generic [ref=e103]: Habits
+                        - listitem [ref=e104]:
+                            - link "To-Dos" [ref=e105] [cursor=pointer]:
+                                - /url: /dashboard/tasks
+                                - img [ref=e106]
+                                - generic [ref=e109]: To-Dos
+                - generic [ref=e111]:
+                    - generic [ref=e113] [cursor=pointer]:
+                        - img [ref=e114]
+                        - text: VAULT
+                    - list [ref=e118]:
+                        - listitem [ref=e119]:
+                            - link "Receipts" [ref=e120] [cursor=pointer]:
+                                - /url: /dashboard/receipts
+                                - img [ref=e121]
+                                - generic [ref=e124]: Receipts
+                        - listitem [ref=e125]:
+                            - link "Resource Library" [ref=e126] [cursor=pointer]:
+                                - /url: /dashboard/library
+                                - img [ref=e127]
+                                - generic [ref=e130]: Resource Library
+                - generic [ref=e132]:
+                    - generic [ref=e134] [cursor=pointer]:
+                        - img [ref=e135]
+                        - text: EXPLORE
+                    - list [ref=e139]:
+                        - listitem [ref=e140]:
+                            - link "Spending Map" [ref=e141] [cursor=pointer]:
+                                - /url: /dashboard/map
+                                - img [ref=e142]
+                                - generic [ref=e145]: Spending Map
+                - generic [ref=e147]:
+                    - generic [ref=e149] [cursor=pointer]:
+                        - img [ref=e150]
+                        - text: INSIGHTS
+                    - list [ref=e154]:
+                        - listitem [ref=e155]:
+                            - link "Reports" [ref=e156] [cursor=pointer]:
+                                - /url: /dashboard/reports
+                                - img [ref=e157]
+                                - generic [ref=e159]: Reports
+            - generic [ref=e160]:
+                - list [ref=e161]:
+                    - listitem [ref=e162]:
+                        - link "Help" [ref=e163] [cursor=pointer]:
+                            - /url: "#"
+                            - img [ref=e164]
+                            - generic [ref=e167]: Help
+                    - listitem [ref=e168]:
+                        - button "Settings" [ref=e169] [cursor=pointer]:
+                            - img [ref=e170]
+                            - generic [ref=e173]: Settings
+                - button [ref=e174] [cursor=pointer]:
+                    - img [ref=e176]
+        - generic [ref=e179]:
+            - banner [ref=e180]:
+                - button "Toggle Sidebar" [ref=e181] [cursor=pointer]:
+                    - img
+                    - generic [ref=e182]: Toggle Sidebar
+                - navigation "breadcrumb" [ref=e183]:
+                    - list [ref=e184]:
+                        - listitem [ref=e185]:
+                            - link "Dashboard" [disabled] [ref=e186]
+                - button "Toggle theme" [ref=e188] [cursor=pointer]:
+                    - img
+            - main [ref=e189]:
+                - generic [ref=e190]:
+                    - generic [ref=e191]:
+                        - heading "Good evening" [level=2] [ref=e192]
+                        - paragraph [ref=e193]: Here's an overview of your finances.
+                    - generic [ref=e194]:
+                        - button "+ Add Income" [ref=e195] [cursor=pointer]
+                        - button "+ Add Expense" [ref=e196] [cursor=pointer]
+                        - button "+ New Goal" [ref=e197] [cursor=pointer]
+                - generic [ref=e198]:
+                    - generic [ref=e200]:
+                        - generic [ref=e201]:
+                            - img [ref=e202]
+                            - generic [ref=e205]: Balance
+                        - paragraph [ref=e206]: $ 0,00
+                        - generic [ref=e208]: Positive
+                    - generic [ref=e211]:
+                        - generic [ref=e212]:
+                            - img [ref=e213]
+                            - generic [ref=e216]: Monthly Income
+                        - paragraph [ref=e217]: $ 0,00
+                        - generic [ref=e219]: This month
+                    - generic [ref=e222]:
+                        - generic [ref=e223]:
+                            - img [ref=e224]
+                            - generic [ref=e227]: Monthly Expenses
+                        - paragraph [ref=e228]: $ 0,00
+                        - generic [ref=e230]: This month
+                    - generic [ref=e233]:
+                        - generic [ref=e234]:
+                            - img [ref=e235]
+                            - generic [ref=e238]: Savings Goals
+                        - paragraph [ref=e239]: 0 active
+                        - generic [ref=e241]: Active goals
+                - generic [ref=e242]:
+                    - generic [ref=e243]:
+                        - generic [ref=e245]: Recent Transactions
+                        - generic [ref=e247]:
+                            - img [ref=e248]
+                            - generic [ref=e251]:
+                                - paragraph [ref=e252]: No transactions yet
+                                - paragraph [ref=e253]: Add your first income or expense to get started.
+                            - link "Add transaction" [ref=e254] [cursor=pointer]:
+                                - /url: /dashboard/income
+                    - generic [ref=e255]:
+                        - generic [ref=e257]:
+                            - generic [ref=e258]: Savings Goals
+                            - link "View all" [ref=e259] [cursor=pointer]:
+                                - /url: /dashboard/savings
+                        - generic [ref=e261]:
+                            - img [ref=e262]
+                            - paragraph [ref=e266]: No goals yet
+                            - link "Create goal" [ref=e267] [cursor=pointer]:
+                                - /url: /dashboard/savings
+                    - generic [ref=e268]:
+                        - generic [ref=e270]: Income vs Expenses
+                        - generic [ref=e273]:
+                            - list [ref=e275]:
+                                - listitem [ref=e276]:
+                                    - img "Expenses legend icon" [ref=e277]
+                                    - text: Expenses
+                                - listitem [ref=e279]:
+                                    - img "Income legend icon" [ref=e280]
+                                    - text: Income
+                            - application [ref=e282]:
+                                - generic [ref=e294]:
+                                    - generic [ref=e295]:
+                                        - generic [ref=e297]: ene 26
+                                        - generic [ref=e299]: feb 26
+                                        - generic [ref=e301]: mar 26
+                                        - generic [ref=e303]: abr 26
+                                        - generic [ref=e305]: may 26
+                                        - generic [ref=e307]: jun 26
+                                    - generic [ref=e308]:
+                                        - generic [ref=e310]: "0"
+                                        - generic [ref=e312]: "1"
+                                        - generic [ref=e314]: "2"
+                                        - generic [ref=e316]: "3"
+                                        - generic [ref=e318]: "4"
+                - generic [ref=e319]:
+                    - generic [ref=e321]:
+                        - generic [ref=e322]: Cash Flow Projection (Estimate)
+                        - generic [ref=e323]:
+                            - button "30d" [ref=e324] [cursor=pointer]
+                            - button "60d" [ref=e325] [cursor=pointer]
+                            - button "90d" [ref=e326] [cursor=pointer]
+                    - generic [ref=e328]: Not enough data for an accurate projection
+    - region "Notifications alt+T"
+    - button "Open Next.js Dev Tools" [ref=e334] [cursor=pointer]:
+        - img [ref=e335]
+    - alert [ref=e338]
+    - generic [ref=e339]: "0"
+    - generic [ref=e340]:
+        - generic [ref=e341]:
+            - link "LocatorJS" [ref=e342] [cursor=pointer]:
+                - /url: https://www.locatorjs.com
+                - img [ref=e343]
+            - button "Settings" [ref=e350] [cursor=pointer]
+        - generic [ref=e351]:
+            - text: Go to component code with
+            - generic [ref=e352]: Alt
+            - text: +
+            - generic [ref=e353]: click
+        - generic [ref=e354]:
+            - link "What is Locator?" [ref=e355] [cursor=pointer]:
+                - /url: https://www.locatorjs.com
+            - generic [ref=e356] [cursor=pointer]: Stop showing this popup

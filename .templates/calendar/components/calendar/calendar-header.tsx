@@ -34,7 +34,7 @@ export function CalendarHeader() {
   const meetingsCount = todayEvents.filter(
     (e) =>
       e.title.toLowerCase().includes("call") ||
-      e.title.toLowerCase().includes("meeting")
+      e.title.toLowerCase().includes("meeting"),
   ).length;
   const eventsCount = todayEvents.length - meetingsCount;
   const [createDialogOpen, setCreateDialogOpen] = useState(false);

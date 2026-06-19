@@ -628,4 +628,3 @@ export const employees: Employee[] = [
     status: "pending",
   },
 ];
-

@@ -232,4 +232,3 @@ export const mockPeople: Person[] = [
     avatar: "https://api.dicebear.com/9.x/glass/svg?seed=william",
   },
 ];
-

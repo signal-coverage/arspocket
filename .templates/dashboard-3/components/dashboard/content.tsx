@@ -20,7 +20,7 @@ export function DashboardContent() {
         "w-full flex-1 overflow-auto",
         layoutDensity === "compact" && "p-2 sm:p-4 space-y-4",
         layoutDensity === "default" && "p-4 sm:p-6 space-y-6 sm:space-y-8",
-        layoutDensity === "comfortable" && "p-6 sm:p-8 space-y-8 sm:space-y-10"
+        layoutDensity === "comfortable" && "p-6 sm:p-8 space-y-8 sm:space-y-10",
       )}
     >
       {showAlertBanner && <AlertBanner />}
@@ -30,4 +30,3 @@ export function DashboardContent() {
     </main>
   );
 }
-

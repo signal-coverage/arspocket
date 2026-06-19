@@ -58,7 +58,8 @@ export const useHabitStore = create<HabitStore>((set, get) => ({
     }),
 
   addHabit: () => {
-    const { newHabitName, newHabitIcon, newHabitColor, habits, completions } = get();
+    const { newHabitName, newHabitIcon, newHabitColor, habits, completions } =
+      get();
     if (!newHabitName.trim()) return;
     const id = `h${Date.now()}`;
     const newHabit: Habit = {
@@ -81,14 +82,16 @@ export const useHabitStore = create<HabitStore>((set, get) => ({
   deleteHabit: (id) =>
     set((state) => ({
       habits: state.habits.filter((h) => h.id !== id),
-      selectedHabitId: state.selectedHabitId === id ? null : state.selectedHabitId,
+      selectedHabitId:
+        state.selectedHabitId === id ? null : state.selectedHabitId,
     })),
 
   setNewHabitName: (name) => set({ newHabitName: name }),
   setNewHabitIcon: (icon) => set({ newHabitIcon: icon }),
   setNewHabitColor: (color) => set({ newHabitColor: color }),
 
-  resetNewHabit: () => set({ newHabitName: "", newHabitIcon: "⭐", newHabitColor: "violet" }),
+  resetNewHabit: () =>
+    set({ newHabitName: "", newHabitIcon: "⭐", newHabitColor: "violet" }),
 
   isCompletedToday: (habitId) => {
     const { completions } = get();

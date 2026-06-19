@@ -133,7 +133,7 @@ export function FileList({ view, folderId }: FileListProps) {
                             "size-7 transition-opacity",
                             file.starred
                               ? "opacity-100"
-                              : "opacity-0 group-hover:opacity-100"
+                              : "opacity-0 group-hover:opacity-100",
                           )}
                           onClick={(e) => {
                             e.stopPropagation();
@@ -143,7 +143,7 @@ export function FileList({ view, folderId }: FileListProps) {
                           <Star
                             className={cn(
                               "size-4",
-                              file.starred && "fill-amber-400 text-amber-400"
+                              file.starred && "fill-amber-400 text-amber-400",
                             )}
                           />
                         </Button>
@@ -241,7 +241,7 @@ export function FileList({ view, folderId }: FileListProps) {
                           "size-7 transition-opacity",
                           file.starred
                             ? "opacity-100"
-                            : "opacity-0 group-hover:opacity-100"
+                            : "opacity-0 group-hover:opacity-100",
                         )}
                         onClick={(e) => {
                           e.stopPropagation();
@@ -251,7 +251,7 @@ export function FileList({ view, folderId }: FileListProps) {
                         <Star
                           className={cn(
                             "size-4",
-                            file.starred && "fill-amber-400 text-amber-400"
+                            file.starred && "fill-amber-400 text-amber-400",
                           )}
                         />
                       </Button>

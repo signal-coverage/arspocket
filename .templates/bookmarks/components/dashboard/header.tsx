@@ -103,7 +103,9 @@ export function BookmarksHeader({ title = "Bookmarks" }: BookmarksHeaderProps) {
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm" className="hidden sm:flex">
                 <ArrowUpDown className="size-4" />
-                <span className="hidden lg:inline">{currentSort?.label.split(" ")[0]}</span>
+                <span className="hidden lg:inline">
+                  {currentSort?.label.split(" ")[0]}
+                </span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
@@ -130,7 +132,7 @@ export function BookmarksHeader({ title = "Bookmarks" }: BookmarksHeaderProps) {
                 size="sm"
                 className={cn(
                   "hidden sm:flex",
-                  filterType !== "all" && "border-primary text-primary"
+                  filterType !== "all" && "border-primary text-primary",
                 )}
               >
                 <SlidersHorizontal className="size-4" />

@@ -55,9 +55,7 @@ const bottomNavItems = [
   { title: "Settings", icon: Settings, href: "#" },
 ];
 
-export function DashboardSidebar(
-  props: React.ComponentProps<typeof Sidebar>
-) {
+export function DashboardSidebar(props: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="offcanvas" className="!border-r-0" {...props}>
       <SidebarHeader className="px-3 py-3">
@@ -118,9 +116,7 @@ export function DashboardSidebar(
                     className="h-9"
                   >
                     <Link href={item.href}>
-                      <item.icon
-                        className="size-4 shrink-0"
-                      />
+                      <item.icon className="size-4 shrink-0" />
                       <span className="text-sm">{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
@@ -160,7 +156,9 @@ export function DashboardSidebar(
                 <SidebarMenuButton asChild className="h-8">
                   <Link href="#">
                     <Plus className="size-3.5 shrink-0 text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">New folder</span>
+                    <span className="text-sm text-muted-foreground">
+                      New folder
+                    </span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

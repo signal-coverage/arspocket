@@ -177,14 +177,14 @@ export function ChatSidebar() {
                   key={chat.id}
                   className={cn(
                     "group/item relative flex items-center rounded-md overflow-hidden",
-                    isActive && "bg-sidebar-accent"
+                    isActive && "bg-sidebar-accent",
                   )}
                 >
                   <Button
                     variant="ghost"
                     className={cn(
                       "flex-1 justify-start gap-2 px-2 text-left h-auto py-1.5 min-w-0 pr-8",
-                      isActive ? "hover:bg-sidebar-accent" : "hover:bg-accent"
+                      isActive ? "hover:bg-sidebar-accent" : "hover:bg-accent",
                     )}
                     onClick={() => selectChat(chat.id)}
                   >
@@ -252,14 +252,14 @@ export function ChatSidebar() {
                   key={chat.id}
                   className={cn(
                     "group/item relative flex items-center rounded-md overflow-hidden",
-                    isActive && "bg-sidebar-accent"
+                    isActive && "bg-sidebar-accent",
                   )}
                 >
                   <Button
                     variant="ghost"
                     className={cn(
                       "flex-1 justify-start gap-2 px-2 text-left h-auto py-1.5 min-w-0 pr-8",
-                      isActive ? "hover:bg-sidebar-accent" : "hover:bg-accent"
+                      isActive ? "hover:bg-sidebar-accent" : "hover:bg-accent",
                     )}
                     onClick={() => selectChat(chat.id)}
                   >

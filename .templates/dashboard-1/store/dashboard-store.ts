@@ -32,8 +32,7 @@ export const useDashboardStore = create<DashboardState>((set, get) => ({
         person.name.toLowerCase().includes(query) ||
         person.email.toLowerCase().includes(query) ||
         person.jobTitle.toLowerCase().includes(query) ||
-        person.tags.some((tag) => tag.toLowerCase().includes(query))
+        person.tags.some((tag) => tag.toLowerCase().includes(query)),
     );
   },
 }));
-

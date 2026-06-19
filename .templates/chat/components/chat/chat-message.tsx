@@ -18,7 +18,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
     <div
       className={cn(
         "flex gap-4",
-        message.sender === "user" ? "justify-end" : "justify-start"
+        message.sender === "user" ? "justify-end" : "justify-start",
       )}
     >
       {message.sender === "ai" && (
@@ -34,7 +34,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
           "rounded-2xl px-4 py-3 max-w-[80%]",
           message.sender === "user"
             ? "bg-primary text-primary-foreground"
-            : "bg-secondary"
+            : "bg-secondary",
         )}
       >
         <p className="text-sm leading-relaxed">{message.content}</p>
@@ -51,4 +51,3 @@ export function ChatMessage({ message }: ChatMessageProps) {
     </div>
   );
 }
-

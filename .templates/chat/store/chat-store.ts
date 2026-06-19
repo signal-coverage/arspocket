@@ -5,7 +5,10 @@ interface ChatState {
   chats: Chat[];
   selectedChatId: string | null;
   selectChat: (chatId: string) => void;
-  addMessage: (chatId: string, message: Omit<Message, "id" | "timestamp">) => void;
+  addMessage: (
+    chatId: string,
+    message: Omit<Message, "id" | "timestamp">,
+  ) => void;
   createNewChat: () => void;
   archiveChat: (chatId: string) => void;
   unarchiveChat: (chatId: string) => void;
@@ -15,9 +18,9 @@ interface ChatState {
 export const useChatStore = create<ChatState>((set) => ({
   chats: mockChats,
   selectedChatId: null,
-  
+
   selectChat: (chatId) => set({ selectedChatId: chatId }),
-  
+
   addMessage: (chatId, message) =>
     set((state) => ({
       chats: state.chats.map((chat) =>
@@ -34,10 +37,10 @@ export const useChatStore = create<ChatState>((set) => ({
               ],
               updatedAt: new Date(),
             }
-          : chat
+          : chat,
       ),
     })),
-  
+
   createNewChat: () =>
     set((state) => {
       const newChat: Chat = {
@@ -54,25 +57,25 @@ export const useChatStore = create<ChatState>((set) => ({
         selectedChatId: newChat.id,
       };
     }),
-  
+
   archiveChat: (chatId) =>
     set((state) => ({
       chats: state.chats.map((chat) =>
-        chat.id === chatId ? { ...chat, isArchived: true } : chat
+        chat.id === chatId ? { ...chat, isArchived: true } : chat,
       ),
     })),
-  
+
   unarchiveChat: (chatId) =>
     set((state) => ({
       chats: state.chats.map((chat) =>
-        chat.id === chatId ? { ...chat, isArchived: false } : chat
+        chat.id === chatId ? { ...chat, isArchived: false } : chat,
       ),
     })),
-  
+
   deleteChat: (chatId) =>
     set((state) => ({
       chats: state.chats.filter((chat) => chat.id !== chatId),
-      selectedChatId: state.selectedChatId === chatId ? null : state.selectedChatId,
+      selectedChatId:
+        state.selectedChatId === chatId ? null : state.selectedChatId,
     })),
 }));
-

@@ -12,7 +12,7 @@ export default function DashboardPage() {
           <DashboardHeader />
           <DashboardContent />
         </div>
-      </div> 
+      </div>
     </SidebarProvider>
   );
 }

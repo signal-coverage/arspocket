@@ -133,7 +133,7 @@ function getWeekStart(date: Date): Date {
 
 function generateProjectsForDateRange(
   startDate: Date,
-  endDate: Date
+  endDate: Date,
 ): Project[] {
   const allProjects: Project[] = [];
   const startWeek = getWeekStart(startDate);
@@ -157,5 +157,5 @@ const endDate = new Date(2070, 11, 31);
 
 export const projects: Project[] = generateProjectsForDateRange(
   startDate,
-  endDate
+  endDate,
 );

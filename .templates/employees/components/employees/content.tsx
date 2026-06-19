@@ -16,11 +16,13 @@ export function EmployeesContent() {
     <div
       className={cn(
         "flex-1 overflow-auto w-full space-y-6",
-        layout === "compact" ? "p-3 md:p-4" : "p-4 md:p-6"
+        layout === "compact" ? "p-3 md:p-4" : "p-4 md:p-6",
       )}
     >
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <h1 className="text-xl font-semibold text-foreground">Employee Overview</h1>
+        <h1 className="text-xl font-semibold text-foreground">
+          Employee Overview
+        </h1>
         <ActionButtons />
       </div>
 
@@ -32,4 +34,3 @@ export function EmployeesContent() {
     </div>
   );
 }
-

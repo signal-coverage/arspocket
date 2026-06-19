@@ -131,7 +131,10 @@ export const ReceiptUpload = ({ open, onOpenChange }: Props) => {
 
           {file && (
             <p className="text-xs text-muted-foreground">
-              {t("selectedFile", { name: file.name, size: (file.size / 1024).toFixed(0) })}
+              {t("selectedFile", {
+                name: file.name,
+                size: (file.size / 1024).toFixed(0),
+              })}
             </p>
           )}
 

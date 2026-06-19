@@ -67,7 +67,7 @@ export function StatsCards() {
                   <div
                     className={cn(
                       "flex items-center gap-1.5",
-                      stat.trend === "up" ? "text-green-400" : "text-pink-400"
+                      stat.trend === "up" ? "text-green-400" : "text-pink-400",
                     )}
                     style={{
                       textShadow:

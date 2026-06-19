@@ -217,7 +217,7 @@ export const columns: ColumnDef<Payroll>[] = [
         <div
           className={cn(
             "inline-flex items-center gap-1 px-1.5 py-0.5 rounded border text-xs font-medium",
-            config.bgClass
+            config.bgClass,
           )}
         >
           <Icon className={cn("size-3.5", config.className)} />
@@ -269,10 +269,10 @@ export function PayrollsTable({ showFilters = true }: PayrollsTableProps) {
   const dateFilter = usePayrollsStore((state) => state.dateFilter);
   const setDateFilter = usePayrollsStore((state) => state.setDateFilter);
   const paymentMethodFilter = usePayrollsStore(
-    (state) => state.paymentMethodFilter
+    (state) => state.paymentMethodFilter,
   );
   const setPaymentMethodFilter = usePayrollsStore(
-    (state) => state.setPaymentMethodFilter
+    (state) => state.setPaymentMethodFilter,
   );
   const clearAllFilters = usePayrollsStore((state) => state.clearAllFilters);
   const allPayrolls = usePayrollsStore((state) => state.payrolls);
@@ -327,7 +327,7 @@ export function PayrollsTable({ showFilters = true }: PayrollsTableProps) {
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
@@ -486,7 +486,7 @@ export function PayrollsTable({ showFilters = true }: PayrollsTableProps) {
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                   </TableHead>
                 ))}
@@ -504,7 +504,7 @@ export function PayrollsTable({ showFilters = true }: PayrollsTableProps) {
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -560,13 +560,13 @@ export function PayrollsTable({ showFilters = true }: PayrollsTableProps) {
                       "size-8 rounded-lg text-sm font-semibold",
                       isActive
                         ? "bg-muted text-foreground"
-                        : "text-foreground hover:bg-muted"
+                        : "text-foreground hover:bg-muted",
                     )}
                   >
                     {pageIndex + 1}
                   </button>
                 );
-              }
+              },
             )}
             {table.getPageCount() > 5 && (
               <>
@@ -611,7 +611,7 @@ export function PayrollsTable({ showFilters = true }: PayrollsTableProps) {
             {Math.min(
               (table.getState().pagination.pageIndex + 1) *
                 table.getState().pagination.pageSize,
-              table.getFilteredRowModel().rows.length
+              table.getFilteredRowModel().rows.length,
             )}{" "}
             of {table.getFilteredRowModel().rows.length} entries
           </span>

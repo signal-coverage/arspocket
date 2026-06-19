@@ -58,7 +58,7 @@ function SidebarItem({ icon, label, badge, active }: SidebarItemProps) {
         "w-full justify-between px-3 py-2 h-auto text-sm",
         active
           ? "bg-muted text-foreground font-medium"
-          : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+          : "text-muted-foreground hover:bg-muted/50 hover:text-foreground",
       )}
     >
       <div className="flex items-center gap-3">
