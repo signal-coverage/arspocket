@@ -1,0 +1,263 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e5]:
+      - generic [ref=e7]:
+        - img [ref=e9]
+        - generic [ref=e12]: ARSPocket
+      - generic [ref=e13]:
+        - list [ref=e16]:
+          - listitem [ref=e17]:
+            - link "Overview" [ref=e18] [cursor=pointer]:
+              - /url: /dashboard
+              - img [ref=e19]
+              - generic [ref=e24]: Overview
+        - generic [ref=e26]:
+          - generic [ref=e28] [cursor=pointer]:
+            - img [ref=e29]
+            - text: MOVEMENTS
+          - list [ref=e33]:
+            - listitem [ref=e34]:
+              - link "Income" [ref=e35] [cursor=pointer]:
+                - /url: /dashboard/income
+                - img [ref=e36]
+                - generic [ref=e39]: Income
+            - listitem [ref=e40]:
+              - link "Expenses" [ref=e41] [cursor=pointer]:
+                - /url: /dashboard/outcome
+                - img [ref=e42]
+                - generic [ref=e45]: Expenses
+            - listitem [ref=e46]:
+              - link "Savings" [ref=e47] [cursor=pointer]:
+                - /url: /dashboard/savings
+                - img [ref=e48]
+                - generic [ref=e51]: Savings
+            - listitem [ref=e52]:
+              - link "Calendar" [ref=e53] [cursor=pointer]:
+                - /url: /dashboard/calendar
+                - img [ref=e54]
+                - generic [ref=e56]: Calendar
+        - generic [ref=e58]:
+          - generic [ref=e60] [cursor=pointer]:
+            - img [ref=e61]
+            - text: PLANNING
+          - list [ref=e65]:
+            - listitem [ref=e66]:
+              - link "Goals Timeline" [ref=e67] [cursor=pointer]:
+                - /url: /dashboard/goals
+                - img [ref=e68]
+                - generic [ref=e70]: Goals Timeline
+            - listitem [ref=e71]:
+              - link "Budget" [ref=e72] [cursor=pointer]:
+                - /url: /dashboard/budget
+                - img [ref=e73]
+                - generic [ref=e76]: Budget
+            - listitem [ref=e77]:
+              - link "Bills" [ref=e78] [cursor=pointer]:
+                - /url: /dashboard/bills
+                - img [ref=e79]
+                - generic [ref=e83]: Bills
+            - listitem [ref=e84]:
+              - link "Net Worth" [ref=e85] [cursor=pointer]:
+                - /url: /dashboard/net-worth
+                - img [ref=e86]
+                - generic [ref=e89]: Net Worth
+        - generic [ref=e93] [cursor=pointer]:
+          - img [ref=e94]
+          - text: HABITS & TASKS
+        - generic [ref=e99] [cursor=pointer]:
+          - img [ref=e100]
+          - text: VAULT
+        - generic [ref=e105] [cursor=pointer]:
+          - img [ref=e106]
+          - text: EXPLORE
+        - generic [ref=e109]:
+          - generic [ref=e111] [cursor=pointer]:
+            - img [ref=e112]
+            - text: INSIGHTS
+          - list [ref=e116]:
+            - listitem [ref=e117]:
+              - link "Reports" [ref=e118] [cursor=pointer]:
+                - /url: /dashboard/reports
+                - img [ref=e119]
+                - generic [ref=e121]: Reports
+      - generic [ref=e122]:
+        - list [ref=e123]:
+          - listitem [ref=e124]:
+            - link "Help" [ref=e125] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e126]
+              - generic [ref=e129]: Help
+          - listitem [ref=e130]:
+            - link "Settings" [ref=e131] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e132]
+              - generic [ref=e135]: Settings
+        - button [ref=e136] [cursor=pointer]:
+          - img [ref=e138]
+    - generic [ref=e141]:
+      - banner [ref=e142]:
+        - button "Toggle Sidebar" [ref=e143] [cursor=pointer]:
+          - img
+          - generic [ref=e144]: Toggle Sidebar
+        - navigation "breadcrumb" [ref=e145]:
+          - list [ref=e146]:
+            - listitem [ref=e147]:
+              - link "Dashboard" [disabled] [ref=e148]
+        - button "Toggle theme" [ref=e150] [cursor=pointer]:
+          - img
+      - generic [ref=e151]:
+        - generic [ref=e152]:
+          - generic [ref=e153]:
+            - heading "Bills" [level=1] [ref=e154]
+            - paragraph [ref=e155]: Track and pay your recurring bills.
+          - button "Add Bill" [ref=e156] [cursor=pointer]:
+            - img
+            - text: Add Bill
+        - generic [ref=e157]:
+          - generic [ref=e159]:
+            - img [ref=e160]
+            - text: Monthly Calendar
+          - generic [ref=e165]:
+            - generic [ref=e168]:
+              - navigation "Navigation bar" [ref=e169]:
+                - button "Go to the Previous Month" [ref=e170] [cursor=pointer]:
+                  - img [ref=e171]
+                - button "Go to the Next Month" [ref=e173] [cursor=pointer]:
+                  - img [ref=e174]
+              - generic [ref=e176]:
+                - status [ref=e178]: June 2026
+                - grid "June 2026" [ref=e179]:
+                  - rowgroup [ref=e180]:
+                    - row [ref=e181]:
+                      - columnheader [ref=e182]: Su
+                      - columnheader [ref=e183]: Mo
+                      - columnheader [ref=e184]: Tu
+                      - columnheader [ref=e185]: We
+                      - columnheader [ref=e186]: Th
+                      - columnheader [ref=e187]: Fr
+                      - columnheader [ref=e188]: Sa
+                  - rowgroup [ref=e189]:
+                    - row "Monday, June 1st, 2026 Tuesday, June 2nd, 2026 Wednesday, June 3rd, 2026 Thursday, June 4th, 2026 Friday, June 5th, 2026 Saturday, June 6th, 2026" [ref=e190]:
+                      - gridcell [ref=e191]
+                      - gridcell "Monday, June 1st, 2026" [ref=e192]:
+                        - button "Monday, June 1st, 2026" [ref=e193] [cursor=pointer]:
+                          - generic [ref=e194]: "1"
+                      - gridcell "Tuesday, June 2nd, 2026" [ref=e195]:
+                        - button "Tuesday, June 2nd, 2026" [ref=e196] [cursor=pointer]:
+                          - generic [ref=e197]: "2"
+                      - gridcell "Wednesday, June 3rd, 2026" [ref=e198]:
+                        - button "Wednesday, June 3rd, 2026" [ref=e199] [cursor=pointer]:
+                          - generic [ref=e200]: "3"
+                      - gridcell "Thursday, June 4th, 2026" [ref=e201]:
+                        - button "Thursday, June 4th, 2026" [ref=e202] [cursor=pointer]:
+                          - generic [ref=e203]: "4"
+                      - gridcell "Friday, June 5th, 2026" [ref=e204]:
+                        - button "Friday, June 5th, 2026" [ref=e205] [cursor=pointer]:
+                          - generic [ref=e206]: "5"
+                      - gridcell "Saturday, June 6th, 2026" [ref=e207]:
+                        - button "Saturday, June 6th, 2026" [ref=e208] [cursor=pointer]:
+                          - generic [ref=e209]: "6"
+                    - row "Sunday, June 7th, 2026 Monday, June 8th, 2026 Tuesday, June 9th, 2026 Wednesday, June 10th, 2026 Thursday, June 11th, 2026 Friday, June 12th, 2026 Saturday, June 13th, 2026" [ref=e210]:
+                      - gridcell "Sunday, June 7th, 2026" [ref=e211]:
+                        - button "Sunday, June 7th, 2026" [ref=e212] [cursor=pointer]:
+                          - generic [ref=e213]: "7"
+                      - gridcell "Monday, June 8th, 2026" [ref=e214]:
+                        - button "Monday, June 8th, 2026" [ref=e215] [cursor=pointer]:
+                          - generic [ref=e216]: "8"
+                      - gridcell "Tuesday, June 9th, 2026" [ref=e217]:
+                        - button "Tuesday, June 9th, 2026" [ref=e218] [cursor=pointer]:
+                          - generic [ref=e219]: "9"
+                      - gridcell "Wednesday, June 10th, 2026" [ref=e220]:
+                        - button "Wednesday, June 10th, 2026" [ref=e221] [cursor=pointer]:
+                          - generic [ref=e222]: "10"
+                      - gridcell "Thursday, June 11th, 2026" [ref=e223]:
+                        - button "Thursday, June 11th, 2026" [ref=e224] [cursor=pointer]:
+                          - generic [ref=e225]: "11"
+                      - gridcell "Friday, June 12th, 2026" [ref=e226]:
+                        - button "Friday, June 12th, 2026" [ref=e227] [cursor=pointer]:
+                          - generic [ref=e228]: "12"
+                      - gridcell "Saturday, June 13th, 2026" [ref=e229]:
+                        - button "Saturday, June 13th, 2026" [ref=e230] [cursor=pointer]:
+                          - generic [ref=e231]: "13"
+                    - row "Sunday, June 14th, 2026 Monday, June 15th, 2026 Tuesday, June 16th, 2026 Wednesday, June 17th, 2026 Today, Thursday, June 18th, 2026 Friday, June 19th, 2026 Saturday, June 20th, 2026" [ref=e232]:
+                      - gridcell "Sunday, June 14th, 2026" [ref=e233]:
+                        - button "Sunday, June 14th, 2026" [ref=e234] [cursor=pointer]:
+                          - generic [ref=e235]: "14"
+                      - gridcell "Monday, June 15th, 2026" [ref=e236]:
+                        - button "Monday, June 15th, 2026" [ref=e237] [cursor=pointer]:
+                          - generic [ref=e238]: "15"
+                      - gridcell "Tuesday, June 16th, 2026" [ref=e239]:
+                        - button "Tuesday, June 16th, 2026" [ref=e240] [cursor=pointer]:
+                          - generic [ref=e241]: "16"
+                      - gridcell "Wednesday, June 17th, 2026" [ref=e242]:
+                        - button "Wednesday, June 17th, 2026" [ref=e243] [cursor=pointer]:
+                          - generic [ref=e244]: "17"
+                      - gridcell "Today, Thursday, June 18th, 2026" [ref=e245]:
+                        - button "Today, Thursday, June 18th, 2026" [ref=e246] [cursor=pointer]:
+                          - generic [ref=e247]: "18"
+                      - gridcell "Friday, June 19th, 2026" [ref=e248]:
+                        - button "Friday, June 19th, 2026" [ref=e249] [cursor=pointer]:
+                          - generic [ref=e250]: "19"
+                      - gridcell "Saturday, June 20th, 2026" [ref=e251]:
+                        - button "Saturday, June 20th, 2026" [ref=e252] [cursor=pointer]:
+                          - generic [ref=e253]: "20"
+                    - row "Sunday, June 21st, 2026 Monday, June 22nd, 2026 Tuesday, June 23rd, 2026 Wednesday, June 24th, 2026 Thursday, June 25th, 2026 Friday, June 26th, 2026 Saturday, June 27th, 2026" [ref=e254]:
+                      - gridcell "Sunday, June 21st, 2026" [ref=e255]:
+                        - button "Sunday, June 21st, 2026" [ref=e256] [cursor=pointer]:
+                          - generic [ref=e257]: "21"
+                      - gridcell "Monday, June 22nd, 2026" [ref=e258]:
+                        - button "Monday, June 22nd, 2026" [ref=e259] [cursor=pointer]:
+                          - generic [ref=e260]: "22"
+                      - gridcell "Tuesday, June 23rd, 2026" [ref=e261]:
+                        - button "Tuesday, June 23rd, 2026" [ref=e262] [cursor=pointer]:
+                          - generic [ref=e263]: "23"
+                      - gridcell "Wednesday, June 24th, 2026" [ref=e264]:
+                        - button "Wednesday, June 24th, 2026" [ref=e265] [cursor=pointer]:
+                          - generic [ref=e266]: "24"
+                      - gridcell "Thursday, June 25th, 2026" [ref=e267]:
+                        - button "Thursday, June 25th, 2026" [ref=e268] [cursor=pointer]:
+                          - generic [ref=e269]: "25"
+                      - gridcell "Friday, June 26th, 2026" [ref=e270]:
+                        - button "Friday, June 26th, 2026" [ref=e271] [cursor=pointer]:
+                          - generic [ref=e272]: "26"
+                      - gridcell "Saturday, June 27th, 2026" [ref=e273]:
+                        - button "Saturday, June 27th, 2026" [ref=e274] [cursor=pointer]:
+                          - generic [ref=e275]: "27"
+                    - row "Sunday, June 28th, 2026 Monday, June 29th, 2026 Tuesday, June 30th, 2026" [ref=e276]:
+                      - gridcell "Sunday, June 28th, 2026" [ref=e277]:
+                        - button "Sunday, June 28th, 2026" [ref=e278] [cursor=pointer]:
+                          - generic [ref=e279]: "28"
+                      - gridcell "Monday, June 29th, 2026" [ref=e280]:
+                        - button "Monday, June 29th, 2026" [ref=e281] [cursor=pointer]:
+                          - generic [ref=e282]: "29"
+                      - gridcell "Tuesday, June 30th, 2026" [ref=e283]:
+                        - button "Tuesday, June 30th, 2026" [ref=e284] [cursor=pointer]:
+                          - generic [ref=e285]: "30"
+                      - gridcell [ref=e286]
+                      - gridcell [ref=e287]
+                      - gridcell [ref=e288]
+                      - gridcell [ref=e289]
+            - generic [ref=e290]:
+              - generic [ref=e291]: Click a day to view bills due.
+              - generic [ref=e292]:
+                - heading "Bills This Month" [level=3] [ref=e293]
+                - paragraph [ref=e294]: No bills added yet.
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e300] [cursor=pointer]:
+    - img [ref=e301]
+  - alert [ref=e304]
+  - generic [ref=e305]:
+    - generic [ref=e306]:
+      - link "LocatorJS" [ref=e307] [cursor=pointer]:
+        - /url: https://www.locatorjs.com
+        - img [ref=e308]
+      - button "Settings" [ref=e315] [cursor=pointer]
+    - generic [ref=e316]:
+      - text: Go to component code with
+      - generic [ref=e317]: Alt
+      - text: +
+      - generic [ref=e318]: click
+    - generic [ref=e319]:
+      - link "What is Locator?" [ref=e320] [cursor=pointer]:
+        - /url: https://www.locatorjs.com
+      - generic [ref=e321] [cursor=pointer]: Stop showing this popup

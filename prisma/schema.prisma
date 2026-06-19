@@ -1,0 +1,382 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum TransactionType {
+  INCOME
+  OUTCOME
+}
+
+enum BudgetPeriod {
+  WEEKLY
+  MONTHLY
+  YEARLY
+}
+
+enum BillFrequency {
+  ONE_TIME
+  WEEKLY
+  BIWEEKLY
+  MONTHLY
+  YEARLY
+}
+
+enum TaskStatus {
+  BACKLOG
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum GoalStatus {
+  ACTIVE
+  COMPLETED
+  PAUSED
+}
+
+// ─── V3 new enums ─────────────────────────────────────────────────────────────
+
+enum RecurringFrequency {
+  DAILY
+  WEEKLY
+  BIWEEKLY
+  MONTHLY
+  YEARLY
+}
+
+enum NetWorthItemType {
+  ASSET
+  LIABILITY
+}
+
+// ─── Existing models (additive fields only) ───────────────────────────────────
+
+model Transaction {
+  id           String          @id @default(cuid())
+  userId       String
+  type         TransactionType
+  amount       Decimal         @db.Decimal(10, 2)
+  description  String
+  category     String
+  date         DateTime
+  createdAt    DateTime        @default(now())
+
+  // V2 additive — geo-tagging (all nullable, no existing query breaks)
+  latitude     Float?
+  longitude    Float?
+  locationName String?
+
+  // V2 relations
+  receipts     Receipt[]
+  bills        Bill[]
+
+  // V3 additive fields — all nullable
+  recurringFrequency  RecurringFrequency?
+  recurringEndDate    DateTime?
+  nextDueDate         DateTime?
+  parentRecurringId   String?
+  isAnomaly           Boolean             @default(false)
+  isRecurring         Boolean             @default(false)
+
+  // V3 relations
+  tags                TransactionTag[]
+
+  @@index([userId])
+  @@index([userId, type])
+}
+
+model SavingsGoal {
+  id            String          @id @default(cuid())
+  userId        String
+  goalName      String
+  targetAmount  Decimal         @db.Decimal(10, 2)
+  currentAmount Decimal         @db.Decimal(10, 2) @default(0)
+  description   String?
+  targetDate    DateTime?       // V2: made nullable — goals without deadline go to "No Deadline" section
+  createdAt     DateTime        @default(now())
+
+  // V2 additive fields
+  color         String?
+  status        GoalStatus?     @default(ACTIVE)
+
+  // V2 relation
+  milestones    GoalMilestone[]
+
+  @@index([userId])
+}
+
+// ─── V2 new models — Phase 1 (no FK to new models) ───────────────────────────
+
+model Budget {
+  id             String       @id @default(cuid())
+  userId         String
+  category       String
+  amount         Decimal      @db.Decimal(10, 2)
+  period         BudgetPeriod
+  startDate      DateTime
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  // V3 — alert tracking fields
+  alertSentAt80  DateTime?
+  alertSentAt100 DateTime?
+
+  @@unique([userId, category, period])
+  @@index([userId])
+}
+
+model Bill {
+  id            String         @id @default(cuid())
+  userId        String
+  name          String
+  amount        Decimal        @db.Decimal(10, 2)
+  dueDay        Int
+  category      String
+  isPaid        Boolean        @default(false)
+  paidAt        DateTime?
+  isRecurring   Boolean        @default(true)
+  frequency     BillFrequency  @default(MONTHLY)
+  nextDueDate   DateTime
+  notes         String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  // V2 Phase 2 FK — added in migration 2
+  transactionId String?
+  transaction   Transaction?   @relation(fields: [transactionId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([userId, nextDueDate])
+}
+
+model BookmarkCollection {
+  id        String              @id @default(cuid())
+  userId    String
+  name      String
+  icon      String              @default("folder")
+  color     String              @default("#6366f1")
+  createdAt DateTime            @default(now())
+  bookmarks ResourceBookmark[]
+
+  @@index([userId])
+}
+
+model Habit {
+  id         String     @id @default(cuid())
+  userId     String
+  name       String
+  icon       String     @default("star")
+  color      String     @default("#6366f1")
+  targetDays Json       @default("[]")  // number[] — days of week (0=Sun..6=Sat)
+  isDefault  Boolean    @default(false)
+  isActive   Boolean    @default(true)
+  createdAt  DateTime   @default(now())
+  logs       HabitLog[]
+
+  @@index([userId])
+}
+
+model UserStreak {
+  id               String    @id @default(cuid())
+  userId           String    @unique
+  currentStreak    Int       @default(0)
+  longestStreak    Int       @default(0)
+  lastActivityDate DateTime?
+
+  @@index([userId])
+}
+
+model FinancialTask {
+  id          String       @id @default(cuid())
+  userId      String
+  title       String
+  description String?
+  status      TaskStatus   @default(BACKLOG)
+  priority    TaskPriority @default(MEDIUM)
+  dueDate     DateTime?
+  labels      Json         @default("[]")  // string[]
+  sortOrder   Int          @default(0)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([userId])
+  @@index([userId, status])
+}
+
+// ─── V2 new models — Phase 2 (FK-dependent) ──────────────────────────────────
+
+model GoalMilestone {
+  id          String      @id @default(cuid())
+  goalId      String
+  userId      String
+  title       String
+  targetDate  DateTime
+  isCompleted Boolean     @default(false)
+  createdAt   DateTime    @default(now())
+
+  goal        SavingsGoal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+
+  @@index([goalId])
+  @@index([userId])
+}
+
+model HabitLog {
+  id        String   @id @default(cuid())
+  habitId   String
+  userId    String
+  date      DateTime @db.Date
+  completed Boolean  @default(true)
+
+  habit     Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)
+
+  @@unique([habitId, date])
+  @@index([userId, date])
+}
+
+model Receipt {
+  id            String       @id @default(cuid())
+  userId        String
+  transactionId String?
+  fileName      String
+  fileKey       String       @unique  // S3 object key
+  fileSize      Int
+  mimeType      String
+  description   String?
+  deletedAt     DateTime?
+  createdAt     DateTime     @default(now())
+
+  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([userId, transactionId])
+}
+
+model ResourceBookmark {
+  id           String              @id @default(cuid())
+  userId       String
+  title        String
+  url          String
+  description  String?
+  favicon      String?
+  collectionId String?
+  tags         Json                @default("[]")  // string[]
+  isFavorite   Boolean             @default(false)
+  isArchived   Boolean             @default(false)
+  deletedAt    DateTime?
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+
+  collection   BookmarkCollection? @relation(fields: [collectionId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([userId, isFavorite])
+  @@index([userId, isArchived])
+  @@index([userId, deletedAt])
+}
+
+// ─── V3 new models ────────────────────────────────────────────────────────────
+
+model Tag {
+  id     String  @id @default(cuid())
+  userId String
+  name   String
+  color  String?
+
+  transactions TransactionTag[]
+
+  @@unique([userId, name])
+  @@index([userId])
+}
+
+model TransactionTag {
+  transactionId String
+  tagId         String
+
+  transaction Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  tag         Tag         @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([transactionId, tagId])
+}
+
+model Goal {
+  id            String    @id @default(cuid())
+  userId        String
+  name          String
+  targetAmount  Decimal   @db.Decimal(15, 2)
+  currency      String    @default("ARS")
+  currentAmount Decimal   @db.Decimal(15, 2) @default(0)
+  deadline      DateTime?
+  description   String?
+  isCompleted   Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  contributions GoalContribution[]
+
+  @@index([userId])
+}
+
+model GoalContribution {
+  id      String   @id @default(cuid())
+  goalId  String
+  userId  String
+  amount  Decimal  @db.Decimal(15, 2)
+  date    DateTime
+  note    String?
+
+  goal Goal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+
+  @@index([goalId])
+  @@index([userId])
+}
+
+model NetWorthSnapshot {
+  id        String   @id @default(cuid())
+  userId    String
+  date      DateTime
+  note      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items NetWorthItem[]
+
+  @@index([userId, date])
+}
+
+model NetWorthItem {
+  id         String           @id @default(cuid())
+  snapshotId String
+  name       String
+  type       NetWorthItemType
+  amount     Decimal          @db.Decimal(15, 2)
+  currency   String           @default("ARS")
+
+  snapshot NetWorthSnapshot @relation(fields: [snapshotId], references: [id], onDelete: Cascade)
+
+  @@index([snapshotId])
+}
+
+model AIInsight {
+  id          String   @id @default(cuid())
+  userId      String
+  month       Int
+  year        Int
+  content     String
+  generatedAt DateTime @default(now())
+
+  @@unique([userId, month, year])
+  @@index([userId])
+}
