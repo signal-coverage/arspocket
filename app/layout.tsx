@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getLocale } from "next-intl/server";
+import { Bricolage_Grotesque, Onest, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next"
+import { Toaster } from "sonner";
 import { LocatorSetup } from "@/components/locator-setup";
 import { TooltipProvider } from "@/components/ui";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "sonner";
-import { Bricolage_Grotesque, Onest, Geist_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 
@@ -64,6 +65,7 @@ export const RootLayout = async ({
             </TooltipProvider>
           </NextIntlClientProvider>
         </ClerkProvider>
+        <Analytics />
       </body>
     </html>
   );
