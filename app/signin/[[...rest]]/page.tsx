@@ -1,5 +1,6 @@
 import { SignIn } from "@clerk/nextjs";
-import { LeafIcon, CheckIcon, ArrowLeftIcon } from "lucide-react";
+import { CheckIcon, ArrowLeftIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { Loader } from "@/components/ui";
 
@@ -28,9 +29,7 @@ export const SignInPage = () => (
       />
 
       <Link href="/" className="flex items-center gap-2.5 w-fit">
-        <div className="w-9 h-9 rounded-xl bg-[#008080] flex items-center justify-center shadow-sm">
-          <LeafIcon className="w-5 h-5 text-white" />
-        </div>
+        <Image src="/logo.png" alt="ARSPocket" width={36} height={36} className="rounded-xl" />
         <span className="font-semibold text-white text-lg">ARSPocket</span>
       </Link>
 
