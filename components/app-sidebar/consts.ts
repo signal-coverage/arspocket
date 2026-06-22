@@ -7,6 +7,14 @@ import {
   TrendingUp,
   CalendarDays,
   BarChart3,
+  Receipt,
+  Wallet,
+  Repeat2,
+  BookOpen,
+  Map,
+  ScanLine,
+  CheckSquare,
+  Sparkles,
 } from "lucide-react";
 
 export const data = {
@@ -33,6 +41,16 @@ export const data = {
           url: "/outcome",
         },
         {
+          title: "Recurring",
+          icon: Repeat2,
+          url: "/recurring",
+        },
+        {
+          title: "Bills",
+          icon: Receipt,
+          url: "/bills",
+        },
+        {
           title: "Savings",
           icon: PiggyBank,
           url: "/savings",
@@ -55,6 +73,21 @@ export const data = {
           url: "/goals",
         },
         {
+          title: "Budget",
+          icon: Wallet,
+          url: "/budget",
+        },
+        {
+          title: "Habits",
+          icon: Sparkles,
+          url: "/habits",
+        },
+        {
+          title: "Tasks",
+          icon: CheckSquare,
+          url: "/tasks",
+        },
+        {
           title: "Net Worth",
           icon: TrendingUp,
           url: "/net-worth",
@@ -62,7 +95,7 @@ export const data = {
       ],
     },
     {
-      title: "Reports",
+      title: "Utilities",
       url: "/reports",
       icon: BarChart3,
       items: [
@@ -70,6 +103,21 @@ export const data = {
           title: "Reports",
           icon: BarChart3,
           url: "/reports",
+        },
+        {
+          title: "Map",
+          icon: Map,
+          url: "/map",
+        },
+        {
+          title: "Receipts",
+          icon: ScanLine,
+          url: "/receipts",
+        },
+        {
+          title: "Library",
+          icon: BookOpen,
+          url: "/library",
         },
       ],
     },

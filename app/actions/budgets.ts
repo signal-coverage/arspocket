@@ -3,7 +3,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
-import { BudgetPeriod, TransactionType } from "@prisma/client";
+import { BudgetPeriod, NotificationType, TransactionType } from "@prisma/client";
 import { dateRangeForPeriod } from "@/lib/dates";
 
 export type BudgetWithSpend = {
@@ -168,6 +168,19 @@ export const checkAndSendBudgetAlert = async (
       where: { id: budget.id },
       data: { alertSentAt100: new Date() },
     });
+    try {
+      await prisma.notification.create({
+        data: {
+          userId,
+          type: NotificationType.BUDGET_ALERT,
+          title: "Budget Alert — 100%",
+          body: `You have reached 100% of your ${category} budget for this month.`,
+          metadata: { category, alertLevel: "100", month, year },
+        },
+      });
+    } catch {
+      // Best-effort — notification failure must not break the main flow
+    }
     return "100";
   }
 
@@ -176,6 +189,19 @@ export const checkAndSendBudgetAlert = async (
       where: { id: budget.id },
       data: { alertSentAt80: new Date() },
     });
+    try {
+      await prisma.notification.create({
+        data: {
+          userId,
+          type: NotificationType.BUDGET_ALERT,
+          title: "Budget Alert — 80%",
+          body: `You have used 80% of your ${category} budget for this month.`,
+          metadata: { category, alertLevel: "80", month, year },
+        },
+      });
+    } catch {
+      // Best-effort — notification failure must not break the main flow
+    }
     return "80";
   }
 

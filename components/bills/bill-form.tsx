@@ -19,16 +19,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { EXPENSE_CATEGORIES } from "@/lib/categories";
+import { getMergedCategories } from "@/lib/categories";
 import { createBill } from "@/app/actions/bills";
 import { useTranslations } from "next-intl";
 
 type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  userCategories?: Array<{ name: string }>;
 };
 
-export const BillForm = ({ open, onOpenChange }: Props) => {
+export const BillForm = ({ open, onOpenChange, userCategories = [] }: Props) => {
   const t = useTranslations("bills");
   const tc = useTranslations("common");
   const [isPending, startTransition] = useTransition();
@@ -122,7 +123,7 @@ export const BillForm = ({ open, onOpenChange }: Props) => {
                 <SelectValue placeholder={t("selectCategory")} />
               </SelectTrigger>
               <SelectContent>
-                {EXPENSE_CATEGORIES.map((c) => (
+                {getMergedCategories("outcome", userCategories).map((c) => (
                   <SelectItem key={c} value={c}>
                     {c}
                   </SelectItem>

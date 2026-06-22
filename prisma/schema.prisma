@@ -94,6 +94,10 @@ model Transaction {
   // V3 relations
   tags                TransactionTag[]
 
+  // Low-priority: optional link to a savings goal for auto-contribute
+  linkedGoalId        String?
+  linkedGoal          Goal?               @relation(fields: [linkedGoalId], references: [id], onDelete: SetNull)
+
   @@index([userId])
   @@index([userId, type])
 }
@@ -287,6 +291,12 @@ model ResourceBookmark {
   @@index([userId, deletedAt])
 }
 
+// ─── V4 new enums ─────────────────────────────────────────────────────────────
+
+enum NotificationType {
+  BUDGET_ALERT
+}
+
 // ─── V3 new models ────────────────────────────────────────────────────────────
 
 model Tag {
@@ -324,7 +334,8 @@ model Goal {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
-  contributions GoalContribution[]
+  contributions      GoalContribution[]
+  linkedTransactions Transaction[]
 
   @@index([userId])
 }
@@ -379,4 +390,32 @@ model AIInsight {
 
   @@unique([userId, month, year])
   @@index([userId])
+}
+
+// ─── V4 new models ────────────────────────────────────────────────────────────
+
+model Category {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  type      String
+  color     String?
+  createdAt DateTime @default(now())
+
+  @@unique([userId, name])
+  @@index([userId])
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  type      NotificationType
+  title     String
+  body      String
+  isRead    Boolean          @default(false)
+  metadata  Json?
+  createdAt DateTime         @default(now())
+
+  @@index([userId, isRead])
+  @@index([userId, createdAt])
 }

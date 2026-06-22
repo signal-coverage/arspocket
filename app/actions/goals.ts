@@ -11,12 +11,31 @@ export const getGoals = async () => {
 
   const goals = await prisma.goal.findMany({
     where: { userId },
-    include: { contributions: true },
+    include: {
+      contributions: true,
+      linkedTransactions: {
+        where: { isRecurring: true },
+        select: {
+          id: true,
+          description: true,
+          amount: true,
+          recurringFrequency: true,
+        },
+        orderBy: { createdAt: "desc" },
+      },
+    },
     orderBy: { createdAt: "desc" },
   });
 
   return goals.map((g) => ({
     ...g,
+    targetAmount: Number(g.targetAmount),
+    currentAmount: Number(g.currentAmount),
+    linkedTransactions: g.linkedTransactions.map((t) => ({
+      ...t,
+      amount: Number(t.amount),
+      recurringFrequency: t.recurringFrequency as string | null,
+    })),
     percentage: Math.min(
       Number(g.targetAmount) > 0
         ? (Number(g.currentAmount) / Number(g.targetAmount)) * 100

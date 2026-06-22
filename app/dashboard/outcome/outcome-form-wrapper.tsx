@@ -11,9 +11,10 @@ import {
 
 interface OutcomeFormWrapperProps {
   onSuccess?: () => void;
+  userCategories?: Array<{ name: string }>;
 }
 
-export const OutcomeFormWrapper = ({ onSuccess }: OutcomeFormWrapperProps) => {
+export const OutcomeFormWrapper = ({ onSuccess, userCategories }: OutcomeFormWrapperProps) => {
   const t = useTranslations("outcome");
 
   const handleSubmit = async (data: TransactionFormValues) => {
@@ -22,5 +23,5 @@ export const OutcomeFormWrapper = ({ onSuccess }: OutcomeFormWrapperProps) => {
     onSuccess?.();
   };
 
-  return <TransactionForm type="outcome" onSubmit={handleSubmit} />;
+  return <TransactionForm type="outcome" onSubmit={handleSubmit} userCategories={userCategories} />;
 };

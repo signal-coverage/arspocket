@@ -11,9 +11,10 @@ import {
 
 interface IncomeFormWrapperProps {
   onSuccess?: () => void;
+  userCategories?: Array<{ name: string }>;
 }
 
-export const IncomeFormWrapper = ({ onSuccess }: IncomeFormWrapperProps) => {
+export const IncomeFormWrapper = ({ onSuccess, userCategories }: IncomeFormWrapperProps) => {
   const t = useTranslations("income");
 
   const handleSubmit = async (data: TransactionFormValues) => {
@@ -22,5 +23,5 @@ export const IncomeFormWrapper = ({ onSuccess }: IncomeFormWrapperProps) => {
     onSuccess?.();
   };
 
-  return <TransactionForm type="income" onSubmit={handleSubmit} />;
+  return <TransactionForm type="income" onSubmit={handleSubmit} userCategories={userCategories} />;
 };

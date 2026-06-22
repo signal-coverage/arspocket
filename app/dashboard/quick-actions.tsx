@@ -21,14 +21,14 @@ export const QuickActions = () => {
 
   return (
     <>
-      <div className="flex items-center gap-2">
-        <Button size="lg" variant="outline" onClick={() => setOpen("income")}>
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+        <Button size="lg" onClick={() => setOpen("income")}>
           {t("addIncome")}
         </Button>
-        <Button size="lg" variant="outline" onClick={() => setOpen("outcome")}>
+        <Button size="lg" onClick={() => setOpen("outcome")}>
           {t("addExpense")}
         </Button>
-        <Button size="lg" variant="outline" onClick={() => setOpen("savings")}>
+        <Button size="lg" onClick={() => setOpen("savings")}>
           {t("newGoal")}
         </Button>
       </div>

@@ -171,6 +171,50 @@
   --sidebar-ring: #008080;
 }
 
+@media print {
+  /* Hide navigation and interactive elements */
+  [data-sidebar],
+  aside,
+  nav,
+  [class*="sidebar"],
+  [class*="Sidebar"],
+  .navbar,
+  [class*="navbar"],
+  [class*="Navbar"],
+  [data-slot="sidebar"],
+  /* Hide filter controls, date pickers, selectors */
+  [class*="DateRange"],
+  [class*="CurrencySelector"],
+  [class*="date-range"],
+  [class*="currency-selector"],
+  /* Hide export links and action buttons */
+  a[href*="/api/export"],
+  [class*="print-button"],
+  /* Hide year navigation links in annual view */
+  a[href*="year="] {
+    display: none !important;
+  }
+
+  /* Ensure main content fills the page */
+  body {
+    background: white !important;
+  }
+
+  /* Cards print cleanly */
+  [class*="Card"],
+  [data-slot="card"] {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    break-inside: avoid;
+  }
+
+  /* Page break between major sections */
+  .print-page-break {
+    page-break-before: always;
+    break-before: page;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

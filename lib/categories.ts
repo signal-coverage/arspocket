@@ -44,3 +44,12 @@ export const ALL_CATEGORIES: readonly string[] = [
  * Alias exported as CATEGORIES for backward-compat with any existing usage.
  */
 export const CATEGORIES = ALL_CATEGORIES;
+
+export const getMergedCategories = (
+  type: "income" | "outcome",
+  userCategories: Array<{ name: string }>,
+): string[] => {
+  const base = type === "income" ? INCOME_CATEGORIES : EXPENSE_CATEGORIES;
+  const names = new Set([...base, ...userCategories.map((c) => c.name)]);
+  return Array.from(names).sort();
+};

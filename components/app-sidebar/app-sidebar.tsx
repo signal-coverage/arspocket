@@ -1,11 +1,11 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import {
-  Leaf,
   LayoutDashboard,
   MoveUpRight,
   MoveDownLeft,
@@ -159,9 +159,13 @@ export const AppSidebar = ({
     <Sidebar collapsible="offcanvas" className="lg:border-r-0!" {...props}>
       <SidebarHeader className="p-4 lg:p-5 pb-0">
         <div className="flex items-center gap-2">
-          <div className="flex size-7 items-center justify-center rounded-md bg-primary text-primary-foreground">
-            <Leaf className="size-4" />
-          </div>
+          <Image
+            src="/logo.png"
+            alt="ARSPocket"
+            width={28}
+            height={28}
+            className="rounded-md"
+          />
           <span className="font-semibold text-base">ARSPocket</span>
         </div>
       </SidebarHeader>

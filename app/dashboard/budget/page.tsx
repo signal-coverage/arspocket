@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PieChart } from "lucide-react";
 import { getBudgetsWithSpend } from "@/app/actions/budgets";
+import { getCategories } from "@/app/actions/categories";
 import { formatCurrency } from "@/lib/format";
 import {
   Card,
@@ -17,7 +18,10 @@ export const metadata: Metadata = { title: "Budget — ARSPocket" };
 
 export const BudgetPage = async () => {
   const t = await getTranslations("budget");
-  const budgets = await getBudgetsWithSpend();
+  const [budgets, userCategories] = await Promise.all([
+    getBudgetsWithSpend(),
+    getCategories("outcome"),
+  ]);
 
   const totalBudget = budgets.reduce((acc, b) => acc + b.amount, 0);
   const totalSpent = budgets.reduce((acc, b) => acc + b.spent, 0);
@@ -34,7 +38,7 @@ export const BudgetPage = async () => {
           <h1 className="text-xl font-semibold">{t("title")}</h1>
           <p className="text-sm text-muted-foreground">{t("pageSubtitle")}</p>
         </div>
-        <BudgetPageClient />
+        <BudgetPageClient budgets={budgets} userCategories={userCategories} />
       </div>
 
       {/* KPI summary cards */}

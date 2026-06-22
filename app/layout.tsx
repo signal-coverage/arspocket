@@ -27,6 +27,7 @@ const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
 export const metadata: Metadata = {
   title: "ARSPocket — Financial Freedom",
   description: "Track expenses, grow savings and build wealth with confidence.",
+  manifest: "/manifest.webmanifest",
 };
 
 export const RootLayout = async ({
@@ -49,7 +50,7 @@ export const RootLayout = async ({
       )}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <LocatorSetup />
         <ClerkProvider
           appearance={{ cssLayerName: "clerk" }}

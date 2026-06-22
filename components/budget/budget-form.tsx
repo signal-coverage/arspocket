@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { EXPENSE_CATEGORIES } from "@/lib/categories";
+import { getMergedCategories } from "@/lib/categories";
 import {
   createBudget,
   updateBudget,
@@ -30,9 +30,10 @@ type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   editBudget?: BudgetWithSpend | null;
+  userCategories?: Array<{ name: string }>;
 };
 
-export const BudgetForm = ({ open, onOpenChange, editBudget }: Props) => {
+export const BudgetForm = ({ open, onOpenChange, editBudget, userCategories = [] }: Props) => {
   const t = useTranslations("budget");
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -109,7 +110,7 @@ export const BudgetForm = ({ open, onOpenChange, editBudget }: Props) => {
                   <SelectValue placeholder={t("selectCategory")} />
                 </SelectTrigger>
                 <SelectContent>
-                  {EXPENSE_CATEGORIES.map((c) => (
+                  {getMergedCategories("outcome", userCategories).map((c) => (
                     <SelectItem key={c} value={c}>
                       {c}
                     </SelectItem>

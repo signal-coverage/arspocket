@@ -17,23 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui";
-
-const INCOME_CATEGORIES = [
-  "Salary",
-  "Freelance",
-  "Investment",
-  "Gift",
-  "Other",
-] as const;
-const OUTCOME_CATEGORIES = [
-  "Food",
-  "Transport",
-  "Housing",
-  "Entertainment",
-  "Health",
-  "Education",
-  "Other",
-] as const;
+import { getMergedCategories } from "@/lib/categories";
 
 const transactionSchema = z.object({
   amount: z.coerce.number().positive("mustBePositive"),
@@ -47,13 +31,14 @@ export type TransactionFormValues = z.infer<typeof transactionSchema>;
 interface TransactionFormProps {
   type: "income" | "outcome";
   onSubmit: (data: TransactionFormValues) => void | Promise<void>;
+  userCategories?: Array<{ name: string }>;
 }
 
-export const TransactionForm = ({ type, onSubmit }: TransactionFormProps) => {
+export const TransactionForm = ({ type, onSubmit, userCategories = [] }: TransactionFormProps) => {
   const tCommon = useTranslations("common");
   const tForm = useTranslations("transactionForm");
 
-  const categories = type === "income" ? INCOME_CATEGORIES : OUTCOME_CATEGORIES;
+  const categories = getMergedCategories(type, userCategories);
   const today = new Date().toISOString().split("T")[0];
 
   const [values, setValues] = useState({

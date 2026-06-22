@@ -290,7 +290,8 @@
     "noBillsOnDay": "Sin facturas para este día.",
     "clickDayToView": "Hacé click en un día para ver las facturas.",
     "billsThisMonth": "Facturas del Mes",
-    "noBillsYet": "No hay facturas agregadas todavía."
+    "noBillsYet": "No hay facturas agregadas todavía.",
+    "dueDayCalendar": "Día {day}"
   },
   "goals": {
     "title": "Línea de Metas",
@@ -557,5 +558,196 @@
     "saving": "Guardando...",
     "saveSnapshot": "Guardar Registro",
     "allItemsValid": "Todos los ítems necesitan un nombre y un monto positivo."
+  },
+  "landing": {
+    "nav": {
+      "features": "Características",
+      "howItWorks": "Cómo funciona",
+      "testimonials": "Testimonios",
+      "faq": "Preguntas frecuentes",
+      "signIn": "Iniciar sesión",
+      "getStartedFree": "Comenzar gratis",
+      "goToDashboard": "Ir al panel"
+    },
+    "hero": {
+      "badge": "Más de 10.000 usuarios confían en nosotros",
+      "headline": "Tomá el control de tus finanzas con confianza.",
+      "headlineHighlight": "finanzas",
+      "subheadline": "Seguí tus ingresos, gastos, ahorros, deudas y metas financieras en una plataforma simple pensada para la claridad.",
+      "getStartedFree": "Comenzar gratis",
+      "goToDashboard": "Ir al panel",
+      "viewDemo": "Ver demo",
+      "noCreditCard": "Sin tarjeta de crédito · Plan gratuito para siempre · Cancelá cuando quieras",
+      "headlinePrefix": "Tomá el control de tus",
+      "headlineSuffix": "con confianza.",
+      "goodMorning": "Buenos días 👋",
+      "totalBalance": "Balance total",
+      "vsLastMonth": "+12.4% vs el mes pasado",
+      "income": "Ingresos",
+      "expenses": "Gastos",
+      "vacationFund": "Fondo de vacaciones",
+      "recent": "RECIENTES",
+      "coffee": "Café",
+      "salary": "Sueldo",
+      "rent": "Alquiler",
+      "monthlyIncome": "Ingresos del mes",
+      "monthlyIncomeGrowth": "↑ 8.2% vs el mes pasado",
+      "savings": "Ahorros",
+      "vacationFundLabel": "Fondo de vacaciones",
+      "goalReached": "¡Meta alcanzada!",
+      "emergencyFund": "Fondo de emergencia",
+      "emergencyFundSaved": "$5.000 guardados ✓"
+    },
+    "features": {
+      "sectionLabel": "Características",
+      "headline": "Todo lo que necesitás para gestionar tu dinero",
+      "learnMore": "Ver más",
+      "items": [
+        {
+          "title": "Seguimiento de Ingresos",
+          "description": "Monitoreá cada sueldo, pago freelance e ingreso pasivo en tiempo real. Obtené una imagen clara de lo que entra y de dónde viene."
+        },
+        {
+          "title": "Gestión de Gastos",
+          "description": "Categorizá tus gastos automáticamente. Detectá suscripciones olvidadas, seguí hábitos diarios y entendé exactamente adónde va tu dinero cada mes."
+        },
+        {
+          "title": "Metas de Ahorro",
+          "description": "Definí un objetivo, establecé una fecha límite y seguí el progreso de cada meta. Ya sea un fondo de emergencia o unas vacaciones soñadas, ARSPocket te mantiene en curso."
+        }
+      ]
+    },
+    "benefits": {
+      "sectionLabel": "Por qué ARSPocket",
+      "headline": "Diseñado según la forma en que realmente pensás sobre el dinero",
+      "items": [
+        {
+          "title": "Claridad Financiera",
+          "description": "Dejá de adivinar adónde va tu dinero. Obtenés una vista unificada de cada transacción, cuenta y meta, todo en un panel que se actualiza en tiempo real."
+        },
+        {
+          "title": "Planificación de Metas",
+          "description": "Dividí grandes ambiciones financieras en hitos alcanzables. Establecé objetivos de ahorro, seguí las contribuciones y celebrá cada avance."
+        },
+        {
+          "title": "Gestión de Deudas",
+          "description": "Ves tu panorama completo de deudas en un solo lugar. Seguí saldos, tasas de interés y plazos de pago para reducir pasivos más rápido."
+        }
+      ]
+    },
+    "faq": {
+      "sectionLabel": "Preguntas frecuentes",
+      "headline": "Preguntas que nos hacen seguido",
+      "items": [
+        {
+          "q": "¿Mis datos están seguros?",
+          "a": "Sí. ARSPocket utiliza cifrado de extremo a extremo para todos los datos sensibles y sigue estándares de seguridad bancaria. Tu información financiera nunca se comparte con terceros sin tu consentimiento explícito."
+        },
+        {
+          "q": "¿Puedo registrar deudas?",
+          "a": "Por supuesto. ARSPocket te permite agregar tarjetas de crédito, préstamos personales, hipotecas y cualquier otro pasivo. Podés monitorear saldos, tasas de interés, pagos mínimos y fechas de cancelación proyectadas."
+        },
+        {
+          "q": "¿Puedo gestionar metas de ahorro?",
+          "a": "Sí. Podés crear tantas metas de ahorro como necesitás: fondo de emergencia, vacaciones, compra de vivienda, jubilación o lo que quieras. Establecé un monto objetivo, una fecha límite y seguí tu progreso en tiempo real."
+        },
+        {
+          "q": "¿Hay un plan gratuito?",
+          "a": "ARSPocket ofrece un plan gratuito con seguimiento básico de ingresos y gastos, hasta tres metas de ahorro y un historial de transacciones de 6 meses. Los planes pagos desbloquean historial ilimitado, reportes avanzados, automatización de metas y más."
+        },
+        {
+          "q": "¿Puedo exportar mis reportes?",
+          "a": "Sí. Podés exportar tu historial de transacciones y resúmenes mensuales como CSV o PDF desde la sección de Reportes. Los rangos de fechas personalizados están disponibles en los planes Pro y Business."
+        }
+      ]
+    },
+    "stats": {
+      "items": [
+        {
+          "label": "Total registrado",
+          "sub": "Entre todos los usuarios"
+        },
+        {
+          "label": "Usuarios activos",
+          "sub": "Y creciendo cada día"
+        },
+        {
+          "label": "Tasa de satisfacción",
+          "sub": "Según reseñas de usuarios"
+        },
+        {
+          "label": "Países cubiertos",
+          "sub": "Cobertura global"
+        }
+      ]
+    },
+    "testimonials": {
+      "sectionLabel": "Testimonios",
+      "headline": "Personas que cambiaron su relación con el dinero",
+      "items": [
+        {
+          "review": "ARSPocket cambió por completo cómo me relaciono con mis finanzas. Antes evitaba revisar mis cuentas; ahora abro la app todas las mañanas."
+        },
+        {
+          "review": "Registrar ingresos variables era una pesadilla. Ahora puedo ver exactamente qué entra de cada cliente y planificar en consecuencia."
+        },
+        {
+          "review": "La función de metas de ahorro es verdaderamente increíble. Alcancé mi objetivo de fondo de emergencia tres meses antes de lo planeado."
+        },
+        {
+          "review": "Por fin una app que maneja tanto mis gastos personales como los del negocio sin complicarse. Limpia, rápida y confiable."
+        },
+        {
+          "review": "El panel es hermoso. Se lo mostré a colegas y la mitad se registró en el acto. La mejor app financiera que usé."
+        },
+        {
+          "review": "Incluso trabajando profesionalmente en finanzas, uso ARSPocket a diario para mis cuentas personales. La experiencia de usuario no tiene igual."
+        }
+      ]
+    },
+    "socialProof": {
+      "trustedBy": "Utilizado por equipos en empresas líderes"
+    },
+    "ctaFinal": {
+      "sectionLabel": "Comenzá hoy",
+      "headline": "Empezá a construir mejores hábitos financieros hoy.",
+      "subheadline": "Unite a miles de usuarios que gestionan su dinero de forma más inteligente. Gratis para siempre, sin tarjeta de crédito.",
+      "getStartedFree": "Comenzar gratis",
+      "goToDashboard": "Ir al panel",
+      "contactSales": "Contactar ventas"
+    },
+    "dashboardPreview": {
+      "sectionLabel": "Panel",
+      "headline": "Toda tu vida financiera en una sola vista"
+    },
+    "footer": {
+      "tagline": "Seguí ingresos, gastos, ahorros y metas, todo en un solo lugar.",
+      "copyright": "Todos los derechos reservados.",
+      "builtWith": "Hecho con ♥ para la claridad financiera",
+      "sections": {
+        "Product": "Producto",
+        "Company": "Empresa",
+        "Resources": "Recursos",
+        "Legal": "Legal"
+      },
+      "links": {
+        "Features": "Características",
+        "Pricing": "Precios",
+        "Changelog": "Novedades",
+        "Roadmap": "Hoja de ruta",
+        "About": "Nosotros",
+        "Blog": "Blog",
+        "Careers": "Empleos",
+        "Press": "Prensa",
+        "Documentation": "Documentación",
+        "Help Center": "Centro de ayuda",
+        "Status": "Estado",
+        "Community": "Comunidad",
+        "Privacy Policy": "Política de privacidad",
+        "Terms of Service": "Términos de servicio",
+        "Cookie Policy": "Política de cookies",
+        "Security": "Seguridad"
+      }
+    }
   }
 }

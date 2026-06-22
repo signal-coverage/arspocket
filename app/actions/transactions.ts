@@ -17,47 +17,86 @@ export const createTransaction = async (data: {
   isRecurring?: boolean;
   recurringFrequency?: string;
   recurringEndDate?: string;
+  linkedGoalId?: string;
 }) => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
 
-  const transaction = await prisma.transaction.create({
-    data: {
-      userId,
-      type:
-        data.type === "income"
-          ? TransactionType.INCOME
-          : TransactionType.OUTCOME,
-      amount: data.amount,
-      description: data.description,
-      category: data.category,
-      date: new Date(data.date),
-      isRecurring: data.isRecurring ?? false,
-      recurringFrequency: (data.recurringFrequency as never) ?? null,
-      recurringEndDate: data.recurringEndDate
-        ? new Date(data.recurringEndDate)
-        : null,
-      ...(data.isRecurring && data.recurringFrequency
-        ? {
-            nextDueDate: computeNextDueDateFromString(
-              new Date(data.date),
-              data.recurringFrequency,
-            ),
-          }
-        : {}),
-      ...(data.tagIds?.length
-        ? {
-            tags: {
-              create: data.tagIds.map((tagId) => ({ tagId })),
-            },
-          }
-        : {}),
-    },
-  });
+  const transactionData = {
+    userId,
+    type:
+      data.type === "income"
+        ? TransactionType.INCOME
+        : TransactionType.OUTCOME,
+    amount: data.amount,
+    description: data.description,
+    category: data.category,
+    date: new Date(data.date),
+    isRecurring: data.isRecurring ?? false,
+    recurringFrequency: (data.recurringFrequency as never) ?? null,
+    recurringEndDate: data.recurringEndDate
+      ? new Date(data.recurringEndDate)
+      : null,
+    ...(data.isRecurring && data.recurringFrequency
+      ? {
+          nextDueDate: computeNextDueDateFromString(
+            new Date(data.date),
+            data.recurringFrequency,
+          ),
+        }
+      : {}),
+    ...(data.tagIds?.length
+      ? {
+          tags: {
+            create: data.tagIds.map((tagId) => ({ tagId })),
+          },
+        }
+      : {}),
+    ...(data.linkedGoalId ? { linkedGoalId: data.linkedGoalId } : {}),
+  };
+
+  let transactionId: string;
+
+  if (data.linkedGoalId) {
+    // Atomic: create transaction + goal contribution + update goal amount
+    const goalId = data.linkedGoalId;
+    await prisma.$transaction(async (tx) => {
+      const transaction = await tx.transaction.create({ data: transactionData });
+      transactionId = transaction.id;
+
+      await tx.goalContribution.create({
+        data: {
+          goalId,
+          userId,
+          amount: data.amount,
+          date: new Date(data.date),
+          note: "Auto-contribute",
+        },
+      });
+
+      const goal = await tx.goal.findUnique({
+        where: { id: goalId, userId },
+        select: { currentAmount: true, targetAmount: true },
+      });
+      if (!goal) throw new Error("Goal not found");
+
+      const newAmount = Number(goal.currentAmount) + data.amount;
+      const isCompleted = newAmount >= Number(goal.targetAmount);
+
+      await tx.goal.update({
+        where: { id: goalId },
+        data: { currentAmount: newAmount, isCompleted },
+      });
+    });
+  } else {
+    const transaction = await prisma.transaction.create({ data: transactionData });
+    transactionId = transaction.id;
+  }
 
   revalidatePath("/dashboard");
   revalidatePath("/dashboard/income");
   revalidatePath("/dashboard/outcome");
+  revalidatePath("/dashboard/goals");
 
   // Check budget alerts for outcome transactions (best-effort)
   let alertLevel: "80" | "100" | null = null;
@@ -75,7 +114,19 @@ export const createTransaction = async (data: {
     }
   }
 
-  return { id: transaction.id, alertLevel };
+  return { id: transactionId!, alertLevel };
+};
+
+export const unlinkGoalTransaction = async (transactionId: string) => {
+  const { userId } = await auth();
+  if (!userId) throw new Error("Unauthorized");
+
+  await prisma.transaction.update({
+    where: { id: transactionId, userId },
+    data: { linkedGoalId: null },
+  });
+
+  revalidatePath("/dashboard/goals");
 };
 
 function computeNextDueDateFromString(from: Date, frequency: string): Date {
@@ -102,7 +153,13 @@ function computeNextDueDateFromString(from: Date, frequency: string): Date {
 
 export const getTransactions = async (
   type?: "income" | "outcome",
-  filters?: { search?: string; category?: string; tagId?: string },
+  filters?: {
+    search?: string;
+    category?: string;
+    tagId?: string;
+    isRecurring?: boolean;
+    isAnomaly?: boolean;
+  },
 ) => {
   const { userId } = await auth();
   if (!userId) return [];
@@ -123,6 +180,12 @@ export const getTransactions = async (
         ? { description: { contains: filters.search, mode: "insensitive" } }
         : {}),
       ...(filters?.tagId ? { tags: { some: { tagId: filters.tagId } } } : {}),
+      ...(filters?.isRecurring !== undefined
+        ? { isRecurring: filters.isRecurring }
+        : {}),
+      ...(filters?.isAnomaly !== undefined
+        ? { isAnomaly: filters.isAnomaly }
+        : {}),
     },
     include: {
       tags: {
@@ -216,9 +279,10 @@ export const deleteTransaction = async (id: string) => {
   revalidatePath("/dashboard/outcome");
 };
 
-export const getDashboardStats = async () => {
+export const getDashboardStats = async (baseCurrency?: string) => {
   const { userId } = await auth();
-  if (!userId) return { balance: 0, monthlyIncome: 0, monthlyExpenses: 0 };
+  if (!userId)
+    return { balance: 0, monthlyIncome: 0, monthlyExpenses: 0, ratesStale: false };
 
   const now = new Date();
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -248,7 +312,17 @@ export const getDashboardStats = async () => {
     .filter((t) => t.type === TransactionType.OUTCOME)
     .reduce((acc, t) => acc + Number(t.amount), 0);
 
-  return { balance, monthlyIncome, monthlyExpenses };
+  if (baseCurrency && baseCurrency !== "ARS") {
+    const { rates, stale } = await getFXRates();
+    return {
+      balance: normalizeToBase(balance, "ARS", baseCurrency, rates),
+      monthlyIncome: normalizeToBase(monthlyIncome, "ARS", baseCurrency, rates),
+      monthlyExpenses: normalizeToBase(monthlyExpenses, "ARS", baseCurrency, rates),
+      ratesStale: stale,
+    };
+  }
+
+  return { balance, monthlyIncome, monthlyExpenses, ratesStale: false };
 };
 
 export const getDateRangeReport = async (
@@ -331,6 +405,82 @@ export const getMonthlyReport = async (
   const from = new Date(year, month - 1, 1);
   const to = new Date(year, month, 0, 23, 59, 59);
   return getDateRangeReport(from, to, baseCurrency);
+};
+
+export type AnnualReportMonth = {
+  month: number;
+  income: number;
+  expenses: number;
+  net: number;
+};
+
+export type AnnualReport = {
+  year: number;
+  months: AnnualReportMonth[];
+  totalIncome: number;
+  totalExpenses: number;
+  totalNet: number;
+};
+
+export const getAnnualReport = async (
+  year: number,
+  baseCurrency?: string,
+): Promise<AnnualReport | null> => {
+  const { userId } = await auth();
+  if (!userId) return null;
+
+  const from = new Date(year, 0, 1);
+  const to = new Date(year, 11, 31, 23, 59, 59);
+
+  const transactions = await prisma.transaction.findMany({
+    where: { userId, date: { gte: from, lte: to } },
+    select: { type: true, amount: true, date: true },
+  });
+
+  // Initialize 12 months
+  const monthMap: Record<number, { income: number; expenses: number }> = {};
+  for (let m = 1; m <= 12; m++) {
+    monthMap[m] = { income: 0, expenses: 0 };
+  }
+
+  // Bucket by month
+  for (const t of transactions) {
+    const m = t.date.getMonth() + 1;
+    if (t.type === TransactionType.INCOME) {
+      monthMap[m].income += Number(t.amount);
+    } else {
+      monthMap[m].expenses += Number(t.amount);
+    }
+  }
+
+  let months: AnnualReportMonth[] = [];
+
+  if (baseCurrency && baseCurrency !== "ARS") {
+    const { rates } = await getFXRates();
+    months = Array.from({ length: 12 }, (_, i) => {
+      const m = i + 1;
+      const income = normalizeToBase(monthMap[m].income, "ARS", baseCurrency, rates);
+      const expenses = normalizeToBase(monthMap[m].expenses, "ARS", baseCurrency, rates);
+      return { month: m, income, expenses, net: income - expenses };
+    });
+  } else {
+    months = Array.from({ length: 12 }, (_, i) => {
+      const m = i + 1;
+      const { income, expenses } = monthMap[m];
+      return { month: m, income, expenses, net: income - expenses };
+    });
+  }
+
+  const totalIncome = months.reduce((acc, m) => acc + m.income, 0);
+  const totalExpenses = months.reduce((acc, m) => acc + m.expenses, 0);
+
+  return {
+    year,
+    months,
+    totalIncome,
+    totalExpenses,
+    totalNet: totalIncome - totalExpenses,
+  };
 };
 
 export const updateTransactionGeoTag = async (

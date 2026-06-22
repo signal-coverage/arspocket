@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Show } from "@clerk/nextjs";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui";
 
@@ -58,7 +59,7 @@ const FloatingCard = ({
   </motion.div>
 );
 
-const PhoneMockup = () => (
+const PhoneMockup = ({ t }: { t: (key: string) => string }) => (
   <div className="relative" style={{ width: 252, height: 512 }}>
     {/* Glow */}
     <div
@@ -112,7 +113,7 @@ const PhoneMockup = () => (
         {/* App header */}
         <div className="bg-[#0F1117] px-4 pt-2 pb-4 flex items-center justify-between">
           <div>
-            <p className="text-white/50 text-[10px]">Good morning 👋</p>
+            <p className="text-white/50 text-[10px]">{t("goodMorning")}</p>
             <p className="text-white font-heading font-semibold text-sm">
               ARSPocket
             </p>
@@ -134,7 +135,7 @@ const PhoneMockup = () => (
             style={{ background: "#A8F0B5", transform: "translate(30%, -30%)" }}
           />
           <p className="text-white/70 text-[9px] uppercase tracking-widest font-medium">
-            Total Balance
+            {t("totalBalance")}
           </p>
           <p className="text-white font-heading font-bold text-2xl mt-0.5">
             $12,450
@@ -142,7 +143,7 @@ const PhoneMockup = () => (
           <div className="flex items-center gap-1 mt-1">
             <ArrowUpIcon className="w-2.5 h-2.5 text-[#A8F0B5]" />
             <span className="text-[#A8F0B5] text-[9px] font-medium">
-              +12.4% vs last month
+              {t("vsLastMonth")}
             </span>
           </div>
         </div>
@@ -153,7 +154,7 @@ const PhoneMockup = () => (
             <div className="flex items-center gap-1 mb-1">
               <ArrowUpIcon className="w-2.5 h-2.5 text-[#008080]" />
               <span className="text-[#5D6370] text-[8px] font-medium">
-                Income
+                {t("income")}
               </span>
             </div>
             <p className="font-heading font-bold text-[13px] text-[#0F1117]">
@@ -164,7 +165,7 @@ const PhoneMockup = () => (
             <div className="flex items-center gap-1 mb-1">
               <ArrowDownIcon className="w-2.5 h-2.5 text-[#bb4430]" />
               <span className="text-[#5D6370] text-[8px] font-medium">
-                Expenses
+                {t("expenses")}
               </span>
             </div>
             <p className="font-heading font-bold text-[13px] text-[#0F1117]">
@@ -177,7 +178,7 @@ const PhoneMockup = () => (
         <div className="mx-3 mt-3 bg-white rounded-xl p-3">
           <div className="flex justify-between items-center mb-2">
             <span className="text-[#0F1117] text-[9px] font-medium">
-              Vacation Fund
+              {t("vacationFund")}
             </span>
             <span className="text-[#008080] text-[9px] font-bold">68%</span>
           </div>
@@ -195,25 +196,25 @@ const PhoneMockup = () => (
 
         {/* Transactions */}
         <div className="mx-3 mt-3">
-          <p className="text-[#5D6370] text-[8px] font-medium mb-2">RECENT</p>
+          <p className="text-[#5D6370] text-[8px] font-medium mb-2">{t("recent")}</p>
           {[
             {
               icon: CoffeeIcon,
-              label: "Coffee",
+              label: t("coffee"),
               amount: "-$4.50",
               color: "text-[#bb4430]",
               bg: "bg-[#FFF3F0]",
             },
             {
               icon: TrendingUpIcon,
-              label: "Salary",
+              label: t("salary"),
               amount: "+$3,200",
               color: "text-[#008080]",
               bg: "bg-[#F0FAF2]",
             },
             {
               icon: ArrowDownIcon,
-              label: "Rent",
+              label: t("rent"),
               amount: "-$1,200",
               color: "text-[#bb4430]",
               bg: "bg-[#FFF3F0]",
@@ -239,202 +240,205 @@ const PhoneMockup = () => (
   </div>
 );
 
-export const HeroSection = () => (
-  <section className="relative min-h-screen flex items-center bg-white dark:bg-[#0F1117] overflow-hidden pt-16">
-    {/* Background decoration */}
-    <div
-      className="absolute inset-0 -z-10 opacity-40"
-      style={{
-        backgroundImage:
-          "radial-gradient(ellipse 80% 50% at 70% 40%, rgba(168,240,181,0.25) 0%, transparent 60%)",
-      }}
-    />
-    <div
-      className="absolute top-0 right-0 w-[600px] h-[600px] -z-10 opacity-30 blur-3xl"
-      style={{
-        background:
-          "radial-gradient(circle, rgba(0,128,128,0.15) 0%, transparent 70%)",
-      }}
-    />
+export const HeroSection = () => {
+  const t = useTranslations("landing.hero");
 
-    <div className="max-w-[1200px] mx-auto px-6 py-20 w-full grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-      {/* Left — copy */}
-      <div className="flex flex-col gap-6">
-        <motion.div {...fadeUp(0.05)}>
-          <span className="inline-flex items-center gap-2 bg-[#F0FAF2] dark:bg-[#A8F0B5]/10 border border-[#A8F0B5]/50 text-[#008080] dark:text-[#A8F0B5] rounded-full px-3.5 py-1.5 text-xs font-medium">
-            <ShieldCheckIcon className="w-3.5 h-3.5" />
-            Trusted by 10,000+ users
-          </span>
-        </motion.div>
+  return (
+    <section className="relative min-h-screen flex items-center bg-white dark:bg-[#0F1117] overflow-hidden pt-16">
+      {/* Background decoration */}
+      <div
+        className="absolute inset-0 -z-10 opacity-40"
+        style={{
+          backgroundImage:
+            "radial-gradient(ellipse 80% 50% at 70% 40%, rgba(168,240,181,0.25) 0%, transparent 60%)",
+        }}
+      />
+      <div
+        className="absolute top-0 right-0 w-[600px] h-[600px] -z-10 opacity-30 blur-3xl"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(0,128,128,0.15) 0%, transparent 70%)",
+        }}
+      />
 
-        <motion.h1
-          {...fadeUp(0.12)}
-          className="font-heading text-4xl sm:text-5xl lg:text-[3.5rem] font-bold leading-[1.08] tracking-tight text-[#0F1117] dark:text-white"
-        >
-          Take control of your{" "}
-          <span className="relative inline-block">
-            finances
-            <span
-              className="absolute bottom-1 left-0 right-0 h-3 -z-10 opacity-50 rounded-sm"
-              style={{ background: "#A8F0B5" }}
-            />
-          </span>{" "}
-          with confidence.
-        </motion.h1>
+      <div className="max-w-[1200px] mx-auto px-6 py-20 w-full grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+        {/* Left — copy */}
+        <div className="flex flex-col gap-6">
+          <motion.div {...fadeUp(0.05)}>
+            <span className="inline-flex items-center gap-2 bg-[#F0FAF2] dark:bg-[#A8F0B5]/10 border border-[#A8F0B5]/50 text-[#008080] dark:text-[#A8F0B5] rounded-full px-3.5 py-1.5 text-xs font-medium">
+              <ShieldCheckIcon className="w-3.5 h-3.5" />
+              {t("badge")}
+            </span>
+          </motion.div>
 
-        <motion.p
-          {...fadeUp(0.2)}
-          className="text-[#5D6370] dark:text-[#8A929E] text-lg leading-relaxed max-w-md"
-        >
-          Track income, expenses, savings, debts and financial goals in one
-          simple platform built for clarity.
-        </motion.p>
+          <motion.h1
+            {...fadeUp(0.12)}
+            className="font-heading text-4xl sm:text-5xl lg:text-[3.5rem] font-bold leading-[1.08] tracking-tight text-[#0F1117] dark:text-white"
+          >
+            {t("headlinePrefix")}{" "}
+            <span className="relative inline-block">
+              {t("headlineHighlight")}
+              <span
+                className="absolute bottom-1 left-0 right-0 h-3 -z-10 opacity-50 rounded-sm"
+                style={{ background: "#A8F0B5" }}
+              />
+            </span>{" "}
+            {t("headlineSuffix")}
+          </motion.h1>
 
-        <motion.div {...fadeUp(0.28)} className="flex flex-wrap gap-3">
-          <Show when="signed-out">
+          <motion.p
+            {...fadeUp(0.2)}
+            className="text-[#5D6370] dark:text-[#8A929E] text-lg leading-relaxed max-w-md"
+          >
+            {t("subheadline")}
+          </motion.p>
+
+          <motion.div {...fadeUp(0.28)} className="flex flex-wrap gap-3">
+            <Show when="signed-out">
+              <motion.div
+                whileHover={{ scale: 1.03, y: -1 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 420, damping: 16 }}
+              >
+                <Link href="/signup">
+                  <Button
+                    size="lg"
+                    className="relative overflow-hidden bg-[#0F1117] text-white rounded-xl px-6 h-12 text-sm font-medium gap-2 shadow-md hover:shadow-lg transition-shadow"
+                  >
+                    {t("getStartedFree")}
+                    <ArrowRightIcon className="w-4 h-4" />
+                  </Button>
+                </Link>
+              </motion.div>
+            </Show>
+            <Show when="signed-in">
+              <motion.div
+                whileHover={{ scale: 1.03, y: -1 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 420, damping: 16 }}
+              >
+                <Link href="/dashboard">
+                  <Button
+                    size="lg"
+                    className="bg-[#0F1117] text-white rounded-xl px-6 h-12 text-sm font-medium gap-2 shadow-md hover:shadow-lg transition-shadow"
+                  >
+                    {t("goToDashboard")}
+                    <ArrowRightIcon className="w-4 h-4" />
+                  </Button>
+                </Link>
+              </motion.div>
+            </Show>
             <motion.div
-              whileHover={{ scale: 1.03, y: -1 }}
-              whileTap={{ scale: 0.97 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 420, damping: 16 }}
             >
-              <Link href="/signup">
-                <Button
-                  size="lg"
-                  className="relative overflow-hidden bg-[#0F1117] text-white rounded-xl px-6 h-12 text-sm font-medium gap-2 shadow-md hover:shadow-lg transition-shadow"
-                >
-                  Get Started Free
-                  <ArrowRightIcon className="w-4 h-4" />
-                </Button>
-              </Link>
+              <Button
+                variant="outline"
+                size="lg"
+                className="rounded-xl px-6 h-12 text-sm font-medium gap-2 border-[#E8F5E9] dark:border-white/10 hover:bg-[#F0FAF2] dark:hover:bg-white/5 text-[#0F1117] dark:text-white"
+              >
+                <PlayIcon className="w-4 h-4 fill-current" />
+                {t("viewDemo")}
+              </Button>
             </motion.div>
-          </Show>
-          <Show when="signed-in">
+          </motion.div>
+
+          <motion.p
+            {...fadeUp(0.35)}
+            className="text-xs text-[#9CA3AF] dark:text-[#6B7280]"
+          >
+            {t("noCreditCard")}
+          </motion.p>
+        </div>
+
+        {/* Right — phone mockup */}
+        <div className="relative flex items-center justify-center min-h-[520px]">
+          <motion.div
+            initial={{ opacity: 0, y: 40, scale: 0.92 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.15 }}
+            className="relative"
+          >
             <motion.div
-              whileHover={{ scale: 1.03, y: -1 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 420, damping: 16 }}
+              animate={{ y: [0, -12, 0] }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1.2,
+              }}
             >
-              <Link href="/dashboard">
-                <Button
-                  size="lg"
-                  className="bg-[#0F1117] text-white rounded-xl px-6 h-12 text-sm font-medium gap-2 shadow-md hover:shadow-lg transition-shadow"
-                >
-                  Go to Dashboard
-                  <ArrowRightIcon className="w-4 h-4" />
-                </Button>
-              </Link>
+              <PhoneMockup t={t} />
             </motion.div>
-          </Show>
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 420, damping: 16 }}
-          >
-            <Button
-              variant="outline"
-              size="lg"
-              className="rounded-xl px-6 h-12 text-sm font-medium gap-2 border-[#E8F5E9] dark:border-white/10 hover:bg-[#F0FAF2] dark:hover:bg-white/5 text-[#0F1117] dark:text-white"
-            >
-              <PlayIcon className="w-4 h-4 fill-current" />
-              View Demo
-            </Button>
           </motion.div>
-        </motion.div>
 
-        <motion.p
-          {...fadeUp(0.35)}
-          className="text-xs text-[#9CA3AF] dark:text-[#6B7280]"
-        >
-          No credit card required · Free plan forever · Cancel anytime
-        </motion.p>
-      </div>
-
-      {/* Right — phone mockup */}
-      <div className="relative flex items-center justify-center min-h-[520px]">
-        <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.92 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.8, ease: EASE, delay: 0.15 }}
-          className="relative"
-        >
-          <motion.div
-            animate={{ y: [0, -12, 0] }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1.2,
-            }}
+          {/* Floating card: income */}
+          <FloatingCard
+            delay={0.6}
+            floatOffset={7}
+            floatDuration={3.8}
+            className="top-8 right-0 lg:right-[-24px] min-w-[148px]"
           >
-            <PhoneMockup />
-          </motion.div>
-        </motion.div>
-
-        {/* Floating card: income */}
-        <FloatingCard
-          delay={0.6}
-          floatOffset={7}
-          floatDuration={3.8}
-          className="top-8 right-0 lg:right-[-24px] min-w-[148px]"
-        >
-          <div className="flex items-center gap-2 mb-1.5">
-            <div className="w-6 h-6 rounded-lg bg-[#F0FAF2] flex items-center justify-center">
-              <TrendingUpIcon className="w-3.5 h-3.5 text-[#008080]" />
+            <div className="flex items-center gap-2 mb-1.5">
+              <div className="w-6 h-6 rounded-lg bg-[#F0FAF2] flex items-center justify-center">
+                <TrendingUpIcon className="w-3.5 h-3.5 text-[#008080]" />
+              </div>
+              <span className="text-[11px] text-[#5D6370] font-medium">
+                {t("monthlyIncome")}
+              </span>
             </div>
-            <span className="text-[11px] text-[#5D6370] font-medium">
-              Monthly Income
-            </span>
-          </div>
-          <p className="font-heading font-bold text-[#0F1117] dark:text-white text-lg">
-            +$3,200
-          </p>
-          <p className="text-[10px] text-[#A8F0B5] font-medium mt-0.5">
-            ↑ 8.2% vs last month
-          </p>
-        </FloatingCard>
+            <p className="font-heading font-bold text-[#0F1117] dark:text-white text-lg">
+              +$3,200
+            </p>
+            <p className="text-[10px] text-[#A8F0B5] font-medium mt-0.5">
+              {t("monthlyIncomeGrowth")}
+            </p>
+          </FloatingCard>
 
-        {/* Floating card: savings */}
-        <FloatingCard
-          delay={0.75}
-          floatOffset={10}
-          floatDuration={4.5}
-          className="bottom-16 left-0 lg:left-[-24px] min-w-[140px]"
-        >
-          <div className="flex items-center gap-2 mb-1.5">
-            <div className="w-6 h-6 rounded-lg bg-[#F0FAF2] flex items-center justify-center">
-              <PiggyBankIcon className="w-3.5 h-3.5 text-[#008080]" />
+          {/* Floating card: savings */}
+          <FloatingCard
+            delay={0.75}
+            floatOffset={10}
+            floatDuration={4.5}
+            className="bottom-16 left-0 lg:left-[-24px] min-w-[140px]"
+          >
+            <div className="flex items-center gap-2 mb-1.5">
+              <div className="w-6 h-6 rounded-lg bg-[#F0FAF2] flex items-center justify-center">
+                <PiggyBankIcon className="w-3.5 h-3.5 text-[#008080]" />
+              </div>
+              <span className="text-[11px] text-[#5D6370] font-medium">
+                {t("savings")}
+              </span>
             </div>
-            <span className="text-[11px] text-[#5D6370] font-medium">
-              Savings
-            </span>
-          </div>
-          <p className="font-heading font-bold text-[#0F1117] dark:text-white text-lg">
-            68%
-          </p>
-          <p className="text-[10px] text-[#5D6370] mt-0.5">Vacation fund</p>
-        </FloatingCard>
+            <p className="font-heading font-bold text-[#0F1117] dark:text-white text-lg">
+              68%
+            </p>
+            <p className="text-[10px] text-[#5D6370] mt-0.5">{t("vacationFundLabel")}</p>
+          </FloatingCard>
 
-        {/* Floating card: goal */}
-        <FloatingCard
-          delay={0.9}
-          floatOffset={6}
-          floatDuration={3.2}
-          className="bottom-40 right-0 lg:right-[-16px] min-w-[136px]"
-        >
-          <div className="flex items-center gap-1.5 mb-1">
-            <span className="text-base">🎯</span>
-            <span className="text-[10px] text-[#5D6370] font-medium">
-              Goal reached!
-            </span>
-          </div>
-          <p className="text-[11px] text-[#0F1117] dark:text-white font-semibold">
-            Emergency fund
-          </p>
-          <p className="text-[9px] text-[#A8F0B5] font-medium mt-0.5">
-            $5,000 saved ✓
-          </p>
-        </FloatingCard>
+          {/* Floating card: goal */}
+          <FloatingCard
+            delay={0.9}
+            floatOffset={6}
+            floatDuration={3.2}
+            className="bottom-40 right-0 lg:right-[-16px] min-w-[136px]"
+          >
+            <div className="flex items-center gap-1.5 mb-1">
+              <span className="text-base">🎯</span>
+              <span className="text-[10px] text-[#5D6370] font-medium">
+                {t("goalReached")}
+              </span>
+            </div>
+            <p className="text-[11px] text-[#0F1117] dark:text-white font-semibold">
+              {t("emergencyFund")}
+            </p>
+            <p className="text-[9px] text-[#A8F0B5] font-medium mt-0.5">
+              {t("emergencyFundSaved")}
+            </p>
+          </FloatingCard>
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};

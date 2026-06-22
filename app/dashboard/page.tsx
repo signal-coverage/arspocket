@@ -35,6 +35,7 @@ import { QuickActions } from "./quick-actions";
 import { TimeGreeting } from "./time-greeting";
 import { getCashFlowProjection } from "@/lib/utils/projection";
 import { CashFlowChart } from "@/components/dashboard/cash-flow-chart";
+import { CurrencySelector } from "@/components/reports/currency-selector";
 
 const getMonthlyChartData = async (userId: string) => {
   const sixMonthsAgo = new Date();
@@ -71,9 +72,14 @@ const getMonthlyChartData = async (userId: string) => {
   return Object.entries(months).map(([month, v]) => ({ month, ...v }));
 };
 
-export const DashboardPage = async () => {
+export const DashboardPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ baseCurrency?: string }>;
+}) => {
   const { userId } = await auth();
   const t = await getTranslations("dashboard");
+  const { baseCurrency } = await searchParams;
 
   const [
     stats,
@@ -84,7 +90,7 @@ export const DashboardPage = async () => {
     projection60,
     projection90,
   ] = await Promise.all([
-    getDashboardStats(),
+    getDashboardStats(baseCurrency),
     getSavingsGoals(),
     userId
       ? prisma.transaction.findMany({
@@ -148,8 +154,17 @@ export const DashboardPage = async () => {
           </h2>
           <p className="text-sm text-muted-foreground">{t("overview")}</p>
         </div>
-        <QuickActions />
+        <div className="flex items-center gap-3">
+          <CurrencySelector />
+          <QuickActions />
+        </div>
       </div>
+
+      {stats.ratesStale && (
+        <p className="text-xs text-amber-600 dark:text-amber-400">
+          Exchange rates may be outdated
+        </p>
+      )}
 
       {/* Stats Cards — all 4 KPIs in one bordered card, template style */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-4 sm:p-6 rounded-xl border bg-card">
@@ -167,9 +182,7 @@ export const DashboardPage = async () => {
               </p>
               <div className="flex items-center gap-2 text-xs sm:text-sm font-medium">
                 <span
-                  className={
-                    stat.isPositive ? "text-emerald-600" : "text-red-600"
-                  }
+                  className="text-muted-foreground"
                 >
                   {stat.change}
                 </span>
@@ -201,7 +214,7 @@ export const DashboardPage = async () => {
                     {t("noTransactionsDescription")}
                   </p>
                 </div>
-                <Button asChild size="sm" variant="outline">
+                <Button asChild size="sm">
                   <Link href="/dashboard/income">{t("addTransaction")}</Link>
                 </Button>
               </div>
@@ -290,7 +303,7 @@ export const DashboardPage = async () => {
               <div className="flex flex-col items-center justify-center gap-3 py-8 text-center">
                 <Target className="size-8 text-muted-foreground/50" />
                 <p className="text-sm text-muted-foreground">{t("noGoals")}</p>
-                <Button asChild size="sm" variant="outline">
+                <Button asChild size="sm">
                   <Link href="/dashboard/savings">{t("createGoal")}</Link>
                 </Button>
               </div>

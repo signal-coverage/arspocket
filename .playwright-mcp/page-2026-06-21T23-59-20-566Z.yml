@@ -1,0 +1,440 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e4]:
+      - link "ARSPocket" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e7]
+        - generic [ref=e10]: ARSPocket
+      - navigation [ref=e11]:
+        - link "Features" [ref=e12] [cursor=pointer]:
+          - /url: "#features"
+          - text: Features
+        - link "How it works" [ref=e13] [cursor=pointer]:
+          - /url: "#how-it-works"
+          - text: How it works
+        - link "Testimonials" [ref=e14] [cursor=pointer]:
+          - /url: "#testimonials"
+          - text: Testimonials
+        - link "FAQ" [ref=e15] [cursor=pointer]:
+          - /url: "#faq"
+          - text: FAQ
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e22]:
+          - img [ref=e23]
+          - text: Trusted by 10,000+ users
+        - heading "Take control of your finances with confidence." [level=1] [ref=e26]:
+          - text: Take control of your
+          - generic [ref=e27]: finances
+          - text: with confidence.
+        - paragraph [ref=e29]: Track income, expenses, savings, debts and financial goals in one simple platform built for clarity.
+        - button "View Demo" [ref=e32] [cursor=pointer]:
+          - img
+          - text: View Demo
+        - paragraph [ref=e33]: No credit card required · Free plan forever · Cancel anytime
+      - generic [ref=e34]:
+        - generic [ref=e43]:
+          - generic [ref=e45]: 9:41
+          - generic [ref=e56]:
+            - generic [ref=e57]:
+              - paragraph [ref=e58]: Good morning 👋
+              - paragraph [ref=e59]: ARSPocket
+            - img [ref=e61]
+          - generic [ref=e64]:
+            - paragraph [ref=e66]: Total Balance
+            - paragraph [ref=e67]: $12,450
+            - generic [ref=e68]:
+              - img [ref=e69]
+              - generic [ref=e72]: +12.4% vs last month
+          - generic [ref=e73]:
+            - generic [ref=e74]:
+              - generic [ref=e75]:
+                - img [ref=e76]
+                - generic [ref=e79]: Income
+              - paragraph [ref=e80]: $3,200
+            - generic [ref=e81]:
+              - generic [ref=e82]:
+                - img [ref=e83]
+                - generic [ref=e86]: Expenses
+              - paragraph [ref=e87]: $1,847
+          - generic [ref=e88]:
+            - generic [ref=e89]:
+              - generic [ref=e90]: Vacation Fund
+              - generic [ref=e91]: 68%
+            - generic [ref=e94]:
+              - generic [ref=e95]: $6,800
+              - generic [ref=e96]: $10,000
+          - generic [ref=e97]:
+            - paragraph [ref=e98]: RECENT
+            - generic [ref=e99]:
+              - img [ref=e101]
+              - generic [ref=e106]: Coffee
+              - generic [ref=e107]: "-$4.50"
+            - generic [ref=e108]:
+              - img [ref=e110]
+              - generic [ref=e113]: Salary
+              - generic [ref=e114]: +$3,200
+            - generic [ref=e115]:
+              - img [ref=e117]
+              - generic [ref=e120]: Rent
+              - generic [ref=e121]: "-$1,200"
+        - generic [ref=e123]:
+          - generic [ref=e124]:
+            - img [ref=e126]
+            - generic [ref=e129]: Monthly Income
+          - paragraph [ref=e130]: +$3,200
+          - paragraph [ref=e131]: ↑ 8.2% vs last month
+        - generic [ref=e133]:
+          - generic [ref=e134]:
+            - img [ref=e136]
+            - generic [ref=e139]: Savings
+          - paragraph [ref=e140]: 68%
+          - paragraph [ref=e141]: Vacation fund
+        - generic [ref=e143]:
+          - generic [ref=e144]:
+            - generic [ref=e145]: 🎯
+            - generic [ref=e146]: Goal reached!
+          - paragraph [ref=e147]: Emergency fund
+          - paragraph [ref=e148]: $5,000 saved ✓
+    - generic [ref=e149]:
+      - paragraph [ref=e151]: Trusted by teams at world-class companies
+      - generic [ref=e154]:
+        - generic [ref=e155]: Stripe
+        - generic [ref=e156]: Shopify
+        - generic [ref=e157]: Notion
+        - generic [ref=e158]: Vercel
+        - generic [ref=e159]: Linear
+        - generic [ref=e160]: Figma
+        - generic [ref=e161]: GitHub
+        - generic [ref=e162]: Loom
+        - generic [ref=e163]: Stripe
+        - generic [ref=e164]: Shopify
+        - generic [ref=e165]: Notion
+        - generic [ref=e166]: Vercel
+        - generic [ref=e167]: Linear
+        - generic [ref=e168]: Figma
+        - generic [ref=e169]: GitHub
+        - generic [ref=e170]: Loom
+    - generic [ref=e172]:
+      - generic [ref=e173]:
+        - paragraph [ref=e174]: Features
+        - heading "Everything you need to manage your money" [level=2] [ref=e175]
+      - generic [ref=e176]:
+        - generic [ref=e177]:
+          - img [ref=e179]
+          - heading "Income Tracking" [level=3] [ref=e182]
+          - paragraph [ref=e183]: Monitor every salary, freelance payment, and passive income stream in real time. Get a clear picture of what's coming in and where it's coming from.
+          - generic [ref=e184]:
+            - text: Learn more
+            - img [ref=e186]
+        - generic [ref=e188]:
+          - img [ref=e190]
+          - heading "Expense Management" [level=3] [ref=e193]
+          - paragraph [ref=e194]: Automatically categorize your spending. Spot subscriptions you forgot about, track daily habits, and understand exactly where your money goes each month.
+          - generic [ref=e195]:
+            - text: Learn more
+            - img [ref=e197]
+        - generic [ref=e199]:
+          - img [ref=e201]
+          - heading "Savings Goals" [level=3] [ref=e205]
+          - paragraph [ref=e206]: Define a target, set a deadline, and track progress toward each goal. Whether it's an emergency fund or a dream vacation — ARSPocket keeps you on course.
+          - generic [ref=e207]:
+            - text: Learn more
+            - img [ref=e209]
+    - generic [ref=e212]:
+      - generic [ref=e213]:
+        - paragraph [ref=e214]: Dashboard
+        - heading "Your whole financial life in one view" [level=2] [ref=e215]
+      - generic [ref=e216]:
+        - generic [ref=e223]: app.arspocket.com/dashboard
+        - generic [ref=e224]:
+          - generic [ref=e225]:
+            - generic [ref=e226]:
+              - img [ref=e227]
+              - generic [ref=e230]: Overview
+            - generic [ref=e231]:
+              - img [ref=e232]
+              - generic [ref=e235]: Income
+            - generic [ref=e236]:
+              - img [ref=e237]
+              - generic [ref=e240]: Expenses
+            - generic [ref=e241]:
+              - img [ref=e242]
+              - generic [ref=e245]: Savings
+            - generic [ref=e246]:
+              - img [ref=e247]
+              - generic [ref=e251]: Goals
+            - generic [ref=e252]:
+              - img [ref=e253]
+              - generic [ref=e254]: Reports
+            - generic [ref=e255]:
+              - img [ref=e256]
+              - generic [ref=e259]: Settings
+          - generic [ref=e260]:
+            - generic [ref=e261]:
+              - generic [ref=e262]:
+                - heading "Overview" [level=3] [ref=e263]
+                - paragraph [ref=e264]: June 2025
+              - generic [ref=e265]:
+                - generic [ref=e266]: Monthly
+                - generic [ref=e267]: Yearly
+            - generic [ref=e268]:
+              - generic [ref=e269]:
+                - paragraph [ref=e270]: Balance
+                - paragraph [ref=e271]: $12,450
+                - paragraph [ref=e272]: +12.4%
+              - generic [ref=e273]:
+                - paragraph [ref=e274]: Income
+                - paragraph [ref=e275]: $3,200
+                - paragraph [ref=e276]: +8.2%
+              - generic [ref=e277]:
+                - paragraph [ref=e278]: Expenses
+                - paragraph [ref=e279]: $1,847
+                - paragraph [ref=e280]: "-3.1%"
+              - generic [ref=e281]:
+                - paragraph [ref=e282]: Saved
+                - paragraph [ref=e283]: $1,353
+                - paragraph [ref=e284]: +22%
+            - generic [ref=e285]:
+              - paragraph [ref=e286]: Monthly Cash Flow
+              - generic [ref=e324]:
+                - generic [ref=e327]: Income
+                - generic [ref=e330]: Expenses
+    - generic [ref=e333]:
+      - generic [ref=e334]:
+        - paragraph [ref=e335]:
+          - generic [ref=e336]: $0M+
+        - paragraph [ref=e337]: Total tracked
+        - paragraph [ref=e338]: Across all users
+      - generic [ref=e339]:
+        - paragraph [ref=e340]:
+          - generic [ref=e341]: 0K+
+        - paragraph [ref=e342]: Active users
+        - paragraph [ref=e343]: And growing daily
+      - generic [ref=e344]:
+        - paragraph [ref=e345]:
+          - generic [ref=e346]: 0%
+        - paragraph [ref=e347]: Satisfaction rate
+        - paragraph [ref=e348]: Based on user reviews
+      - generic [ref=e349]:
+        - paragraph [ref=e350]:
+          - generic [ref=e351]: 0+
+        - paragraph [ref=e352]: Countries served
+        - paragraph [ref=e353]: Global coverage
+    - generic [ref=e358]:
+      - generic [ref=e359]:
+        - paragraph [ref=e360]: Why ARSPocket
+        - heading "Built around the way you actually think about money" [level=2] [ref=e361]
+      - generic [ref=e362]:
+        - generic [ref=e363]:
+          - img [ref=e365]
+          - heading "Financial Clarity" [level=3] [ref=e368]
+          - paragraph [ref=e369]: Stop guessing where your money goes. Get a unified view of every transaction, account, and goal — all in one dashboard that updates in real time.
+        - generic [ref=e370]:
+          - img [ref=e372]
+          - heading "Goal Planning" [level=3] [ref=e375]
+          - paragraph [ref=e376]: Break big financial ambitions into achievable milestones. Set savings targets, track contributions, and celebrate every step forward.
+        - generic [ref=e377]:
+          - img [ref=e379]
+          - heading "Debt Management" [level=3] [ref=e381]
+          - paragraph [ref=e382]: See your full debt picture in one place. Track balances, interest rates, and payoff timelines so you can reduce liabilities faster.
+    - generic [ref=e384]:
+      - generic [ref=e385]:
+        - paragraph [ref=e386]: Testimonials
+        - heading "People who changed how they think about money" [level=2] [ref=e387]
+      - generic [ref=e388]:
+        - generic [ref=e389]:
+          - generic [ref=e390]:
+            - img [ref=e391]
+            - img [ref=e393]
+            - img [ref=e395]
+            - img [ref=e397]
+            - img [ref=e399]
+          - paragraph [ref=e401]: “ARSPocket completely changed how I relate to my finances. I used to avoid checking my accounts — now I open the app every morning.”
+          - generic [ref=e402]:
+            - generic [ref=e403]: SM
+            - generic [ref=e404]:
+              - paragraph [ref=e405]: Sarah M.
+              - paragraph [ref=e406]: Product Manager · Stripe
+        - generic [ref=e407]:
+          - generic [ref=e408]:
+            - img [ref=e409]
+            - img [ref=e411]
+            - img [ref=e413]
+            - img [ref=e415]
+            - img [ref=e417]
+          - paragraph [ref=e419]: “Tracking variable income used to be a nightmare. Now I can see exactly what's coming in from each client and plan accordingly.”
+          - generic [ref=e420]:
+            - generic [ref=e421]: CR
+            - generic [ref=e422]:
+              - paragraph [ref=e423]: Carlos R.
+              - paragraph [ref=e424]: Freelance Designer · Independent
+        - generic [ref=e425]:
+          - generic [ref=e426]:
+            - img [ref=e427]
+            - img [ref=e429]
+            - img [ref=e431]
+            - img [ref=e433]
+            - img [ref=e435]
+          - paragraph [ref=e437]: “The savings goals feature is genuinely incredible. I hit my emergency fund target three months earlier than planned.”
+          - generic [ref=e438]:
+            - generic [ref=e439]: PK
+            - generic [ref=e440]:
+              - paragraph [ref=e441]: Priya K.
+              - paragraph [ref=e442]: Software Engineer · Vercel
+        - generic [ref=e443]:
+          - generic [ref=e444]:
+            - img [ref=e445]
+            - img [ref=e447]
+            - img [ref=e449]
+            - img [ref=e451]
+            - img [ref=e453]
+          - paragraph [ref=e455]: “Finally an app that handles both my personal and business expenses without getting complicated. Clean, fast, and reliable.”
+          - generic [ref=e456]:
+            - generic [ref=e457]: JT
+            - generic [ref=e458]:
+              - paragraph [ref=e459]: James T.
+              - paragraph [ref=e460]: Small Business Owner · Independent
+        - generic [ref=e461]:
+          - generic [ref=e462]:
+            - img [ref=e463]
+            - img [ref=e465]
+            - img [ref=e467]
+            - img [ref=e469]
+            - img [ref=e471]
+          - paragraph [ref=e473]: “The dashboard is beautiful. I've shown it to colleagues and half of them signed up on the spot. Best financial app I've used.”
+          - generic [ref=e474]:
+            - generic [ref=e475]: AL
+            - generic [ref=e476]:
+              - paragraph [ref=e477]: Ana L.
+              - paragraph [ref=e478]: Marketing Director · Linear
+        - generic [ref=e479]:
+          - generic [ref=e480]:
+            - img [ref=e481]
+            - img [ref=e483]
+            - img [ref=e485]
+            - img [ref=e487]
+            - img [ref=e489]
+          - paragraph [ref=e491]: “Even as someone who works in finance professionally, I use ARSPocket daily for my personal accounts. The UX is unmatched.”
+          - generic [ref=e492]:
+            - generic [ref=e493]: DW
+            - generic [ref=e494]:
+              - paragraph [ref=e495]: David W.
+              - paragraph [ref=e496]: Financial Analyst · Independent
+    - generic [ref=e498]:
+      - generic [ref=e499]:
+        - paragraph [ref=e500]: FAQ
+        - heading "Questions we get a lot" [level=2] [ref=e501]
+      - generic [ref=e503]:
+        - heading "Is my data secure?" [level=3] [ref=e505]:
+          - button "Is my data secure?" [ref=e506] [cursor=pointer]:
+            - text: Is my data secure?
+            - img
+        - heading "Can I track debts?" [level=3] [ref=e508]:
+          - button "Can I track debts?" [ref=e509] [cursor=pointer]:
+            - text: Can I track debts?
+            - img
+        - heading "Can I manage savings goals?" [level=3] [ref=e511]:
+          - button "Can I manage savings goals?" [ref=e512] [cursor=pointer]:
+            - text: Can I manage savings goals?
+            - img
+        - heading "Is there a free plan?" [level=3] [ref=e514]:
+          - button "Is there a free plan?" [ref=e515] [cursor=pointer]:
+            - text: Is there a free plan?
+            - img
+        - heading "Can I export my reports?" [level=3] [ref=e517]:
+          - button "Can I export my reports?" [ref=e518] [cursor=pointer]:
+            - text: Can I export my reports?
+            - img
+    - generic [ref=e521]:
+      - paragraph [ref=e522]: Get started today
+      - heading "Start building better financial habits today." [level=2] [ref=e523]
+      - paragraph [ref=e524]: Join thousands of users managing their money smarter. Free forever, no credit card required.
+      - button "Contact Sales" [ref=e527] [cursor=pointer]:
+        - img
+        - text: Contact Sales
+    - generic [ref=e529]:
+      - generic [ref=e530]:
+        - generic [ref=e531]:
+          - link "ARSPocket" [ref=e532] [cursor=pointer]:
+            - /url: /
+            - img [ref=e534]
+            - generic [ref=e537]: ARSPocket
+          - paragraph [ref=e538]: Track income, expenses, savings and goals — all in one place.
+          - generic [ref=e539]:
+            - link "Twitter" [ref=e540] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e541]
+            - link "LinkedIn" [ref=e543] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e544]
+            - link "GitHub" [ref=e546] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e547]
+        - generic [ref=e549]:
+          - paragraph [ref=e550]: Product
+          - list [ref=e551]:
+            - listitem [ref=e552]:
+              - link "Features" [ref=e553] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e554]:
+              - link "Pricing" [ref=e555] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e556]:
+              - link "Changelog" [ref=e557] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e558]:
+              - link "Roadmap" [ref=e559] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=e560]:
+          - paragraph [ref=e561]: Company
+          - list [ref=e562]:
+            - listitem [ref=e563]:
+              - link "About" [ref=e564] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e565]:
+              - link "Blog" [ref=e566] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e567]:
+              - link "Careers" [ref=e568] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e569]:
+              - link "Press" [ref=e570] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=e571]:
+          - paragraph [ref=e572]: Resources
+          - list [ref=e573]:
+            - listitem [ref=e574]:
+              - link "Documentation" [ref=e575] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e576]:
+              - link "Help Center" [ref=e577] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e578]:
+              - link "Status" [ref=e579] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e580]:
+              - link "Community" [ref=e581] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=e582]:
+          - paragraph [ref=e583]: Legal
+          - list [ref=e584]:
+            - listitem [ref=e585]:
+              - link "Privacy Policy" [ref=e586] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e587]:
+              - link "Terms of Service" [ref=e588] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e589]:
+              - link "Cookie Policy" [ref=e590] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e591]:
+              - link "Security" [ref=e592] [cursor=pointer]:
+                - /url: "#"
+      - generic [ref=e593]:
+        - paragraph [ref=e594]: © 2026 ARSPocket. All rights reserved.
+        - paragraph [ref=e595]: Built with ♥ for financial clarity
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e601] [cursor=pointer]:
+    - img [ref=e602]
+  - alert [ref=e605]

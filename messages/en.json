@@ -290,7 +290,8 @@
     "noBillsOnDay": "No bills due on this day.",
     "clickDayToView": "Click a day to view bills due.",
     "billsThisMonth": "Bills This Month",
-    "noBillsYet": "No bills added yet."
+    "noBillsYet": "No bills added yet.",
+    "dueDayCalendar": "Day {day}"
   },
   "goals": {
     "title": "Goals Timeline",
@@ -557,5 +558,196 @@
     "saving": "Saving...",
     "saveSnapshot": "Save Snapshot",
     "allItemsValid": "All items need a name and a positive amount."
+  },
+  "landing": {
+    "nav": {
+      "features": "Features",
+      "howItWorks": "How it works",
+      "testimonials": "Testimonials",
+      "faq": "FAQ",
+      "signIn": "Sign in",
+      "getStartedFree": "Get Started Free",
+      "goToDashboard": "Go to Dashboard"
+    },
+    "hero": {
+      "badge": "Trusted by 10,000+ users",
+      "headline": "Take control of your finances with confidence.",
+      "headlineHighlight": "finances",
+      "subheadline": "Track income, expenses, savings, debts and financial goals in one simple platform built for clarity.",
+      "getStartedFree": "Get Started Free",
+      "goToDashboard": "Go to Dashboard",
+      "viewDemo": "View Demo",
+      "noCreditCard": "No credit card required · Free plan forever · Cancel anytime",
+      "headlinePrefix": "Take control of your",
+      "headlineSuffix": "with confidence.",
+      "goodMorning": "Good morning 👋",
+      "totalBalance": "Total Balance",
+      "vsLastMonth": "+12.4% vs last month",
+      "income": "Income",
+      "expenses": "Expenses",
+      "vacationFund": "Vacation Fund",
+      "recent": "RECENT",
+      "coffee": "Coffee",
+      "salary": "Salary",
+      "rent": "Rent",
+      "monthlyIncome": "Monthly Income",
+      "monthlyIncomeGrowth": "↑ 8.2% vs last month",
+      "savings": "Savings",
+      "vacationFundLabel": "Vacation fund",
+      "goalReached": "Goal reached!",
+      "emergencyFund": "Emergency fund",
+      "emergencyFundSaved": "$5,000 saved ✓"
+    },
+    "features": {
+      "sectionLabel": "Features",
+      "headline": "Everything you need to manage your money",
+      "learnMore": "Learn more",
+      "items": [
+        {
+          "title": "Income Tracking",
+          "description": "Monitor every salary, freelance payment, and passive income stream in real time. Get a clear picture of what's coming in and where it's coming from."
+        },
+        {
+          "title": "Expense Management",
+          "description": "Automatically categorize your spending. Spot subscriptions you forgot about, track daily habits, and understand exactly where your money goes each month."
+        },
+        {
+          "title": "Savings Goals",
+          "description": "Define a target, set a deadline, and track progress toward each goal. Whether it's an emergency fund or a dream vacation — ARSPocket keeps you on course."
+        }
+      ]
+    },
+    "benefits": {
+      "sectionLabel": "Why ARSPocket",
+      "headline": "Built around the way you actually think about money",
+      "items": [
+        {
+          "title": "Financial Clarity",
+          "description": "Stop guessing where your money goes. Get a unified view of every transaction, account, and goal — all in one dashboard that updates in real time."
+        },
+        {
+          "title": "Goal Planning",
+          "description": "Break big financial ambitions into achievable milestones. Set savings targets, track contributions, and celebrate every step forward."
+        },
+        {
+          "title": "Debt Management",
+          "description": "See your full debt picture in one place. Track balances, interest rates, and payoff timelines so you can reduce liabilities faster."
+        }
+      ]
+    },
+    "faq": {
+      "sectionLabel": "FAQ",
+      "headline": "Questions we get a lot",
+      "items": [
+        {
+          "q": "Is my data secure?",
+          "a": "Yes. ARSPocket uses end-to-end encryption for all sensitive data and follows bank-grade security standards. Your financial information is never shared with third parties without your explicit consent."
+        },
+        {
+          "q": "Can I track debts?",
+          "a": "Absolutely. ARSPocket lets you add credit cards, personal loans, mortgages, and any other liabilities. You can monitor balances, interest rates, minimum payments, and projected payoff dates."
+        },
+        {
+          "q": "Can I manage savings goals?",
+          "a": "Yes. You can create as many savings goals as you need — emergency fund, vacation, home purchase, retirement, or anything custom. Set a target amount, a deadline, and track your progress in real time."
+        },
+        {
+          "q": "Is there a free plan?",
+          "a": "ARSPocket offers a free plan with core income and expense tracking, up to three savings goals, and a 6-month transaction history. Paid plans unlock unlimited history, advanced reporting, goal automation, and more."
+        },
+        {
+          "q": "Can I export my reports?",
+          "a": "Yes. You can export your transaction history and monthly summaries as CSV or PDF from the Reports section. Custom date ranges are available on the Pro and Business plans."
+        }
+      ]
+    },
+    "stats": {
+      "items": [
+        {
+          "label": "Total tracked",
+          "sub": "Across all users"
+        },
+        {
+          "label": "Active users",
+          "sub": "And growing daily"
+        },
+        {
+          "label": "Satisfaction rate",
+          "sub": "Based on user reviews"
+        },
+        {
+          "label": "Countries served",
+          "sub": "Global coverage"
+        }
+      ]
+    },
+    "testimonials": {
+      "sectionLabel": "Testimonials",
+      "headline": "People who changed how they think about money",
+      "items": [
+        {
+          "review": "ARSPocket completely changed how I relate to my finances. I used to avoid checking my accounts — now I open the app every morning."
+        },
+        {
+          "review": "Tracking variable income used to be a nightmare. Now I can see exactly what's coming in from each client and plan accordingly."
+        },
+        {
+          "review": "The savings goals feature is genuinely incredible. I hit my emergency fund target three months earlier than planned."
+        },
+        {
+          "review": "Finally an app that handles both my personal and business expenses without getting complicated. Clean, fast, and reliable."
+        },
+        {
+          "review": "The dashboard is beautiful. I've shown it to colleagues and half of them signed up on the spot. Best financial app I've used."
+        },
+        {
+          "review": "Even as someone who works in finance professionally, I use ARSPocket daily for my personal accounts. The UX is unmatched."
+        }
+      ]
+    },
+    "socialProof": {
+      "trustedBy": "Trusted by teams at world-class companies"
+    },
+    "ctaFinal": {
+      "sectionLabel": "Get started today",
+      "headline": "Start building better financial habits today.",
+      "subheadline": "Join thousands of users managing their money smarter. Free forever, no credit card required.",
+      "getStartedFree": "Get Started Free",
+      "goToDashboard": "Go to Dashboard",
+      "contactSales": "Contact Sales"
+    },
+    "dashboardPreview": {
+      "sectionLabel": "Dashboard",
+      "headline": "Your whole financial life in one view"
+    },
+    "footer": {
+      "tagline": "Track income, expenses, savings and goals — all in one place.",
+      "copyright": "All rights reserved.",
+      "builtWith": "Built with ♥ for financial clarity",
+      "sections": {
+        "Product": "Product",
+        "Company": "Company",
+        "Resources": "Resources",
+        "Legal": "Legal"
+      },
+      "links": {
+        "Features": "Features",
+        "Pricing": "Pricing",
+        "Changelog": "Changelog",
+        "Roadmap": "Roadmap",
+        "About": "About",
+        "Blog": "Blog",
+        "Careers": "Careers",
+        "Press": "Press",
+        "Documentation": "Documentation",
+        "Help Center": "Help Center",
+        "Status": "Status",
+        "Community": "Community",
+        "Privacy Policy": "Privacy Policy",
+        "Terms of Service": "Terms of Service",
+        "Cookie Policy": "Cookie Policy",
+        "Security": "Security"
+      }
+    }
   }
 }

@@ -7,6 +7,7 @@ import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { SerializedBill } from "@/app/actions/bills";
 
 type DayData = {
   income: number;
@@ -16,6 +17,8 @@ type DayData = {
 
 type Props = {
   transactionsByDay: Record<string, DayData>;
+  billsByDay?: Record<string, SerializedBill[]>;
+  goalDeadlinesByDay?: Record<string, string[]>;
   year: number;
   month: number;
 };
@@ -29,6 +32,8 @@ const fmt = (n: number) =>
 
 export const TransactionCalendar = ({
   transactionsByDay,
+  billsByDay = {},
+  goalDeadlinesByDay = {},
   year,
   month,
 }: Props) => {
@@ -79,6 +84,8 @@ export const TransactionCalendar = ({
             DayButton: ({ day, ...props }) => {
               const key = day.date.toISOString().split("T")[0];
               const data = transactionsByDay[key];
+              const hasBill = (billsByDay[key]?.length ?? 0) > 0;
+              const hasGoal = (goalDeadlinesByDay[key]?.length ?? 0) > 0;
               const cn = dayClassNames(day.date);
               return (
                 <button {...props} className={`${props.className ?? ""} ${cn}`}>
@@ -86,6 +93,22 @@ export const TransactionCalendar = ({
                   {data && (
                     <span className="block text-[9px] leading-none mt-0.5 font-medium">
                       {data.count}
+                    </span>
+                  )}
+                  {(hasBill || hasGoal) && (
+                    <span className="flex justify-center gap-0.5 mt-0.5">
+                      {hasBill && (
+                        <span
+                          className="inline-block size-1.5 rounded-full bg-blue-500"
+                          title="Bill due"
+                        />
+                      )}
+                      {hasGoal && (
+                        <span
+                          className="inline-block size-1.5 rounded-full bg-amber-500"
+                          title="Goal deadline"
+                        />
+                      )}
                     </span>
                   )}
                 </button>
@@ -144,6 +167,24 @@ export const TransactionCalendar = ({
             </CardContent>
           </Card>
         ) : null}
+      </div>
+      <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground pt-2 border-t">
+        <span className="flex items-center gap-1.5">
+          <span className="inline-block size-3 rounded bg-green-100 dark:bg-green-900/40 border border-green-300 dark:border-green-700" />
+          Income
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="inline-block size-3 rounded bg-red-100 dark:bg-red-900/40 border border-red-300 dark:border-red-700" />
+          Expense
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="inline-block size-1.5 rounded-full bg-blue-500" />
+          Bill due
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="inline-block size-1.5 rounded-full bg-amber-500" />
+          Goal deadline
+        </span>
       </div>
     </div>
   );

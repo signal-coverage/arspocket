@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { DayPicker } from "react-day-picker";
+import { es } from "date-fns/locale";
 import { SerializedBill } from "@/app/actions/bills";
 import { BillDayPopover } from "./bill-day-popover";
 import { formatCurrency } from "@/lib/format";
@@ -53,6 +54,7 @@ export const BillsCalendar = ({ bills }: Props) => {
       <div className="flex-1">
         <DayPicker
           mode="single"
+          locale={es}
           month={month}
           onMonthChange={setMonth}
           selected={selectedDay ?? undefined}
@@ -129,7 +131,7 @@ export const BillsCalendar = ({ bills }: Props) => {
                     <div className="flex flex-col">
                       <span className="text-sm font-medium">{bill.name}</span>
                       <span className="text-xs text-muted-foreground">
-                        Day {clampDay(bill.dueDay, year, monthIndex)} ·{" "}
+                        {t("dueDayCalendar", { day: clampDay(bill.dueDay, year, monthIndex) })} ·{" "}
                         {bill.category}
                       </span>
                     </div>

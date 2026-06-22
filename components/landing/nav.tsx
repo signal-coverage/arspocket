@@ -9,20 +9,17 @@ import {
   useMotionValueEvent,
   useSpring,
 } from "framer-motion";
-import { LeafIcon, MenuIcon, XIcon } from "lucide-react";
+import Image from "next/image";
+import { MenuIcon, XIcon } from "lucide-react";
 import { Show, UserButton } from "@clerk/nextjs";
+import { useTranslations } from "next-intl";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui";
-
-const NAV_LINKS = [
-  { label: "Features", href: "#features" },
-  { label: "How it works", href: "#how-it-works" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "FAQ", href: "#faq" },
-];
+import { LanguageToggle } from "./language-toggle";
 
 export const LandingNav = () => {
+  const t = useTranslations("landing.nav");
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { scrollY, scrollYProgress } = useScroll();
@@ -30,6 +27,13 @@ export const LandingNav = () => {
   const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 40 });
 
   useMotionValueEvent(scrollY, "change", (v) => setScrolled(v > 24));
+
+  const NAV_LINKS = [
+    { label: t("features"), href: "#features" },
+    { label: t("howItWorks"), href: "#how-it-works" },
+    { label: t("testimonials"), href: "#testimonials" },
+    { label: t("faq"), href: "#faq" },
+  ];
 
   return (
     <>
@@ -50,12 +54,11 @@ export const LandingNav = () => {
         <div className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group shrink-0">
             <motion.div
-              className="w-8 h-8 rounded-xl bg-[#008080] flex items-center justify-center shadow-sm"
               whileHover={{ scale: 1.1, rotate: -8 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
             >
-              <LeafIcon className="w-[18px] h-[18px] text-white" />
+              <Image src="/logo.png" alt="ARSPocket" width={32} height={32} className="rounded-xl" />
             </motion.div>
             <span className="font-heading font-semibold text-[#0F1117] dark:text-white text-[17px] tracking-tight">
               ARSPocket
@@ -76,6 +79,7 @@ export const LandingNav = () => {
           </nav>
 
           <div className="hidden md:flex items-center gap-2">
+            <LanguageToggle />
             <Show when="signed-out">
               <Link href="/signin">
                 <Button
@@ -83,7 +87,7 @@ export const LandingNav = () => {
                   size="lg"
                   className="text-[#5D6370] hover:text-[#0F1117] dark:hover:text-white"
                 >
-                  Sign in
+                  {t("signIn")}
                 </Button>
               </Link>
               <motion.div
@@ -95,7 +99,7 @@ export const LandingNav = () => {
                     size="sm"
                     className="bg-[#0F1117] text-white hover:bg-[#0F1117]/85 dark:bg-white dark:text-[#0F1117] dark:hover:bg-white/90 rounded-lg p-4 shadow-sm"
                   >
-                    Get Started Free
+                    {t("getStartedFree")}
                   </Button>
                 </Link>
               </motion.div>
@@ -110,7 +114,7 @@ export const LandingNav = () => {
                     size="sm"
                     className="bg-[#0F1117] text-white hover:bg-[#0F1117]/85 dark:bg-white dark:text-[#0F1117] dark:hover:bg-white/90 rounded-lg p-4 shadow-sm"
                   >
-                    Go to Dashboard
+                    {t("goToDashboard")}
                   </Button>
                 </Link>
               </motion.div>
@@ -182,22 +186,25 @@ export const LandingNav = () => {
                 transition={{ delay: 0.28, duration: 0.2 }}
                 className="flex flex-col gap-2 pt-3 border-t border-[#E8F5E9] dark:border-white/[0.06]"
               >
+                <div className="flex justify-end pb-1">
+                  <LanguageToggle />
+                </div>
                 <Show when="signed-out">
                   <Link href="/signin" onClick={() => setOpen(false)}>
-                    <Button variant="outline" className="w-full">
-                      Sign in
+                    <Button variant="outline" className="w-full text-[#0F1117] dark:text-white">
+                      {t("signIn")}
                     </Button>
                   </Link>
                   <Link href="/signup" onClick={() => setOpen(false)}>
                     <Button className="w-full bg-[#0F1117] text-white">
-                      Get Started Free
+                      {t("getStartedFree")}
                     </Button>
                   </Link>
                 </Show>
                 <Show when="signed-in">
                   <Link href="/dashboard" onClick={() => setOpen(false)}>
                     <Button className="w-full bg-[#0F1117] text-white">
-                      Go to Dashboard
+                      {t("goToDashboard")}
                     </Button>
                   </Link>
                   <div className="flex justify-center pt-1">

@@ -14,7 +14,11 @@ import {
 } from "@/components/ui";
 import { ThemeToggle } from "@/components/theme-toggle";
 
-export const Navbar = () => {
+interface NavbarProps {
+  actions?: React.ReactNode;
+}
+
+export const Navbar = ({ actions }: NavbarProps) => {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
@@ -58,7 +62,8 @@ export const Navbar = () => {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <div className="ml-auto">
+      <div className="ml-auto flex items-center gap-1">
+        {actions}
         <ThemeToggle />
       </div>
     </header>

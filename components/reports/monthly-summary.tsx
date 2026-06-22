@@ -51,61 +51,45 @@ export const MonthlySummary = async ({ data }: { data: ReportData | null }) => {
       )}
 
       <div className="grid gap-4 sm:grid-cols-3">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
-              {t("incomeArs")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-emerald-600">
-              {fmt(rawIncome)}
-            </p>
-            {baseCurrency && normalizedIncome != null && (
-              <p className="text-xs text-muted-foreground mt-1">
-                ≈ {fmt(normalizedIncome, baseCurrency)} {baseCurrency}
-              </p>
-            )}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
-              {t("expensesArs")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-red-600">
-              {fmt(rawExpenses)}
-            </p>
-            {baseCurrency && normalizedExpenses != null && (
-              <p className="text-xs text-muted-foreground mt-1">
-                ≈ {fmt(normalizedExpenses, baseCurrency)} {baseCurrency}
-              </p>
-            )}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
-              {t("netArs")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p
-              className={`text-2xl font-bold ${rawSavings >= 0 ? "text-emerald-600" : "text-red-600"}`}
-            >
-              {fmt(rawSavings)}
-            </p>
-            {baseCurrency && normalizedSavings != null && (
-              <p className="text-xs text-muted-foreground mt-1">
-                ≈ {fmt(normalizedSavings, baseCurrency)} {baseCurrency}
-              </p>
-            )}
-          </CardContent>
-        </Card>
+        {[
+          {
+            titleKey: "incomeArs" as const,
+            valueClass: "text-2xl font-bold text-emerald-600",
+            value: fmt(rawIncome),
+            borderClass: "border-l-4 border-l-emerald-500",
+            normalizedValue: normalizedIncome,
+          },
+          {
+            titleKey: "expensesArs" as const,
+            valueClass: "text-2xl font-bold text-red-600",
+            value: fmt(rawExpenses),
+            borderClass: "border-l-4 border-l-red-500",
+            normalizedValue: normalizedExpenses,
+          },
+          {
+            titleKey: "netArs" as const,
+            valueClass: `text-2xl font-bold ${rawSavings >= 0 ? "text-emerald-600" : "text-red-600"}`,
+            value: fmt(rawSavings),
+            borderClass: "",
+            normalizedValue: normalizedSavings,
+          },
+        ].map((card) => (
+          <Card key={card.titleKey} className={card.borderClass}>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                {t(card.titleKey)}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className={card.valueClass}>{card.value}</p>
+              {baseCurrency && card.normalizedValue != null && (
+                <p className="text-xs text-muted-foreground mt-1">
+                  ≈ {fmt(card.normalizedValue, baseCurrency)} {baseCurrency}
+                </p>
+              )}
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
       <p className="text-xs text-muted-foreground">

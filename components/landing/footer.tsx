@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { LeafIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const XIcon = ({ className }: { className?: string }) => (
   <svg
@@ -33,77 +34,81 @@ const GitHubIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const FOOTER_LINKS = {
+const FOOTER_LINK_KEYS = {
   Product: ["Features", "Pricing", "Changelog", "Roadmap"],
   Company: ["About", "Blog", "Careers", "Press"],
   Resources: ["Documentation", "Help Center", "Status", "Community"],
   Legal: ["Privacy Policy", "Terms of Service", "Cookie Policy", "Security"],
-};
+} as const;
 
-export const LandingFooter = () => (
-  <footer className="bg-[#0F1117] text-white pt-16 pb-8">
-    <div className="max-w-[1200px] mx-auto px-6">
-      <div className="grid grid-cols-2 md:grid-cols-6 gap-10 pb-12 border-b border-white/[0.08]">
-        {/* Brand */}
-        <div className="col-span-2">
-          <Link href="/" className="flex items-center gap-2.5 mb-4 w-fit group">
-            <div className="w-8 h-8 rounded-xl bg-[#008080] flex items-center justify-center group-hover:scale-105 transition-transform">
-              <LeafIcon className="w-[18px] h-[18px] text-white" />
+export const LandingFooter = () => {
+  const t = useTranslations("landing.footer");
+
+  return (
+    <footer className="bg-[#0F1117] text-white pt-16 pb-8">
+      <div className="max-w-[1200px] mx-auto px-6">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-10 pb-12 border-b border-white/[0.08]">
+          {/* Brand */}
+          <div className="col-span-2">
+            <Link href="/" className="flex items-center gap-2.5 mb-4 w-fit group">
+              <Image src="/logo.png" alt="ARSPocket" width={32} height={32} className="rounded-xl group-hover:scale-105 transition-transform" />
+              <span className="font-heading font-semibold text-white text-[17px] tracking-tight">
+                ARSPocket
+              </span>
+            </Link>
+            <p className="text-[#6B7280] text-sm leading-relaxed max-w-[200px]">
+              {t("tagline")}
+            </p>
+
+            <div className="flex gap-3 mt-5">
+              {[
+                { icon: XIcon, href: "#", label: "Twitter" },
+                { icon: LinkedInIcon, href: "#", label: "LinkedIn" },
+                { icon: GitHubIcon, href: "#", label: "GitHub" },
+              ].map(({ icon: Icon, href, label }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  className="w-9 h-9 rounded-xl bg-white/[0.06] hover:bg-white/10 flex items-center justify-center transition-colors"
+                >
+                  <Icon className="w-4 h-4 text-[#9CA3AF]" />
+                </Link>
+              ))}
             </div>
-            <span className="font-heading font-semibold text-white text-[17px] tracking-tight">
-              ARSPocket
-            </span>
-          </Link>
-          <p className="text-[#6B7280] text-sm leading-relaxed max-w-[200px]">
-            Track income, expenses, savings and goals — all in one place.
-          </p>
-
-          <div className="flex gap-3 mt-5">
-            {[
-              { icon: XIcon, href: "#", label: "Twitter" },
-              { icon: LinkedInIcon, href: "#", label: "LinkedIn" },
-              { icon: GitHubIcon, href: "#", label: "GitHub" },
-            ].map(({ icon: Icon, href, label }) => (
-              <Link
-                key={label}
-                href={href}
-                aria-label={label}
-                className="w-9 h-9 rounded-xl bg-white/[0.06] hover:bg-white/10 flex items-center justify-center transition-colors"
-              >
-                <Icon className="w-4 h-4 text-[#9CA3AF]" />
-              </Link>
-            ))}
           </div>
+
+          {/* Nav columns */}
+          {(Object.entries(FOOTER_LINK_KEYS) as [keyof typeof FOOTER_LINK_KEYS, readonly string[]][]).map(([section, links]) => (
+            <div key={section}>
+              <p className="text-white font-medium text-sm mb-4">
+                {t(`sections.${section}`)}
+              </p>
+              <ul className="flex flex-col gap-2.5">
+                {links.map((link) => (
+                  <li key={link}>
+                    <Link
+                      href="#"
+                      className="text-[#6B7280] hover:text-[#D1D5DB] text-sm transition-colors"
+                    >
+                      {t(`links.${link}`)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        {/* Nav columns */}
-        {Object.entries(FOOTER_LINKS).map(([section, links]) => (
-          <div key={section}>
-            <p className="text-white font-medium text-sm mb-4">{section}</p>
-            <ul className="flex flex-col gap-2.5">
-              {links.map((link) => (
-                <li key={link}>
-                  <Link
-                    href="#"
-                    className="text-[#6B7280] hover:text-[#D1D5DB] text-sm transition-colors"
-                  >
-                    {link}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8">
+          <p className="text-[#6B7280] text-xs">
+            © {new Date().getFullYear()} ARSPocket. {t("copyright")}
+          </p>
+          <p className="text-[#4B5563] text-xs">
+            {t("builtWith")}
+          </p>
+        </div>
       </div>
-
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8">
-        <p className="text-[#6B7280] text-xs">
-          © {new Date().getFullYear()} ARSPocket. All rights reserved.
-        </p>
-        <p className="text-[#4B5563] text-xs">
-          Built with ♥ for financial clarity
-        </p>
-      </div>
-    </div>
-  </footer>
-);
+    </footer>
+  );
+};

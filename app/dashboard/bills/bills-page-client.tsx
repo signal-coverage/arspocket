@@ -6,7 +6,11 @@ import { Plus } from "lucide-react";
 import { BillForm } from "@/components/bills/bill-form";
 import { useTranslations } from "next-intl";
 
-export const BillsPageClient = () => {
+interface BillsPageClientProps {
+  userCategories?: Array<{ name: string }>;
+}
+
+export const BillsPageClient = ({ userCategories }: BillsPageClientProps) => {
   const t = useTranslations("bills");
   const [open, setOpen] = useState(false);
 
@@ -16,7 +20,7 @@ export const BillsPageClient = () => {
         <Plus className="size-4" />
         {t("addBill")}
       </Button>
-      <BillForm open={open} onOpenChange={setOpen} />
+      <BillForm open={open} onOpenChange={setOpen} userCategories={userCategories} />
     </>
   );
 };

@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { format } from "date-fns";
-import { Inbox, MoveDownLeft, Trash2 } from "lucide-react";
+import { Download } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
-import { deleteTransaction, getTransactions } from "@/app/actions/transactions";
+import { getTransactions } from "@/app/actions/transactions";
+import { getTags } from "@/app/actions/tags";
+import { EXPENSE_CATEGORIES } from "@/lib/categories";
+import { ImportButton } from "@/components/transactions/import-button";
+import { getCategories } from "@/app/actions/categories";
 import {
-  Badge,
-  Button,
   Card,
   CardContent,
   CardDescription,
@@ -15,6 +16,8 @@ import {
   CardTitle,
 } from "@/components/ui";
 import { TransactionFilters } from "@/components/transaction-filters";
+import { AnomalyToggle } from "@/components/transactions/anomaly-toggle";
+import { OutcomeTaggedList } from "@/components/transactions/outcome-tagged-list";
 import { OutcomeFormWrapper } from "./outcome-form-wrapper";
 
 export const metadata: Metadata = { title: "Expenses — ARSPocket" };
@@ -22,16 +25,41 @@ export const metadata: Metadata = { title: "Expenses — ARSPocket" };
 export const OutcomePage = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ search?: string; category?: string }>;
+  searchParams: Promise<{ search?: string; category?: string; anomaly?: string }>;
 }) => {
   const t = await getTranslations("outcome");
-  const tCommon = await getTranslations("common");
 
-  const { search, category } = await searchParams;
-  const transactions = await getTransactions("outcome", { search, category });
+  const { search, category, anomaly } = await searchParams;
+  const isAnomalyFilter = anomaly === "true";
+
+  const [transactions, tags, userCategories] = await Promise.all([
+    getTransactions("outcome", {
+      search,
+      category,
+      ...(isAnomalyFilter ? { isAnomaly: true } : {}),
+    }),
+    getTags(),
+    getCategories("outcome"),
+  ]);
+
+  const exportParams = new URLSearchParams({ type: "outcome" });
+  if (category) exportParams.set("category", category);
+  if (search) exportParams.set("search", search);
+  if (anomaly === "true") exportParams.set("anomaly", "true");
+  const exportHref = `/api/export?${exportParams.toString()}`;
 
   return (
     <div className="flex flex-1 flex-col gap-6 p-6">
+      <div className="flex justify-end gap-2">
+        <a
+          href={exportHref}
+          className="inline-flex items-center gap-2 rounded-md border border-input bg-background px-3 py-2 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground"
+        >
+          <Download className="size-4" />
+          Export CSV
+        </a>
+        <ImportButton />
+      </div>
       <div className="grid lg:grid-cols-2 gap-6 items-start">
         <Card className="w-full">
           <CardHeader>
@@ -39,7 +67,7 @@ export const OutcomePage = async ({
             <CardDescription>{t("addExpenseDescription")}</CardDescription>
           </CardHeader>
           <CardContent>
-            <OutcomeFormWrapper />
+            <OutcomeFormWrapper userCategories={userCategories} />
           </CardContent>
         </Card>
 
@@ -48,85 +76,21 @@ export const OutcomePage = async ({
             <CardTitle className="text-base mb-3">
               {t("recentExpenses")}
             </CardTitle>
-            <Suspense fallback={null}>
-              <TransactionFilters
-                categories={[
-                  "Food",
-                  "Transport",
-                  "Housing",
-                  "Entertainment",
-                  "Health",
-                  "Education",
-                  "Other",
-                ]}
-              />
-            </Suspense>
+            <div className="flex flex-wrap items-center gap-2">
+              <Suspense fallback={null}>
+                <TransactionFilters categories={[...EXPENSE_CATEGORIES]} />
+              </Suspense>
+              <Suspense fallback={null}>
+                <AnomalyToggle />
+              </Suspense>
+            </div>
           </CardHeader>
           <CardContent>
-            {transactions.length === 0 && (search || category) ? (
-              <div className="flex flex-col items-center justify-center gap-2 py-10 text-center">
-                <p className="text-sm text-muted-foreground">
-                  {tCommon("noResults")}
-                </p>
-              </div>
-            ) : transactions.length === 0 ? (
-              <div className="flex flex-col items-center justify-center gap-3 py-10 text-center">
-                <Inbox className="size-10 text-muted-foreground/50" />
-                <div>
-                  <p className="text-sm font-medium">{t("noExpensesPeriod")}</p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {t("expenseEntriesAppear")}
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <ul className="divide-y">
-                {transactions.map((tx) => (
-                  <li key={tx.id} className="flex items-center gap-3 py-3">
-                    <div className="flex items-center justify-center rounded-md bg-red-50 dark:bg-red-950 p-1.5 shrink-0">
-                      <MoveDownLeft className="size-4 text-red-600 dark:text-red-400" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate">
-                        {tx.description}
-                      </p>
-                      <div className="flex items-center gap-1.5 mt-0.5">
-                        <Badge variant="secondary" className="text-xs">
-                          {tx.category}
-                        </Badge>
-                        <span className="text-xs text-muted-foreground">
-                          {format(new Date(tx.date), "MMM d, yyyy")}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <span className="text-sm font-semibold text-red-600 dark:text-red-400">
-                        -$
-                        {Number(tx.amount).toLocaleString("en-US", {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </span>
-                      <form
-                        action={async () => {
-                          "use server";
-                          await deleteTransaction(tx.id);
-                        }}
-                      >
-                        <Button
-                          type="submit"
-                          size="icon"
-                          variant="ghost"
-                          className="size-7 text-muted-foreground hover:text-destructive"
-                        >
-                          <Trash2 className="size-3.5" />
-                        </Button>
-                      </form>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <OutcomeTaggedList
+              tags={tags}
+              transactions={transactions}
+              hasActiveFilters={!!(search || category || isAnomalyFilter)}
+            />
           </CardContent>
         </Card>
       </div>
